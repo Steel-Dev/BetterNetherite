@@ -21,6 +21,7 @@ public class SmithingTable implements Listener {
     @EventHandler
     public void useSmithingTable(PlayerInteractEvent e) {
         if (!BetterConfig.ENABLE_NETHERITE_CRAFTING) return;
+        if (BetterConfig.IMPROVED_UPGRADING) return;
         if (!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
         Block b = e.getClickedBlock();
         if (b == null) return;

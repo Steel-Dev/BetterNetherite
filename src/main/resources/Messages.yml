@@ -15,7 +15,7 @@
 #  EG: &cHi! <#5C040F>Hey!
 
 Prefix: '&6Better <#5C040F>Netherite &7» '
-NetheriteUpgradingDisabledMsg: '&cSmithing Table upgrading for Netherite is disabled.'
+NetheriteUpgradingDisabledMsg: '&cSmithing Table upgrading is disabled.'
 NotEnoughMatsToUpgradeMsg: '&cYou do not have enough &eMATNEEDED&c in the second slot to upgrade your &6ITEM&c. You need &6AMOUNT&c!'
 UpgradeSuccessMsg: '&aYou have successfully upgraded your &6ITEM &ato &eUPGRADEDTO&a for &6AMOUNT &eMATNEEDED&a!'
 ReloadMsg: '&aSuccessfully reloaded configurations! &c&oPlease note, most features require a server restart to fully apply!'

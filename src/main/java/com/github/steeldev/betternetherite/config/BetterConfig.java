@@ -60,6 +60,14 @@ public class BetterConfig {
     public static int REINFORCED_ITEM_EXTRA_DMG_CHANCE;
     public static int REINFORCED_ITEM_DAMAGE_INCREASE;
 
+    //Netherite Fish Treasure
+    public static boolean NETHERITE_FISH_TREASURE_ENABLED;
+    public static List<String> NETHERITE_FISH_TREASURE_LOOT;
+
+    //Mobs
+    public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
+    public static boolean CUSTOM_MOB_HELLHOUND_ENABLED;
+
     private final BetterNetherite plugin;
     private FileConfiguration config;
     private File configFile;
@@ -144,6 +152,12 @@ public class BetterConfig {
         REINFORCED_ITEM_DURABILITY_LOSS_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.DurabilityLossChance");
         REINFORCED_ITEM_EXTRA_DMG_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.ExtraDamageChance");
         REINFORCED_ITEM_DAMAGE_INCREASE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.DamageIncrease");
+
+        NETHERITE_FISH_TREASURE_ENABLED = config.getBoolean("NetheriteFishing.Enabled");
+        NETHERITE_FISH_TREASURE_LOOT = config.getStringList("NetheriteFishing.Loot");
+
+        CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauder.Enabled");
+        CUSTOM_MOB_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.Hellhound.Enabled");
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");

@@ -119,6 +119,22 @@ ImprovedUpgrading:
       DIAMOND_LEGGINGS: 3
       DIAMOND_BOOTS: 2
 
+NetheriteFishing:
+  # Should you be able to fish netherite items as treasure?
+  Enabled: true
+  # Define items to add to the treasure table
+  #  Format: ITEM;MAX;CHANCE
+  Loot:
+    - NETHERITE_SCRAP;2;3
+    - NETHERITE_INGOT;1;1
+
+# Only works if my other plugin - Monsterque - is also present!
+CustomMobs:
+  NetheriteMarauder:
+    Enabled: true
+  Hellhound:
+    Enabled: true
+
 # To better balance it, and make getting netherite scrap easier and better, to make up for the new difficulty if the above is true
 AncientDebris:
   # Should ancient debris give more scrap upon smelting it?

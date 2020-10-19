@@ -9,7 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.*;
 
-import java.util.Iterator;
+import java.util.*;
 
 public class RecipeManager {
 
@@ -148,133 +148,184 @@ public class RecipeManager {
                 new ItemStack(Material.DIAMOND));
     }
 
+    static void registerNetheriteItems() {
+        //
+        //NETHERITE SWORD
+        //
+        addCraftingRecipe("netherite_sword",
+                true,
+                Material.NETHERITE_SWORD,
+                1,
+                Arrays.asList(" N ", " N ", " S "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);
+                    put('S', Material.STICK);}});
+        //
+        //NETHERITE AXE
+        //
+        addCraftingRecipe("netherite_axe",
+                true,
+                Material.NETHERITE_AXE,
+                1,
+                Arrays.asList("NN ", "NS ", " S "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);
+                    put('S', Material.STICK);}});
+        addCraftingRecipe("netherite_axe_flip",
+                true,
+                Material.NETHERITE_AXE,
+                1,
+                Arrays.asList(" NN", " SN", " S "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);
+                    put('S', Material.STICK);}});
+        //
+        //NETHERITE SHOVEL
+        //
+        addCraftingRecipe("netherite_shovel",
+                true,
+                Material.NETHERITE_SHOVEL,
+                1,
+                Arrays.asList(" N ", " S ", " S "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);
+                    put('S', Material.STICK);}});
+        //
+        //NETHERITE PICKAXE
+        //
+        addCraftingRecipe("netherite_pickaxe",
+                true,
+                Material.NETHERITE_PICKAXE,
+                1,
+                Arrays.asList("NNN", " S ", " S "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);
+                    put('S', Material.STICK);}});
+        //
+        //NETHERITE HOE
+        //
+        addCraftingRecipe("netherite_hoe",
+                true,
+                Material.NETHERITE_HOE,
+                1,
+                Arrays.asList("NN ", " S ", " S "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);
+                    put('S', Material.STICK);}});
+        //
+        //NETHERITE HELMET
+        //
+        addCraftingRecipe("netherite_helmet",
+                true,
+                Material.NETHERITE_HELMET,
+                1,
+                Arrays.asList("NNN", "N N", "   "),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);}});
+        //
+        //NETHERITE CHESTPLATE
+        //
+        addCraftingRecipe("netherite_chestplate",
+                true,
+                Material.NETHERITE_CHESTPLATE,
+                1,
+                Arrays.asList("N N", "NNN", "NNN"),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);}});
+        //
+        //NETHERITE LEGGINGS
+        //
+        addCraftingRecipe("netherite_leggings",
+                true,
+                Material.NETHERITE_LEGGINGS,
+                1,
+                Arrays.asList("NNN", "N N", "N N"),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);}});
+        //
+        //NETHERITE BOOTS
+        //
+        addCraftingRecipe("netherite_boots",
+                true,
+                Material.NETHERITE_BOOTS,
+                1,
+                Arrays.asList("   ", "N N", "N N"),
+                new HashMap<Character, Material>(){{
+                    put('N', Material.NETHERITE_INGOT);}});
+    }
+
+    static void registerBetterNetheriteScrapSmelting() {
+        removeRecipe("minecraft:netherite_scrap");
+        removeRecipe("minecraft:netherite_scrap_from_blasting");
+        addSmeltingRecipe("netherite_scrap",
+                false,
+                Material.NETHERITE_SCRAP,
+                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
+                Material.ANCIENT_DEBRIS,
+                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP,
+                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME);
+        addSmeltingRecipe("netherite_scrap_from_blasting",
+                true,
+                Material.NETHERITE_SCRAP,
+                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
+                Material.ANCIENT_DEBRIS,
+                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP,
+                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME);
+    }
+
     static void addSmithingRecipe(String key, ItemStack result, Material baseMat, ItemStack itemNeeded){
         NamespacedKey smithingRecKey = new NamespacedKey(main, key);
         SmithingRecipe smithingRec = new SmithingRecipe(smithingRecKey,result,new RecipeChoice.MaterialChoice(baseMat), new RecipeChoice.ExactChoice(itemNeeded));
         addRecipe(smithingRec);
     }
 
-    static void registerNetheriteItems() {
-        //
-        //NETHERITE SWORD
-        //
-        ItemStack netheriteSword = new ItemStack(Material.NETHERITE_SWORD);
-        NamespacedKey netheriteSwordKey = new NamespacedKey(main, "netherite_sword");
-        ShapedRecipe netheriteSwordRec = new ShapedRecipe(netheriteSwordKey, netheriteSword);
-        netheriteSwordRec.shape(" N ", " N ", " S ");
-        netheriteSwordRec.setIngredient('S', Material.STICK);
-        netheriteSwordRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteSwordRec);
-        //
-        //NETHERITE AXE
-        //
-        ItemStack netheriteAxe = new ItemStack(Material.NETHERITE_AXE);
-        NamespacedKey netheriteAxeKey = new NamespacedKey(main, "netherite_axe");
-        ShapedRecipe netheriteAxeRec = new ShapedRecipe(netheriteAxeKey, netheriteAxe);
-        netheriteAxeRec.shape("NN ", "NS ", " S ");
-        netheriteAxeRec.setIngredient('S', Material.STICK);
-        netheriteAxeRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteAxeRec);
-        //
-        //NETHERITE SHOVEL
-        //
-        ItemStack netheriteShovel = new ItemStack(Material.NETHERITE_SHOVEL);
-        NamespacedKey netheriteShovelKey = new NamespacedKey(main, "netherite_shovel");
-        ShapedRecipe netheriteShovelRec = new ShapedRecipe(netheriteShovelKey, netheriteShovel);
-        netheriteShovelRec.shape(" N ", " S ", " S ");
-        netheriteShovelRec.setIngredient('S', Material.STICK);
-        netheriteShovelRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteShovelRec);
-        //
-        //NETHERITE PICKAXE
-        //
-        ItemStack netheritePickaxe = new ItemStack(Material.NETHERITE_PICKAXE);
-        NamespacedKey netheritePickaxeKey = new NamespacedKey(main, "netherite_pickaxe");
-        ShapedRecipe netheritePickaxeRec = new ShapedRecipe(netheritePickaxeKey, netheritePickaxe);
-        netheritePickaxeRec.shape("NNN", " S ", " S ");
-        netheritePickaxeRec.setIngredient('S', Material.STICK);
-        netheritePickaxeRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheritePickaxeRec);
-        //
-        //NETHERITE SICKLE (HOE)
-        //
-        ItemStack netheriteHoe = new ItemStack(Material.NETHERITE_HOE);
-        NamespacedKey netheriteHoeKey = new NamespacedKey(main, "netherite_sickle");
-        ShapedRecipe netheriteHoeRec = new ShapedRecipe(netheriteHoeKey, netheriteHoe);
-        netheriteHoeRec.shape("NN ", " S ", " S ");
-        netheriteHoeRec.setIngredient('S', Material.STICK);
-        netheriteHoeRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteHoeRec);
-        //
-        //NETHERITE HELMET
-        //
-        ItemStack netheriteHelmet = new ItemStack(Material.NETHERITE_HELMET);
-        NamespacedKey netheriteHelmetKey = new NamespacedKey(main, "netherite_helmet");
-        ShapedRecipe netheriteHelmetRec = new ShapedRecipe(netheriteHelmetKey, netheriteHelmet);
-        netheriteHelmetRec.shape("NNN", "N N", "   ");
-        netheriteHelmetRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteHelmetRec);
-        //
-        //NETHERITE CHESTPLATE
-        //
-        ItemStack netheriteChestplate = new ItemStack(Material.NETHERITE_CHESTPLATE);
-        NamespacedKey netheriteChestplateKey = new NamespacedKey(main, "netherite_chestplate");
-        ShapedRecipe netheriteChestplateRec = new ShapedRecipe(netheriteChestplateKey, netheriteChestplate);
-        netheriteChestplateRec.shape("N N", "NNN", "NNN");
-        netheriteChestplateRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteChestplateRec);
-        //
-        //NETHERITE LEGGINGS
-        //
-        ItemStack netheriteLeggings = new ItemStack(Material.NETHERITE_LEGGINGS);
-        NamespacedKey netheriteLeggingsKey = new NamespacedKey(main, "netherite_leggings");
-        ShapedRecipe netheriteLeggingsRec = new ShapedRecipe(netheriteLeggingsKey, netheriteLeggings);
-        netheriteLeggingsRec.shape("NNN", "N N", "N N");
-        netheriteLeggingsRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteLeggingsRec);
-        //
-        //NETHERITE BOOTS
-        //
-        ItemStack netheriteBoots = new ItemStack(Material.NETHERITE_BOOTS);
-        NamespacedKey netheriteBootsKey = new NamespacedKey(main, "netherite_boots");
-        ShapedRecipe netheriteBootsRec = new ShapedRecipe(netheriteBootsKey, netheriteBoots);
-        netheriteBootsRec.shape("   ", "N N", "N N");
-        netheriteBootsRec.setIngredient('N', Material.NETHERITE_INGOT);
-        addRecipe(netheriteBootsRec);
+    static void addSmeltingRecipe(String key, boolean blasting, Material result, int resultAmount, Material smelted, int EXP, int time){
+        NamespacedKey smeltingRecKey = new NamespacedKey(main, key);
+        int am = resultAmount;
+        if (am > 64) am = 64;
+        if (am < 1) am = 1;
+        ItemStack resultItem = new ItemStack(result, am);
+
+        Recipe recToAdd;
+
+        if (blasting)
+            recToAdd = new BlastingRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+        else
+            recToAdd = new FurnaceRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+
+        addRecipe(recToAdd);
     }
 
-    static void registerBetterNetheriteScrapSmelting() {
-        //
-        //NETHERITE SCRAP BLASTING
-        //
-        removeRecipe("minecraft:netherite_scrap");
-        removeRecipe("minecraft:netherite_scrap_from_blasting");
-        int amount = BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT;
-        if (amount > 64) amount = 64;
-        if (amount < 1) amount = 1;
+    static void addCraftingRecipe(String key, boolean shaped, Material result, int resultAmount, List<String> rows, Map<Character, Material> ingredients){
+        NamespacedKey craftingRecKey = new NamespacedKey(main, key);
+        int am = resultAmount;
+        if (am > 64) am = 64;
+        if (am < 1) am = 1;
+        ItemStack resultItem = new ItemStack(result, am);
 
-        int blastEXP = BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP;
-        int blastTime = BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME;
+        Recipe recToAdd;
 
-        int normEXP = BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP;
-        int normTime = BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME;
+        if(shaped) {
+            recToAdd = new ShapedRecipe(craftingRecKey, resultItem);
+            ((ShapedRecipe)recToAdd).shape(rows.get(0),rows.get(1),rows.get(2));
+            for (Character ingKey: ingredients.keySet()) {
+                ((ShapedRecipe)recToAdd).setIngredient(ingKey,ingredients.get(ingKey));
+            }
+        }
+        else{
+            recToAdd = new ShapelessRecipe(craftingRecKey, resultItem);
+            for (Character ingKey: ingredients.keySet()) {
+                ((ShapelessRecipe)recToAdd).addIngredient(ingredients.get(ingKey));
+            }
+        }
 
-        ItemStack netheriteScrap = new ItemStack(Material.NETHERITE_SCRAP, amount);
-
-        NamespacedKey netheriteScrapBlastKey = new NamespacedKey(main, "netherite_scrap_from_blasting");
-        BlastingRecipe netheriteScrapBlastRec = new BlastingRecipe(netheriteScrapBlastKey, netheriteScrap, Material.ANCIENT_DEBRIS, blastEXP, blastTime);
-        addRecipe(netheriteScrapBlastRec);
-
-        NamespacedKey netheriteScrapSmeltKey = new NamespacedKey(main, "netherite_scrap");
-        FurnaceRecipe netheriteScrapSmeltRec = new FurnaceRecipe(netheriteScrapSmeltKey, netheriteScrap, Material.ANCIENT_DEBRIS, normEXP, normTime);
-        addRecipe(netheriteScrapSmeltRec);
+        addRecipe(recToAdd);
     }
 
     public static void addRecipe(Recipe recipe){
         Bukkit.addRecipe(recipe);
-        if(BetterConfig.DEBUG) {
+        if(BetterConfig.DEBUG)
             main.getLogger().info(main.colorize(Lang.RECIPE_ADDED_MSG.replace("KEY", ((Keyed) recipe).getKey().toString())));
-        }
     }
 
     public static void removeRecipe(String key) {
@@ -283,9 +334,8 @@ public class RecipeManager {
             Recipe rec = it.next();
             if (rec != null) {
                 if (((Keyed) rec).getKey().toString().equals(key)) {
-                    if(BetterConfig.DEBUG) {
+                    if(BetterConfig.DEBUG)
                         main.getLogger().info(main.colorize(Lang.RECIPE_REMOVED_MSG.replace("KEY", key)));
-                    }
                     it.remove();
                 }
             }
