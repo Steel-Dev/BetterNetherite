@@ -8,6 +8,8 @@
 #  EG: &cHi! <#5C040F>Hey!
 
 # Enable debug messages?
+#  WARNING: WILL cause spam in console! this is
+#   a development option, put here for ease of development.
 Debug: false
 
 # true - Disable the dumb vanilla way of crafting netherite items
@@ -127,12 +129,33 @@ NetheriteFishing:
   Loot:
     - NETHERITE_SCRAP;2;3
     - NETHERITE_INGOT;1;1
+    - NETHERITE_HOE;1;1
 
-# Only works if my other plugin - Monsterque - is also present!
 CustomMobs:
+  # Should the Netherite Marauder custom mob be enabled?
+  #  this mob only spawns in the nether, its slow, but does a big
+  #   amount of damage, and has a lot of HP.
+  #  They also have a chance of spawning riding a Skeleton horse.
   NetheriteMarauder:
     Enabled: true
+  # Should the Netherite Marauder Brute custom mob be enabled?
+  #  this mob only spawns in the nether, its a tad faster than its brother, but does a big
+  #   amount of damage, and has a tad more HP than its brother.
+  #   they have a chance of inflicting Wither, and Blindness when they damage you.
+  #  They also have a chance of spawning riding a Zombie horse.
+  NetheriteMarauderBrute:
+    Enabled: true
+  # Should the Hellhound be enabled?
+  #  this mob only spawns in the nether, its slower than a normal wolf, and does
+  #   around the same damage, but it's always angry and has more HP.
+  #   they have a chance of inflicting Wither when they damage you.
   Hellhound:
+    Enabled: true
+  # Should the Alpha Hellhound be enabled?
+  #  this mob only spawns in the nether, its a tad faster than its brother, and does
+  #   around the same damage, but it's always angry and has a bit more HP.
+  #   they have a chance of inflicting Wither and Poison when they damage you.
+  AlphaHellhound:
     Enabled: true
 
 # To better balance it, and make getting netherite scrap easier and better, to make up for the new difficulty if the above is true

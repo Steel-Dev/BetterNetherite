@@ -7,6 +7,8 @@
 #    KEY
 #  Shrine Related:
 #    SHRINE, EFFECT, CHARGESAVAILABLE, CHARGEMAT, EFFRES
+#  Custom Mobs:
+#    MOBID, MOBNAME
 # NOTE: The placeholders will only get the proper value filled in if the changed message is within
 #  the context. EG: adding 'KEY' from crafting related messages in the Prefix wont be filled in.
 #  this is to prevent unneeded values being put into our messages.
@@ -31,3 +33,9 @@ ShrineBuiltIncorrectlyMsg: '&cThis &6SHRINE &chas been built incorrectly, it wil
 ShrineNoChargesMsg: '&cThis &6SHRINE &cis out of charges! Recharge it by replacing the &eCHARGEMAT&c on the chains.'
 ShrineChargesMsg: '&7&oThis shrine has &e&oCHARGESAVAILABLE &7&ocharges left.'
 ShrineLowOnChargeMsg: '&cThis shrine has very little charges left, be careful, it has become unstable and has a chance to explode! Recharge it by replacing the &eCHARGEMAT&c on the chains.'
+PlayersOnlyMsg: '&cThis command can only be executed by a player.'
+InvalidBNMobMsg: '&cThe specific mob id, &eMOBID,&c doesnt exist, or isnt registered!'
+BNMobSpawnedMsg: '&aSuccessfully spawned a MOBNAME&a!'
+BNMobSpawnFailed: '&cFailed to spawn a MOBNAME&c!'
+NoBNMobsSpawned: '&cFailed to kill all BN Mobs as there are none spawned.'
+BNMobsKilled: '&aSuccessfully killed &eMOBAMOUNT&a Custom BN Mobs!'

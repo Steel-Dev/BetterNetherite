@@ -2,12 +2,15 @@ package com.github.steeldev.betternetherite.listeners.events;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +39,12 @@ public class NetheriteFishing implements Listener {
                         if(finalAm > 64) finalAm = 64;
 
                         ItemStack lootItem = new ItemStack(Material.valueOf(lootEntrySplit.get(0)), finalAm);
+                        ItemMeta lootItemMeta = (lootItem.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(lootItem.getType()) : lootItem.getItemMeta();
+
+                        if(lootItemMeta instanceof Damageable)
+                            ((Damageable)lootItemMeta).setDamage(main.rand.nextInt(lootItem.getType().getMaxDurability()-20));
+
+                        lootItem.setItemMeta(lootItemMeta);
 
                         int chance = Integer.parseInt(lootEntrySplit.get(2));
 

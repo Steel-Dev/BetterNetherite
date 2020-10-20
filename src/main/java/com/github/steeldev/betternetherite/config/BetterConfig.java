@@ -66,7 +66,9 @@ public class BetterConfig {
 
     //Mobs
     public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
+    public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED;
     public static boolean CUSTOM_MOB_HELLHOUND_ENABLED;
+    public static boolean CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED;
 
     private final BetterNetherite plugin;
     private FileConfiguration config;
@@ -157,7 +159,9 @@ public class BetterConfig {
         NETHERITE_FISH_TREASURE_LOOT = config.getStringList("NetheriteFishing.Loot");
 
         CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauder.Enabled");
+        CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauderBrute.Enabled");
         CUSTOM_MOB_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.Hellhound.Enabled");
+        CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.AlphaHellhound.Enabled");
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");

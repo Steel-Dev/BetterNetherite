@@ -2,12 +2,22 @@ name: BetterNetherite
 version: '${project.version}'
 api-version: '1.16'
 main: com.github.steeldev.betternetherite.BetterNetherite
-description: A plugin that brings a few changes to 1.16s new Netherite.
+description: A plugin that brings a few changes and additions to 1.16s new Netherite.
 author: Steel_Dev
 commands:
   betternetheritereload:
     description: Reload the configuration.
     aliases: bnreload
+    permission: betternetherite.admin
+    permission-message: You dont have permission to use this command.
+  spawnbetternetheritemob:
+    description: Spawn the specified custom mob.
+    aliases: spawnbnmob
+    permission: betternetherite.admin
+    permission-message: You dont have permission to use this command.
+  killallbetternetheritemobs:
+    description: Kills all spawned custom mobs.
+    aliases: killallbnmobs
     permission: betternetherite.admin
     permission-message: You dont have permission to use this command.
 permissions:

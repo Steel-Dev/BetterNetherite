@@ -27,6 +27,14 @@ public class Lang {
     public static String SHRINE_ITEM_FULL_DUR_MSG;
     public static String SHRINE_NO_CHARGES_MSG;
 
+    public static String PLAYERS_ONLY_MSG;
+
+    public static String CUSTOM_MOB_INVALID_MSG;
+    public static String CUSTOM_MOB_SPAWNED_MSG;
+    public static String CUSTOM_MOB_SPAWN_FAILED_MSG;
+    public static String CUSTOM_MOBS_KILLED_MSG;
+    public static String CUSTOM_MOGS_KILL_FAILED_MSG;
+
     private final BetterNetherite plugin;
     private FileConfiguration lang;
     private File langFile;
@@ -95,5 +103,13 @@ public class Lang {
         SHRINE_ITEM_ALREADY_EFFECTED_MSG = lang.getString("ShrineItemAlreadyEffectedMsg");
         SHRINE_ITEM_FULL_DUR_MSG = lang.getString("ShrineItemDurabilityFull");
         SHRINE_NO_CHARGES_MSG = lang.getString("ShrineNoChargesMsg");
+
+        PLAYERS_ONLY_MSG = lang.getString("PlayersOnlyMsg");
+
+        CUSTOM_MOB_INVALID_MSG = lang.getString("InvalidBNMobMsg");
+        CUSTOM_MOB_SPAWNED_MSG = lang.getString("BNMobSpawnedMsg");
+        CUSTOM_MOB_SPAWN_FAILED_MSG = lang.getString("BNMobSpawnFailed");
+        CUSTOM_MOBS_KILLED_MSG = lang.getString("BNMobsKilled");
+        CUSTOM_MOGS_KILL_FAILED_MSG = lang.getString("NoBNMobsSpawned");
     }
 }
