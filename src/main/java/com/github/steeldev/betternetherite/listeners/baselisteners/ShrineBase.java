@@ -1,10 +1,15 @@
-package com.github.steeldev.betternetherite.listeners.shrines;
+package com.github.steeldev.betternetherite.listeners.baselisteners;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.config.Lang;
+import com.github.steeldev.betternetherite.managers.BNShrineManager;
+import com.github.steeldev.betternetherite.misc.BNShrine;
+import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
+import com.github.steeldev.betternetherite.util.shrines.ShrineEffectType;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,36 +18,45 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CrimsonShrine implements Listener {
+public class ShrineBase implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
+    BNShrine shrine;
+
+    public ShrineBase(String shrineID){
+        shrine = BNShrineManager.getBNShrine(shrineID);
+    }
+
     @EventHandler
-    public void onCrimsonShrineClick(PlayerInteractEvent e) {
-        // Could REALLY use improvements, but I feel like ass as I'm writing this, so deal with it.
+    public void useShrine(PlayerInteractEvent e){
         Player p = e.getPlayer();
         ItemStack item = p.getInventory().getItemInMainHand();
         Block clickedBlock = e.getClickedBlock();
         boolean correct = false;
-        if (!BetterConfig.CRIMSON_NETHERITE_SHRINE_ENABLED ||
-                e.getAction() != Action.RIGHT_CLICK_BLOCK ||
+        if(e.getAction() != Action.RIGHT_CLICK_BLOCK ||
                 clickedBlock == null ||
-                item.getType() == Material.AIR ||
+                (shrine.RequiresValidItems && item.getType() == Material.AIR) ||
                 e.getHand() != EquipmentSlot.HAND ||
                 e.isCancelled())
             return;
 
-        if (clickedBlock.getType().equals(Material.CRIMSON_STEM)) {
+        if (clickedBlock.getType().equals(shrine.Core.CoreBlock)) {
             Block crimsonFence = clickedBlock.getRelative(0, -1, 0);
-            if (crimsonFence.getType().equals(Material.CRIMSON_FENCE)) {
+            if (crimsonFence.getType().equals(shrine.Core.CoreSupport)) {
                 Block cryingObsidian = crimsonFence.getRelative(0, -1, 0);
                 if (cryingObsidian.getType().equals(Material.CRYING_OBSIDIAN)) {
                     e.setCancelled(true);
+                    if(!shrine.ValidUseWorlds.contains(p.getWorld().getEnvironment())){
+                        p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_CANT_USE_IN_WORLD_MSG.replaceAll("SHRINE", shrine.Display)));
+                        return;
+                    }
                     Block polishedBlackstone1 = cryingObsidian.getRelative(0, 0, 1);
                     Block polishedBlackstone2 = cryingObsidian.getRelative(0, 0, -1);
                     Block polishedBlackstone3 = cryingObsidian.getRelative(-1, 0, 0);
@@ -129,57 +143,80 @@ public class CrimsonShrine implements Listener {
                                         correct = true;
                                         int chargesLeft = 0;
                                         for (Block charge : charges) {
-                                            if (charge.getType().equals(BetterConfig.CRIMSON_NETHERITE_SHRINE_CHARGE_MAT)) {
+                                            if (charge.getType().equals(shrine.Charge.ChargeMaterial)) {
                                                 chargesLeft++;
                                             }
                                         }
                                         if (chargesLeft > 0) {
-                                            if (!BetterConfig.USABLE_SHRINE_ITEMS.containsKey(item.getType().toString())) {
-                                                p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_INVALID_ITEM_MSG.replaceAll("SHRINE", BetterConfig.CRIMSON_NETHERITE_SHRINE_DISPLAY)));
+                                            if (shrine.RequiresValidItems && !BetterConfig.USABLE_SHRINE_ITEMS.containsKey(item.getType().toString())) {
+                                                p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_INVALID_ITEM_MSG.replaceAll("SHRINE", shrine.Display)));
                                                 return;
                                             }
-                                            NBTItem nbtItem = new NBTItem(item);
-                                            if (nbtItem.hasKey("netherite_reinforced")) {
-                                                if (nbtItem.getBoolean("netherite_reinforced")) {
-                                                    p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_ITEM_ALREADY_EFFECTED_MSG.replaceAll("EFFECT", BetterConfig.CRIMSON_NETHERITE_SHRINE_EFFECT_DISPLAY)));
+                                            if (shrine.Effect.ShrineEffectType == ShrineEffectType.REINFORCE_ITEM) {
+                                                NBTItem nbtItem = new NBTItem(item);
+                                                if (nbtItem.hasKey("netherite_reinforced")) {
+                                                    if (nbtItem.getBoolean("netherite_reinforced")) {
+                                                        p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_ITEM_ALREADY_EFFECTED_MSG.replaceAll("EFFECT", shrine.Effect.EffectDisplay)));
+                                                        return;
+                                                    }
+                                                }
+                                                nbtItem.addCompound("netherite_reinforced");
+                                                nbtItem.setBoolean("netherite_reinforced", true);
+                                                item = nbtItem.getItem();
+                                                ItemMeta meta = (item.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(item.getType()) : item.getItemMeta();
+                                                List<String> curLore = (meta.getLore() == null) ? new ArrayList<>() : meta.getLore();
+                                                curLore.add(main.colorize(shrine.Effect.EffectLoreDisplay));
+                                                meta.setLore(curLore);
+                                                item.setItemMeta(meta);
+                                                p.getInventory().setItemInMainHand(item);
+                                            } else if (shrine.Effect.ShrineEffectType == ShrineEffectType.HEAL_ITEM) {
+                                                Damageable damMeta = (item.getItemMeta() != null) ? (Damageable) item.getItemMeta() : (Damageable) Bukkit.getItemFactory().getItemMeta(item.getType());
+
+                                                if (damMeta.getDamage() <= 0) {
+                                                    p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_ITEM_FULL_DUR_MSG.replaceAll("EFFECT", shrine.Effect.EffectDisplay)));
                                                     return;
                                                 }
+                                                damMeta.setDamage(0);
+                                                item.setItemMeta((ItemMeta) damMeta);
+                                                p.getInventory().setItemInMainHand(item);
+                                            } else if (shrine.Effect.ShrineEffectType == ShrineEffectType.APPLY_POTION_EFFECT) {
+                                                if (shrine.Effect.PotionEffects != null) {
+                                                    if (shrine.Effect.PotionEffects.size() > 0) {
+                                                        for (BNPotionEffect effect : shrine.Effect.PotionEffects) {
+                                                            if (main.chanceOf(effect.Chance)) {
+                                                                p.addPotionEffect(effect.getPotionEffect(), false);
+                                                                if (BetterConfig.DEBUG)
+                                                                    main.getLogger().info(main.colorize(String.format("&6%s &cinflicted &e%s &cwith &4%s&c!", shrine.Display, p.getName(), effect.Effect)));
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
-                                            nbtItem.addCompound("netherite_reinforced");
-                                            nbtItem.setBoolean("netherite_reinforced", true);
-                                            item = nbtItem.getItem();
-                                            ItemMeta meta = (item.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(item.getType()) : item.getItemMeta();
-                                            List<String> curLore = (meta.getLore() == null) ? new ArrayList<>() : meta.getLore();
-                                            curLore.add(main.colorize("&b&lREINFORCED"));
-                                            meta.setLore(curLore);
-                                            item.setItemMeta(meta);
-                                            p.getInventory().setItemInMainHand(item);
 
                                             chargesLeft--;
 
                                             Block chargeChosen = null;
 
                                             for (Block charge : charges) {
-                                                if (!charge.getType().equals(Material.AIR)) {
+                                                if (!charge.getType().equals(Material.AIR))
                                                     chargeChosen = charge;
-                                                }
                                             }
                                             chargeChosen.setType(Material.AIR);
 
                                             p.getWorld().strikeLightning(clickedBlock.getLocation());
-                                            p.getWorld().spawnParticle(Particle.FLAME, chargeChosen.getLocation(), 5);
-                                            p.getWorld().playSound(chargeChosen.getLocation(), Sound.BLOCK_REDSTONE_TORCH_BURNOUT, 1.5f, 1.5f);
-                                            p.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_ANVIL_USE, 1.6f, 1.6f);
+                                            p.getWorld().spawnParticle(shrine.Charge.UsedParticle, chargeChosen.getLocation(), 5);
+                                            p.getWorld().playSound(chargeChosen.getLocation(), shrine.Charge.UsedSound, 1.5f, 1.5f);
+                                            p.getWorld().playSound(clickedBlock.getLocation(), shrine.Effect.UseSound, 1.6f, 1.6f);
                                             if (chargesLeft < 3) {
-                                                String chargeMat = main.formalizedString(BetterConfig.CRIMSON_NETHERITE_SHRINE_CHARGE_MAT.toString());
+                                                String chargeMat = main.formalizedString(shrine.Charge.ChargeMaterial.toString());
                                                 p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_CHARGES_LOW_MSG.replaceAll("CHARGEMAT", chargeMat)));
                                             } else {
                                                 p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_CHARGES_MSG.replaceAll("CHARGESAVAILABLE", String.valueOf(chargesLeft))));
                                             }
 
                                             if (chargesLeft < 1) {
-                                                if (main.chanceOf(BetterConfig.CRIMSON_NETHERITE_SHRINE_EXPLODE_CHANCE)) {
-                                                    p.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_ANVIL_BREAK, 1.6f, 1.6f);
+                                                if (main.chanceOf(shrine.ExplodeChance)) {
+                                                    p.getWorld().playSound(clickedBlock.getLocation(), shrine.Effect.BreakSound, 1.6f, 1.6f);
                                                     p.getWorld().strikeLightning(clickedBlock.getLocation());
                                                     Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
                                                         @Override
@@ -195,17 +232,18 @@ public class CrimsonShrine implements Listener {
                                                         }
                                                     }, 5);
                                                 } else {
-                                                    p.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, clickedBlock.getLocation(), 2);
-                                                    p.getWorld().playEffect(clickedBlock.getLocation(), Effect.ZOMBIE_DESTROY_DOOR, 2);
+                                                    p.getWorld().spawnParticle(shrine.Effect.BreakParticle, clickedBlock.getLocation(), 2);
+                                                    p.getWorld().playEffect(clickedBlock.getLocation(), shrine.Effect.BreakEffect, 2);
                                                     clickedBlock.setType(Material.AIR);
                                                 }
                                             }
-                                            p.getWorld().spawnParticle(Particle.ENCHANTMENT_TABLE, clickedBlock.getLocation(), 2);
-                                            p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_USED_MSG.replaceAll("SHRINE", BetterConfig.CRIMSON_NETHERITE_SHRINE_DISPLAY).replaceAll("EFFECT", BetterConfig.CRIMSON_NETHERITE_SHRINE_EFFECT_DISPLAY).replaceAll("EFFRES", "Reinforced")));
+                                            p.getWorld().spawnParticle(shrine.Effect.ShrineUsedParticle, clickedBlock.getLocation(), 2);
+                                            String usedMSG = (shrine.RequiresValidItems) ? Lang.SHRINE_USED_MSG : Lang.POTION_SHRINE_USED_MSG;
+                                            p.sendMessage(main.colorize(Lang.PREFIX + usedMSG.replaceAll("SHRINE", shrine.Display).replaceAll("EFFECT", shrine.Effect.EffectDisplay).replaceAll("EFFRES", shrine.Effect.EffectResultDisplay)));
                                         } else {
-                                            String chargeMat = main.formalizedString(BetterConfig.CRIMSON_NETHERITE_SHRINE_CHARGE_MAT.toString());
-                                            p.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.6f, 1.6f);
-                                            p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_NO_CHARGES_MSG.replaceAll("SHRINE", BetterConfig.CRIMSON_NETHERITE_SHRINE_DISPLAY).replaceAll("CHARGEMAT", chargeMat)));
+                                            String chargeMat = main.formalizedString(shrine.Charge.ChargeMaterial.toString());
+                                            p.getWorld().playSound(clickedBlock.getLocation(), shrine.Effect.NoChargesSound, 1.6f, 1.6f);
+                                            p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_NO_CHARGES_MSG.replaceAll("SHRINE", shrine.Display).replaceAll("CHARGEMAT", chargeMat)));
                                         }
                                     }
                                 }
@@ -215,7 +253,7 @@ public class CrimsonShrine implements Listener {
                 }
             }
             if (!correct)
-                p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_BUILT_INCORRECT_MSG.replaceAll("SHRINE", BetterConfig.CRIMSON_NETHERITE_SHRINE_DISPLAY)));
+                p.sendMessage(main.colorize(Lang.PREFIX + Lang.SHRINE_BUILT_INCORRECT_MSG.replaceAll("SHRINE", shrine.Display)));
         }
     }
 }

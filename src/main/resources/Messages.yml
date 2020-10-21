@@ -1,14 +1,10 @@
 # Valid placeholders:
-#  Plugin Related:
-#    VERSION
 #  Smithing/Upgrade related:
 #    ITEM, AMOUNT, MATNEEDED, UPGRADEDTO
-#  Crafting Related:
-#    KEY
 #  Shrine Related:
 #    SHRINE, EFFECT, CHARGESAVAILABLE, CHARGEMAT, EFFRES
 #  Custom Mobs:
-#    MOBID, MOBNAME
+#    MOBID, MOBNAME, MOBAMOUNT, MOBKEY
 # NOTE: The placeholders will only get the proper value filled in if the changed message is within
 #  the context. EG: adding 'KEY' from crafting related messages in the Prefix wont be filled in.
 #  this is to prevent unneeded values being put into our messages.
@@ -20,12 +16,8 @@ Prefix: '&6Better <#5C040F>Netherite &7» '
 NetheriteUpgradingDisabledMsg: '&cSmithing Table upgrading is disabled.'
 NotEnoughMatsToUpgradeMsg: '&cYou do not have enough &eMATNEEDED&c in the second slot to upgrade your &6ITEM&c. You need &6AMOUNT&c!'
 UpgradeSuccessMsg: '&aYou have successfully upgraded your &6ITEM &ato &eUPGRADEDTO&a for &6AMOUNT &eMATNEEDED&a!'
-ReloadMsg: '&aSuccessfully reloaded configurations! &c&oPlease note, most features require a server restart to fully apply!'
-RecipeRemovedMsg: '&aRecipe for &eKEY &ahas been &cremoved!'
-RecipeAddedMsg: '&aRecipe for &eKEY &ahas been &2added!'
-EnabledMsg: '&6Better &4Netherite &6VERSION &aEnabled!'
-DisabledMsg: '&6Better &4Netherite &6VERSION &cDisabled!'
 ShrineUsedMsg: '&aYou have used a &6SHRINE &aand activated &eEFFECT&a. Your current held item is now &bEFFRES&a.'
+PotionShrineUsedMsg: '&aYou have used a &6SHRINE &aand activated &eEFFECT&a. You are now &bEFFRES&a.'
 ShrineInvalidItemMsg: '&cYour current held item cannot be used in this &6SHRINE&c.'
 ShrineItemAlreadyEffectedMsg: '&cYour current held item has already been charmed with &eEFFECT&c!'
 ShrineItemDurabilityFull: '&cYour current held item is already on full durability and cannot be charmed with &eEFFECT&c!'
@@ -33,6 +25,7 @@ ShrineBuiltIncorrectlyMsg: '&cThis &6SHRINE &chas been built incorrectly, it wil
 ShrineNoChargesMsg: '&cThis &6SHRINE &cis out of charges! Recharge it by replacing the &eCHARGEMAT&c on the chains.'
 ShrineChargesMsg: '&7&oThis shrine has &e&oCHARGESAVAILABLE &7&ocharges left.'
 ShrineLowOnChargeMsg: '&cThis shrine has very little charges left, be careful, it has become unstable and has a chance to explode! Recharge it by replacing the &eCHARGEMAT&c on the chains.'
+ShrineCantBeUsedInWorld: '&cThis SHRINE cannot be used in this world!'
 PlayersOnlyMsg: '&cThis command can only be executed by a player.'
 InvalidBNMobMsg: '&cThe specific mob id, &eMOBID,&c doesnt exist, or isnt registered!'
 BNMobSpawnedMsg: '&aSuccessfully spawned a MOBNAME&a!'

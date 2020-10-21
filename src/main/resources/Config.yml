@@ -12,6 +12,12 @@
 #   a development option, put here for ease of development.
 Debug: false
 
+UpdateCheck:
+  # Should the plugin notify OPs/Players with the plugins admin perm
+  #  when a new update is available when they join/reload the plugin?
+  MessageOnJoin: true
+  MessageOnReload: true
+
 # true - Disable the dumb vanilla way of crafting netherite items
 # false - Enable the dumb vanmilla way of crafting netherite items
 # This disables the 'upgrading' of diamond items to netherite using the smithing table
@@ -41,14 +47,6 @@ NetheriteShrines:
     # Should the Crimson Netherite Shrine be enabled?
     #  This shrine will reinforce netherite items.
     Enabled: true
-    # The chance of the Shrine exploding when low on charges
-    ExplosionChance: 40
-    # Display information
-    Display: '&cCrimson &eShrine'
-    EffectDisplay: '&cHells &7Reinforcement'
-    # The material that must be placed on the chains to charge the Shrine
-    # Note: MUST be in all caps like below, and it must be a valid Material.
-    ChargeMaterial: SOUL_LANTERN
     ReinforcedItems:
       DurabilityLossChance: 20
       ExtraDamageChance: 60
@@ -58,14 +56,11 @@ NetheriteShrines:
     #  This shrine will replenish durability of
     #  Netherite items.
     Enabled: true
-    # The chance of the Shrine exploding when low on charges
-    ExplosionChance: 40
-    # Display information
-    Display: '&bWarped &eShrine'
-    EffectDisplay: '&cHells &7Mend'
-    # The material that must be placed on the chains to charge the Shrine
-    # Note: MUST be in all caps like below, and it must be a valid Material.
-    ChargeMaterial: SOUL_LANTERN
+  PrismarineShrine:
+    # Should the Prismarine Netherite Shrine be enabled?
+    #  This shrine will grant 5 potion effects.
+    #  each effect has a chance of not applying.
+    Enabled: true
 
 ImprovedUpgrading:
   # Wanna keep the upgrade system but don't like how it works?
@@ -156,6 +151,19 @@ CustomMobs:
   #   around the same damage, but it's always angry and has a bit more HP.
   #   they have a chance of inflicting Wither and Poison when they damage you.
   AlphaHellhound:
+    Enabled: true
+  # Should the Lost Soul be enabled?
+  #  this mob only spawns in the nether, it can fly, and is fast.
+  #  it can do a lot of damage, and pass through walls. It has a small amount
+  #  of HP.
+  #   It has a chance of inflicting Blindness, Poison and Wither when they damage you.
+  LostSoul:
+    Enabled: true
+  # Should the Zombified Demon be enabled?
+  #  this mob can spawn in the Overworld, it's slow, but can do a lot of
+  #   damage.
+  #  it has a chance of inflicting Hunger and Poison when they damage you.
+  ZombifiedDemon:
     Enabled: true
 
 # To better balance it, and make getting netherite scrap easier and better, to make up for the new difficulty if the above is true

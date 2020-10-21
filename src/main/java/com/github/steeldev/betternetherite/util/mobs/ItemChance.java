@@ -1,4 +1,4 @@
-package com.github.steeldev.betternetherite.util;
+package com.github.steeldev.betternetherite.util.mobs;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import org.bukkit.Bukkit;
@@ -59,6 +59,12 @@ public class ItemChance {
     public ItemChance(Material item, float chance){
         this.Item = item;
         this.ChanceF = chance;
+    }
+
+    public ItemChance(Material item, float chance, boolean damaged){
+        this.Item = item;
+        this.ChanceF = chance;
+        this.Damaged = damaged;
     }
 
     public ItemChance(Material item, float chance, String itemName, List<String> itemLore){

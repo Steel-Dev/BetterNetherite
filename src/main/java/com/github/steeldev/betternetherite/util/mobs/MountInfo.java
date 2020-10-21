@@ -1,4 +1,4 @@
-package com.github.steeldev.betternetherite.util;
+package com.github.steeldev.betternetherite.util.mobs;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import org.bukkit.Location;
@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
-public class RidingInfo {
+public class MountInfo {
     BetterNetherite main = BetterNetherite.getInstance();
 
     public EntityType Riding;
@@ -17,12 +17,12 @@ public class RidingInfo {
     public List<Material> ArmorTypes;
     public int ArmorChance;
 
-    public RidingInfo(EntityType riding, int chance){
+    public MountInfo(EntityType riding, int chance){
         this.Riding = riding;
         this.Chance = chance;
     }
 
-    public RidingInfo(EntityType riding, int chance, List<Material> armorTypes, int armorChance){
+    public MountInfo(EntityType riding, int chance, List<Material> armorTypes, int armorChance){
         this.Riding = riding;
         this.Chance = chance;
         this.ArmorTypes = armorTypes;

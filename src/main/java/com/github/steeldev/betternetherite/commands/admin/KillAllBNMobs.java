@@ -29,7 +29,7 @@ public class KillAllBNMobs  implements CommandExecutor {
             }
 
             if(entityAmount == 0){
-                commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOGS_KILL_FAILED_MSG));
+                commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOBS_KILL_FAILED_MSG));
                 return true;
             }
 

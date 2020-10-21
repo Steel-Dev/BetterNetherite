@@ -3,10 +3,10 @@ package com.github.steeldev.betternetherite.misc;
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.managers.BNMobManager;
-import com.github.steeldev.betternetherite.util.DeathExplosionInfo;
-import com.github.steeldev.betternetherite.util.HitEffect;
-import com.github.steeldev.betternetherite.util.ItemChance;
-import com.github.steeldev.betternetherite.util.RidingInfo;
+import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
+import com.github.steeldev.betternetherite.util.mobs.DeathExplosionInfo;
+import com.github.steeldev.betternetherite.util.mobs.ItemChance;
+import com.github.steeldev.betternetherite.util.mobs.MountInfo;
 import jdk.internal.jline.internal.Nullable;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -24,16 +24,16 @@ public class BNMob {
     BetterNetherite main = BetterNetherite.getInstance();
     public String Key;
     public String EntityName;
-    public EntityType EntityToReplace;
+    public List<EntityType> EntityToReplace;
     public EntityType BaseEntity;
-    public RidingInfo RidingInfo;
+    public MountInfo MountInfo;
     public boolean Angry;
     public int DeathEXP;
     public float MaxHP;
     public float MoveSpeed;
     public int SpawnChance;
     public List<World.Environment> ValidSpawnWorlds;
-    public List<HitEffect> HitEffectsInfo;
+    public List<BNPotionEffect> BNPotionEffectsInfo;
     public DeathExplosionInfo ExplosionOnDeathInfo;
     public List<Material> DropsToRemove;
     public List<ItemChance> Drops;
@@ -41,16 +41,16 @@ public class BNMob {
 
     public BNMob(String key,
                  String entityName,
-                 EntityType entityToReplace,
+                 List<EntityType> entityToReplace,
                  EntityType baseEntity,
-                 RidingInfo ridingInfo,
+                 MountInfo mountInfo,
                  boolean angry,
                  int deathEXP,
                  float maxHP,
                  float moveSpeed,
                  int spawnChance,
                  List<World.Environment> validSpawnWorlds,
-                 List<HitEffect> hitEffectsInfo,
+                 List<BNPotionEffect> BNPotionEffectsInfo,
                  DeathExplosionInfo explosionOnDeathInfo,
                  List<Material> dropsToRemove,
                  List<ItemChance> drops,
@@ -59,14 +59,14 @@ public class BNMob {
         this.EntityName = entityName;
         this.EntityToReplace = entityToReplace;
         this.BaseEntity = baseEntity;
-        this.RidingInfo = ridingInfo;
+        this.MountInfo = mountInfo;
         this.Angry = angry;
         this.DeathEXP = deathEXP;
         this.MaxHP = maxHP;
         this.MoveSpeed = moveSpeed;
         this.SpawnChance = spawnChance;
         this.ValidSpawnWorlds = validSpawnWorlds;
-        this.HitEffectsInfo = hitEffectsInfo;
+        this.BNPotionEffectsInfo = BNPotionEffectsInfo;
         this.ExplosionOnDeathInfo = explosionOnDeathInfo;
         this.DropsToRemove = dropsToRemove;
         this.Drops = drops;
@@ -129,11 +129,11 @@ public class BNMob {
             spawnedEnt.getEquipment().setBootsDropChance(boots.ChanceF);
         }
 
-        RidingInfo mobRidingInfo = RidingInfo;
+        MountInfo mobMountInfo = MountInfo;
         boolean ridingMob = false;
-        if(mobRidingInfo.Riding != null) {
-            if (main.chanceOf(mobRidingInfo.Chance)) {
-                LivingEntity entityToRide = mobRidingInfo.spawnMount(location);
+        if(mobMountInfo.Riding != null) {
+            if (main.chanceOf(mobMountInfo.Chance)) {
+                LivingEntity entityToRide = mobMountInfo.spawnMount(location);
                 entityToRide.setPassenger(spawnedEnt);
                 ridingMob = true;
             }

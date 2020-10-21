@@ -1,7 +1,8 @@
 package com.github.steeldev.betternetherite.managers;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.listeners.custommobs.CustomMobBase;
+import com.github.steeldev.betternetherite.config.BetterConfig;
+import com.github.steeldev.betternetherite.listeners.baselisteners.CustomMobBase;
 import com.github.steeldev.betternetherite.misc.BNMob;
 import org.bukkit.NamespacedKey;
 
@@ -23,6 +24,9 @@ public class BNMobManager {
         bnMobMap.put(mob.Key, mob);
 
         main.getServer().getPluginManager().registerEvents(new CustomMobBase(mob.Key), main);
+
+        if(BetterConfig.DEBUG)
+            main.getLogger().info(main.colorize("&aCustom mob &ebetternetherite:"+mob.Key+"&a has been &2registered."));
     }
 
     public static BNMob getBNMob(String key){

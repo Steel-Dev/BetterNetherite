@@ -1,4 +1,4 @@
-package com.github.steeldev.betternetherite.util;
+package com.github.steeldev.betternetherite.util.mobs;
 
 public class DeathExplosionInfo {
     public boolean Enabled;

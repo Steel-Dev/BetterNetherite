@@ -17,6 +17,8 @@ import java.util.Map;
 public class BetterConfig {
     // Config stuff
     public static boolean DEBUG;
+    public static boolean NEW_UPDATE_MESSAGE_ON_JOIN;
+    public static boolean NEW_UPDATE_MESSAGE_ON_RELOAD;
     public static boolean ENABLE_NETHERITE_CRAFTING;
     public static boolean IMPROVED_UPGRADING;
     // Upgrade Recipes
@@ -44,16 +46,7 @@ public class BetterConfig {
 
     public static boolean CRIMSON_NETHERITE_SHRINE_ENABLED;
     public static boolean WARPED_NETHERITE_SHRINE_ENABLED;
-
-    public static int CRIMSON_NETHERITE_SHRINE_EXPLODE_CHANCE;
-    public static String CRIMSON_NETHERITE_SHRINE_DISPLAY;
-    public static String CRIMSON_NETHERITE_SHRINE_EFFECT_DISPLAY;
-    public static Material CRIMSON_NETHERITE_SHRINE_CHARGE_MAT;
-
-    public static int WARPED_NETHERITE_SHRINE_EXPLODE_CHANCE;
-    public static String WARPED_NETHERITE_SHRINE_DISPLAY;
-    public static String WARPED_NETHERITE_SHRINE_EFFECT_DISPLAY;
-    public static Material WARPED_NETHERITE_SHRINE_CHARGE_MAT;
+    public static boolean PRISMARINE_NETHERITE_SHRINE_ENABLED;
 
     //Reinforced items
     public static int REINFORCED_ITEM_DURABILITY_LOSS_CHANCE;
@@ -69,6 +62,8 @@ public class BetterConfig {
     public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED;
     public static boolean CUSTOM_MOB_HELLHOUND_ENABLED;
     public static boolean CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED;
+    public static boolean CUSTOM_MOB_LOST_SOUL_ENABLED;
+    public static boolean CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED;
 
     private final BetterNetherite plugin;
     private FileConfiguration config;
@@ -121,6 +116,8 @@ public class BetterConfig {
 
     private void loadConfigs() {
         DEBUG = config.getBoolean("Debug");
+        NEW_UPDATE_MESSAGE_ON_JOIN = config.getBoolean("UpdateCheck.MessageOnJoin");
+        NEW_UPDATE_MESSAGE_ON_RELOAD = config.getBoolean("UpdateCheck.MessageOnReload");
         ENABLE_NETHERITE_CRAFTING = config.getBoolean("NetheriteCrafting");
         IMPROVED_UPGRADING = config.getBoolean("ImprovedUpgrading.Enabled");
         if(ENABLE_NETHERITE_CRAFTING && IMPROVED_UPGRADING){
@@ -140,16 +137,7 @@ public class BetterConfig {
 
         WARPED_NETHERITE_SHRINE_ENABLED = config.getBoolean("NetheriteShrines.WarpedShrine.Enabled");
         CRIMSON_NETHERITE_SHRINE_ENABLED = config.getBoolean("NetheriteShrines.CrimsonShrine.Enabled");
-        
-        CRIMSON_NETHERITE_SHRINE_EXPLODE_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ExplosionChance");
-        CRIMSON_NETHERITE_SHRINE_DISPLAY = config.getString("NetheriteShrines.CrimsonShrine.Display");
-        CRIMSON_NETHERITE_SHRINE_EFFECT_DISPLAY = config.getString("NetheriteShrines.CrimsonShrine.EffectDisplay");
-        CRIMSON_NETHERITE_SHRINE_CHARGE_MAT = Material.valueOf(config.getString("NetheriteShrines.CrimsonShrine.ChargeMaterial"));
-
-        WARPED_NETHERITE_SHRINE_EXPLODE_CHANCE = config.getInt("NetheriteShrines.WarpedShrine.ExplosionChance");
-        WARPED_NETHERITE_SHRINE_DISPLAY = config.getString("NetheriteShrines.WarpedShrine.Display");
-        WARPED_NETHERITE_SHRINE_EFFECT_DISPLAY = config.getString("NetheriteShrines.WarpedShrine.EffectDisplay");
-        WARPED_NETHERITE_SHRINE_CHARGE_MAT = Material.valueOf(config.getString("NetheriteShrines.WarpedShrine.ChargeMaterial"));
+        PRISMARINE_NETHERITE_SHRINE_ENABLED = config.getBoolean("NetheriteShrines.PrismarineShrine.Enabled");
 
         REINFORCED_ITEM_DURABILITY_LOSS_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.DurabilityLossChance");
         REINFORCED_ITEM_EXTRA_DMG_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.ExtraDamageChance");
@@ -162,6 +150,8 @@ public class BetterConfig {
         CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauderBrute.Enabled");
         CUSTOM_MOB_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.Hellhound.Enabled");
         CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.AlphaHellhound.Enabled");
+        CUSTOM_MOB_LOST_SOUL_ENABLED = config.getBoolean("CustomMobs.LostSoul.Enabled");
+        CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED = config.getBoolean("CustomMobs.ZombifiedDemon.Enabled");
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");

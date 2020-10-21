@@ -1,11 +1,11 @@
-package com.github.steeldev.betternetherite.listeners.custommobs;
+package com.github.steeldev.betternetherite.listeners.baselisteners;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.managers.BNMobManager;
 import com.github.steeldev.betternetherite.misc.BNMob;
-import com.github.steeldev.betternetherite.util.HitEffect;
-import com.github.steeldev.betternetherite.util.ItemChance;
+import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
+import com.github.steeldev.betternetherite.util.mobs.ItemChance;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
@@ -31,7 +31,7 @@ public class CustomMobBase implements Listener {
         if(world == null) return;
         if(!mob.ValidSpawnWorlds.contains(world.getEnvironment())) return;
         if(e.getEntity().getCustomName() != null) return;
-        if(!e.getEntityType().equals(mob.EntityToReplace)) return;
+        if(!mob.EntityToReplace.contains(e.getEntityType())) return;
 
 
         if(main.chanceOf(mob.SpawnChance))
@@ -71,7 +71,7 @@ public class CustomMobBase implements Listener {
         if(!ChatColor.stripColor(e.getDamager().getCustomName()).equals(mob.getUncoloredName())) return;
 
         if (e.getEntity() instanceof LivingEntity) {
-            for(HitEffect entry : mob.HitEffectsInfo){
+            for(BNPotionEffect entry : mob.BNPotionEffectsInfo){
                 LivingEntity victim = (LivingEntity) e.getEntity();
                 if(main.chanceOf(entry.Chance)) {
                     victim.addPotionEffect(entry.getPotionEffect(), false);

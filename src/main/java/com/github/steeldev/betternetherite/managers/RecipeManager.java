@@ -2,7 +2,6 @@ package com.github.steeldev.betternetherite.managers;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
-import com.github.steeldev.betternetherite.config.Lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -325,7 +324,7 @@ public class RecipeManager {
     public static void addRecipe(Recipe recipe){
         Bukkit.addRecipe(recipe);
         if(BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize(Lang.RECIPE_ADDED_MSG.replace("KEY", ((Keyed) recipe).getKey().toString())));
+            main.getLogger().info(main.colorize("&aRecipe &e"+((Keyed)recipe).getKey()+"&a has been &2added."));
     }
 
     public static void removeRecipe(String key) {
@@ -335,7 +334,7 @@ public class RecipeManager {
             if (rec != null) {
                 if (((Keyed) rec).getKey().toString().equals(key)) {
                     if(BetterConfig.DEBUG)
-                        main.getLogger().info(main.colorize(Lang.RECIPE_REMOVED_MSG.replace("KEY", key)));
+                        main.getLogger().info(main.colorize("&aRecipe &e"+key+"&a has been &cremoved."));
                     it.remove();
                 }
             }
