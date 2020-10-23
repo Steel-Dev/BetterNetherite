@@ -27,15 +27,15 @@ public class SpawnBNMob implements CommandExecutor, TabCompleter {
                 Player player = (Player) commandSender;
                 if (!player.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
                     specifiedMob.spawnMob(player.getLocation(), null);
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_SPAWNED_MSG.replace("MOBNAME", specifiedMob.entityName)));
+                    commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_SPAWNED_MSG.replace("MOBNAME", specifiedMob.entityName))));
                 } else {
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_SPAWN_FAILED_MSG.replaceAll("MOBNAME", specifiedMob.entityName)));
+                    commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_SPAWN_FAILED_MSG.replaceAll("MOBNAME", specifiedMob.entityName))));
                 }
             } else {
-                commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_INVALID_MSG.replaceAll("MOBID", strings[0])));
+                commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_INVALID_MSG.replaceAll("MOBID", strings[0]))));
             }
         } else {
-            commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.PLAYERS_ONLY_MSG));
+            commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
         }
         return true;
     }

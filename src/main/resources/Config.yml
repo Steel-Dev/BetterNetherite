@@ -48,8 +48,11 @@ NetheriteShrines:
     #  This shrine will reinforce netherite items.
     Enabled: true
     ReinforcedItems:
+      # The chance of a reinforced item losing durability
       DurabilityLossChance: 20
+      # The chance of a reinforced item dealing extra damage
       ExtraDamageChance: 60
+      # The amount of bonus damage
       DamageIncrease: 3
   WarpedShrine:
     # Should the Warped Netherite Shrine be enabled?
@@ -69,52 +72,30 @@ ImprovedUpgrading:
   Enabled: true
   UpgradeRecipes:
     WoodToStone:
+      # Should upgrading from Wood > Stone be enabled?
+      Enabled: true
       # Define how much stone is needed to upgrade from Wood > Stone items
-      WOODEN_SWORD: 2
-      WOODEN_AXE: 2
-      WOODEN_SHOVEL: 1
-      WOODEN_HOE: 2
-      WOODEN_PICKAXE: 2
+      MaterialAmount: 2
     StoneToIron:
-      # Define how much Iron Ingots are needed to upgrade from Stone > Iron items
-      STONE_SWORD: 2
-      STONE_AXE: 2
-      STONE_SHOVEL: 1
-      STONE_HOE: 2
-      STONE_PICKAXE: 2
+      # Should upgrading from Stone > Iron be enabled?
+      Enabled: true
+      # Define how much stone is needed to upgrade from Stone > Iron items
+      MaterialAmount: 2
     IronToGold:
-      # Define how much Gold Ingots are needed to upgrade from Iron > Gold items - why would you do this?
-      IRON_SWORD: 2
-      IRON_AXE: 2
-      IRON_SHOVEL: 1
-      IRON_HOE: 2
-      IRON_PICKAXE: 2
-      IRON_HELMET: 3
-      IRON_CHESTPLATE: 4
-      IRON_LEGGINGS: 3
-      IRON_BOOTS: 2
+      # Should upgrading from Iron > Gold be enabled?
+      Enabled: true
+      # Define how much stone is needed to upgrade from Iron > Gold items
+      MaterialAmount: 2
     IronToDiamond:
-      # Define how much Diamonds are needed to upgrade from Iron > Diamond items
-      IRON_SWORD: 2
-      IRON_AXE: 2
-      IRON_SHOVEL: 1
-      IRON_HOE: 2
-      IRON_PICKAXE: 2
-      IRON_HELMET: 3
-      IRON_CHESTPLATE: 4
-      IRON_LEGGINGS: 3
-      IRON_BOOTS: 2
+      # Should upgrading from Iron > Diamond be enabled?
+      Enabled: true
+      # Define how much stone is needed to upgrade from Iron > Diamond items
+      MaterialAmount: 2
     DiamondToNetherite:
-      # Define how many Netherite Ingots are needed to upgrade from Diamond > Netherite
-      DIAMOND_SWORD: 2
-      DIAMOND_AXE: 2
-      DIAMOND_SHOVEL: 1
-      DIAMOND_HOE: 2
-      DIAMOND_PICKAXE: 2
-      DIAMOND_HELMET: 3
-      DIAMOND_CHESTPLATE: 4
-      DIAMOND_LEGGINGS: 3
-      DIAMOND_BOOTS: 2
+      # Should upgrading from Diamond > Netherite be enabled?
+      Enabled: true
+      # Define how much stone is needed to upgrade from Diamond > Netherite items
+      MaterialAmount: 2
 
 NetheriteFishing:
   # Should you be able to fish netherite items as treasure?
@@ -197,3 +178,20 @@ AncientDebris:
     Enabled: true
     # If so, what chance?
     Chance: 5
+
+
+# IN DEVELOPMENT FEATURE
+#  EXPERIMENTAL, NOT FUNTIONAL YET.
+# Define which custom aspects of the plugin should be enabled
+#  Note: this is for USER MADE custom aspects, NOT ONES
+#   IN THE PLUGIN BY DEFAULT!
+CustomAspects:
+  # Should the user be able to create custom items?
+  Items:
+    Enabled: true
+  # Should the user be able to create custom mobs?
+  Mobs:
+    Enabled: true
+  # Should the user be able to create custom shrines?
+  Shrines:
+    Enabled: true

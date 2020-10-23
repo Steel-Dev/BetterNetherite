@@ -159,6 +159,6 @@ public class CustomItemBase implements Listener {
             }
         }
         if (effected)
-            e.getPlayer().sendMessage(main.colorize("&7You ate " + item.displayName + " &7and got effected with " + item.consumeEffect.effectDisplay));
+            e.getPlayer().sendMessage(main.colorize(String.format("&7You ate %s &7and got effected with %s", item.displayName, item.consumeEffect.effectDisplay)));
     }
 }

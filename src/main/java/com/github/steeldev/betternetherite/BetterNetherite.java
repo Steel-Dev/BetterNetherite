@@ -50,14 +50,13 @@ public class BetterNetherite extends JavaPlugin {
         registerCommands();
         RecipeManager.RegisterRecipes();
 
-        getLogger().info(colorize("&6Better &7Netherite &eVersion " + getDescription().getVersion() + " &aenabled!"));
-
+        getLogger().info(colorize(String.format("&6Better &7Netherite &eVersion %s &aenabled!", getDescription().getVersion())));
         checkForNewVersion();
     }
 
     @Override
     public void onDisable() {
-        getLogger().info(colorize("&6Better &7Netherite &eVersion " + getDescription().getVersion() + " &cdisabled!"));
+        getLogger().info(colorize(String.format("&6Better &7Netherite &eVersion %s &cdisabled!", getDescription().getVersion())));
     }
 
     public void checkForNewVersion() {
@@ -65,11 +64,11 @@ public class BetterNetherite extends JavaPlugin {
         new UpdateChecker(this, 84526).getVersion(version -> {
             if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
                 outdated = false;
-                getLogger().info(colorize("&2&oYou are on the latest version of &6&oBetter &7&oNetherite&2&o! &7&o(" + version + ")"));
+                getLogger().info(colorize(String.format("&2&oYou are on the latest version of &6&oBetter &7&oNetherite&2&o! &7&o(%s)", version)));
             } else {
                 outdated = true;
                 newVersion = version;
-                getLogger().info(colorize("&a&oA new version of &6&oBetter &7&oNetherite&a&o is available! &7&o(Current: " + this.getDescription().getVersion() + ", Latest: " + version + ")"));
+                getLogger().info(colorize(String.format("&a&oA new version of &6&oBetter &7&oNetherite&a&o is available! &7&o(Current: %s, Latest: %s)", this.getDescription().getVersion(), version)));
             }
         });
     }
@@ -100,7 +99,6 @@ public class BetterNetherite extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new SmithingTable(), this);
         getServer().getPluginManager().registerEvents(new AncientDebris(), this);
     }
-
 
     public void registerItemListeners() {
         if (BetterConfig.CRIMSON_NETHERITE_SHRINE_ENABLED)

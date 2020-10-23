@@ -28,7 +28,7 @@ public class BNShrineManager {
         main.getServer().getPluginManager().registerEvents(new ShrineBase(shrine.key), main);
 
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize("&aCustom shrine &ebetternetherite:" + shrine.key + "&a has been &2registered."));
+            main.getLogger().info(main.colorize(String.format("&aCustom shrine &ebetternetherite:%s&a has been &2registered.", shrine.key)));
     }
 
     public static BNShrine getBNShrine(String key) {

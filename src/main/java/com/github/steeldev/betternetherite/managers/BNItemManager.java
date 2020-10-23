@@ -30,7 +30,7 @@ public class BNItemManager {
         main.getServer().getPluginManager().registerEvents(new CustomItemBase(item.key), main);
 
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize("&aCustom item &ebetternetherite:" + item.key + "&a has been &2registered."));
+            main.getLogger().info(main.colorize(String.format("&aCustom item &ebetternetherite:%s&a has been &2registered.", item.key)));
     }
 
     public static BNItem getBNItem(String key) {
@@ -116,8 +116,9 @@ public class BNItemManager {
         if (BetterConfig.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
             registerNewBNItem(new BNItem("rotten_demon_flesh", Material.ROTTEN_FLESH).
                     withDisplayName("<#2d2501>Rotten Demon Flesh").
-                    withConsumeEffect(new ItemConsumeEffect("&cFood Poisoning", Arrays.asList(new BNPotionEffect(PotionEffectType.POISON, 50, 1, 2000),
-                            new BNPotionEffect(PotionEffectType.CONFUSION, 50, 1, 2000)))));
+                    withConsumeEffect(new ItemConsumeEffect("&cFood Poisoning",
+                            Arrays.asList(new BNPotionEffect(PotionEffectType.POISON, 50, 1, 2000),
+                                    new BNPotionEffect(PotionEffectType.CONFUSION, 50, 1, 2000)))));
 
             registerNewBNItem(new BNItem("zombified_demon_spawn_egg", Material.ZOMBIE_HORSE_SPAWN_EGG).
                     withDisplayName("<#2d2501>Spawn Zombified Demon").

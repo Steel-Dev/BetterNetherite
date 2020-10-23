@@ -29,13 +29,13 @@ public class KillAllBNMobs implements CommandExecutor {
             }
 
             if (entityAmount == 0) {
-                commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOBS_KILL_FAILED_MSG));
+                commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOBS_KILL_FAILED_MSG)));
                 return true;
             }
 
-            commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOBS_KILLED_MSG.replaceAll("MOBAMOUNT", String.valueOf(entityAmount))));
+            commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOBS_KILLED_MSG.replaceAll("MOBAMOUNT", String.valueOf(entityAmount)))));
         } else {
-            commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.PLAYERS_ONLY_MSG));
+            commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
         }
         return true;
     }

@@ -30,7 +30,7 @@ public class BNMobManager {
         main.getServer().getPluginManager().registerEvents(new CustomMobBase(mob.key), main);
 
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize("&aCustom mob &ebetternetherite:" + mob.key + "&a has been &2registered."));
+            main.getLogger().info(main.colorize(String.format("&aCustom mob &ebetternetherite:%s&a has been &2registered.", mob.key)));
     }
 
     public static BNMob getBNMob(String key) {

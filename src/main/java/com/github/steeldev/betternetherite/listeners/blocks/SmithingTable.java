@@ -3,6 +3,7 @@ package com.github.steeldev.betternetherite.listeners.blocks;
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.config.Lang;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -13,6 +14,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class SmithingTable implements Listener {
@@ -39,11 +43,12 @@ public class SmithingTable implements Listener {
 
         Player p = (Player) e.getWhoClicked();
         if (p.getOpenInventory().getTitle().contains(main.colorize("Upgrade Gear"))) {
-            Map<String, Integer> upgradeRecipes = null;
             Material matNeeded = null;
             ItemStack slot0Item = p.getOpenInventory().getItem(0);
             ItemStack slot1Item = p.getOpenInventory().getItem(1);
             ItemStack slot2Item = p.getOpenInventory().getItem(2);
+
+            List<Material> validUpgradableItems = null;
 
             if (e.getSlot() != 2 ||
                     slot0Item == null ||
@@ -54,41 +59,80 @@ public class SmithingTable implements Listener {
                     slot1Item.getType() == Material.AIR)
                 return;
 
+            int matAmount = 0;
+
             if (slot0Item.getType().toString().contains("WOODEN")) {
-                upgradeRecipes = BetterConfig.UPGRADE_RECIPES_WOOD_TO_STONE;
+                if(!BetterConfig.IMPROVED_UPGRADING_WOOD_TO_STONE_ENABLED) return;
+                matAmount = BetterConfig.IMPROVED_UPGRADING_WOOD_TO_STONE_AMOUNT;
+                validUpgradableItems = new ArrayList<>(Arrays.asList(Material.WOODEN_AXE,
+                        Material.WOODEN_HOE,
+                        Material.WOODEN_PICKAXE,
+                        Material.WOODEN_SWORD,
+                        Material.WOODEN_SHOVEL));
                 matNeeded = Material.COBBLESTONE;
             } else if (slot0Item.getType().toString().contains("STONE")) {
-                upgradeRecipes = BetterConfig.UPGRADE_RECIPES_STONE_TO_IRON;
+                if(!BetterConfig.IMPROVED_UPGRADING_STONE_TO_IRON_ENABLED) return;
+                matAmount = BetterConfig.IMPROVED_UPGRADING_STONE_TO_IRON_AMOUNT;
+                validUpgradableItems = new ArrayList<>(Arrays.asList(Material.STONE_AXE,
+                        Material.STONE_HOE,
+                        Material.STONE_PICKAXE,
+                        Material.STONE_SWORD,
+                        Material.STONE_SHOVEL));
                 matNeeded = Material.IRON_INGOT;
             } else if (slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.DIAMOND)) {
-                upgradeRecipes = BetterConfig.UPGRADE_RECIPES_IRON_TO_DIAMOND;
+                if(!BetterConfig.IMPROVED_UPGRADING_IRON_TO_DIAMOND_ENABLED) return;
+                matAmount = BetterConfig.IMPROVED_UPGRADING_IRON_TO_DIAMOND_AMOUNT;
+                validUpgradableItems = new ArrayList<>(Arrays.asList(Material.IRON_AXE,
+                        Material.IRON_HOE,
+                        Material.IRON_PICKAXE,
+                        Material.IRON_SWORD,
+                        Material.IRON_SHOVEL,
+                        Material.IRON_HELMET,
+                        Material.IRON_CHESTPLATE,
+                        Material.IRON_LEGGINGS,
+                        Material.IRON_BOOTS));
                 matNeeded = Material.DIAMOND;
             } else if (slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.GOLD_INGOT)) {
-                upgradeRecipes = BetterConfig.UPGRADE_RECIPES_IRON_TO_GOLD;
+                if(!BetterConfig.IMPROVED_UPGRADING_IRON_TO_GOLD_ENABLED) return;
+                matAmount = BetterConfig.IMPROVED_UPGRADING_IRON_TO_GOLD_AMOUNT;
+                validUpgradableItems = new ArrayList<>(Arrays.asList(Material.IRON_AXE,
+                        Material.IRON_HOE,
+                        Material.IRON_PICKAXE,
+                        Material.IRON_SWORD,
+                        Material.IRON_SHOVEL,
+                        Material.IRON_HELMET,
+                        Material.IRON_CHESTPLATE,
+                        Material.IRON_LEGGINGS,
+                        Material.IRON_BOOTS));
                 matNeeded = Material.GOLD_INGOT;
             } else if (slot0Item.getType().toString().contains("DIAMOND")) {
-                upgradeRecipes = BetterConfig.UPGRADE_RECIPES_DIAMOND_TO_NETHERITE;
+                if(!BetterConfig.IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED) return;
+                matAmount = BetterConfig.IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT;
+                validUpgradableItems = new ArrayList<>(Arrays.asList(Material.DIAMOND_AXE,
+                        Material.DIAMOND_HOE,
+                        Material.DIAMOND_PICKAXE,
+                        Material.DIAMOND_SWORD,
+                        Material.DIAMOND_SHOVEL,
+                        Material.DIAMOND_HELMET,
+                        Material.DIAMOND_CHESTPLATE,
+                        Material.DIAMOND_LEGGINGS,
+                        Material.DIAMOND_BOOTS));
                 matNeeded = Material.NETHERITE_INGOT;
             }
 
-            if (slot1Item.getType() != matNeeded)
-                return;
-            if (upgradeRecipes == null)
-                return;
-            if (!upgradeRecipes.containsKey(String.valueOf(slot0Item.getType())))
-                return;
+            if (slot1Item.getType() != matNeeded) return;
 
-            int ingotAmount = upgradeRecipes.get(String.valueOf(slot0Item.getType()));
+            if(!validUpgradableItems.contains(slot0Item.getType())) return;
 
             String finalIt = main.formalizedString(slot0Item.getType().toString());
-            String notEnoughIngotsMsg = Lang.NOT_ENOUGH_MATS_UPGRADE_MSG.replaceAll("AMOUNT", String.valueOf(ingotAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString()));
-            String upgradeSuccessMsg = Lang.UPGRADE_SUCCESS_MSG.replaceAll("AMOUNT", String.valueOf(ingotAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString())).replaceAll("UPGRADEDTO", main.formalizedString(slot2Item.getType().toString()));
+            String notEnoughIngotsMsg = Lang.NOT_ENOUGH_MATS_UPGRADE_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString()));
+            String upgradeSuccessMsg = Lang.UPGRADE_SUCCESS_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString())).replaceAll("UPGRADEDTO", main.formalizedString(slot2Item.getType().toString()));
 
-            if (slot1Item.getAmount() < ingotAmount) {
+            if (slot1Item.getAmount() < matAmount) {
                 e.setCancelled(true);
                 p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, notEnoughIngotsMsg)));
             } else {
-                slot1Item.setAmount(slot1Item.getAmount() - (ingotAmount - 1));
+                slot1Item.setAmount(slot1Item.getAmount() - (matAmount - 1));
                 p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, upgradeSuccessMsg)));
             }
         }

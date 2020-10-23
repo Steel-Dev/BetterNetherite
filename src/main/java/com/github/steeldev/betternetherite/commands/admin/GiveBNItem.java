@@ -29,7 +29,7 @@ public class GiveBNItem implements CommandExecutor, TabCompleter {
                 try {
                     amount = Integer.parseInt(strings[1]);
                 } catch (NumberFormatException e) {
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + "&cExpected a number."));
+                    commandSender.sendMessage(main.colorize(String.format("%s&cExpected a number.", Lang.PREFIX)));
                     return true;
                 }
             }
@@ -51,14 +51,14 @@ public class GiveBNItem implements CommandExecutor, TabCompleter {
                     for (int i = 0; i < amount; i++) {
                         specifiedPlayer.getInventory().addItem(item);
                     }
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_ITEM_GIVEN_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount))));
+                    commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_GIVEN_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount)))));
                 } else
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount))));
+                    commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount)))));
             } else {
-                commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_ITEM_INVALID_MSG.replaceAll("ITEMID", strings[0])));
+                commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_INVALID_MSG.replaceAll("ITEMID", strings[0]))));
             }
         } else {
-            commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.PLAYERS_ONLY_MSG));
+            commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
         }
         return true;
     }
