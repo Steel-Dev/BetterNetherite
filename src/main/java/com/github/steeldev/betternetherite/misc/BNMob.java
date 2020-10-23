@@ -204,35 +204,37 @@ public class BNMob {
         if (moveSpeed > 0)
             spawnedEnt.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(moveSpeed);
 
-        ItemChance mainHand = equipment.get(0);
-        if (mainHand != null) {
-            spawnedEnt.getEquipment().setItemInMainHand(mainHand.getItem(mainHand.damaged));
-            spawnedEnt.getEquipment().setItemInMainHandDropChance(mainHand.chanceF);
-        }
-        ItemChance offHand = equipment.get(1);
-        if (offHand != null) {
-            spawnedEnt.getEquipment().setItemInOffHand(offHand.getItem(offHand.damaged));
-            spawnedEnt.getEquipment().setItemInOffHandDropChance(offHand.chanceF);
-        }
-        ItemChance helmet = equipment.get(2);
-        if (helmet != null) {
-            spawnedEnt.getEquipment().setHelmet(helmet.getItem(helmet.damaged));
-            spawnedEnt.getEquipment().setHelmetDropChance(helmet.chanceF);
-        }
-        ItemChance chestplate = equipment.get(3);
-        if (chestplate != null) {
-            spawnedEnt.getEquipment().setChestplate(chestplate.getItem(chestplate.damaged));
-            spawnedEnt.getEquipment().setChestplateDropChance(chestplate.chanceF);
-        }
-        ItemChance leggings = equipment.get(4);
-        if (leggings != null) {
-            spawnedEnt.getEquipment().setLeggings(leggings.getItem(leggings.damaged));
-            spawnedEnt.getEquipment().setLeggingsDropChance(leggings.chanceF);
-        }
-        ItemChance boots = equipment.get(5);
-        if (boots != null) {
-            spawnedEnt.getEquipment().setBoots(boots.getItem(boots.damaged));
-            spawnedEnt.getEquipment().setBootsDropChance(boots.chanceF);
+        if(equipment != null) {
+            ItemChance mainHand = equipment.get(0);
+            if (mainHand != null) {
+                spawnedEnt.getEquipment().setItemInMainHand(mainHand.getItem(mainHand.damaged));
+                spawnedEnt.getEquipment().setItemInMainHandDropChance(mainHand.chanceF);
+            }
+            ItemChance offHand = equipment.get(1);
+            if (offHand != null) {
+                spawnedEnt.getEquipment().setItemInOffHand(offHand.getItem(offHand.damaged));
+                spawnedEnt.getEquipment().setItemInOffHandDropChance(offHand.chanceF);
+            }
+            ItemChance helmet = equipment.get(2);
+            if (helmet != null) {
+                spawnedEnt.getEquipment().setHelmet(helmet.getItem(helmet.damaged));
+                spawnedEnt.getEquipment().setHelmetDropChance(helmet.chanceF);
+            }
+            ItemChance chestplate = equipment.get(3);
+            if (chestplate != null) {
+                spawnedEnt.getEquipment().setChestplate(chestplate.getItem(chestplate.damaged));
+                spawnedEnt.getEquipment().setChestplateDropChance(chestplate.chanceF);
+            }
+            ItemChance leggings = equipment.get(4);
+            if (leggings != null) {
+                spawnedEnt.getEquipment().setLeggings(leggings.getItem(leggings.damaged));
+                spawnedEnt.getEquipment().setLeggingsDropChance(leggings.chanceF);
+            }
+            ItemChance boots = equipment.get(5);
+            if (boots != null) {
+                spawnedEnt.getEquipment().setBoots(boots.getItem(boots.damaged));
+                spawnedEnt.getEquipment().setBootsDropChance(boots.chanceF);
+            }
         }
 
         boolean ridingMob = false;

@@ -15,6 +15,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -64,6 +65,8 @@ public class CustomItemBase implements Listener {
         if (item == null) return;
         if (e.getHand() != EquipmentSlot.HAND) return;
         if (e.isCancelled()) return;
+        if(e.getAction() != Action.RIGHT_CLICK_BLOCK &&
+                e.getAction() != Action.RIGHT_CLICK_AIR) return;
         Player player = e.getPlayer();
         ItemStack useItem = e.getPlayer().getInventory().getItemInMainHand();
         if (useItem.getType().equals(Material.AIR)) return;
