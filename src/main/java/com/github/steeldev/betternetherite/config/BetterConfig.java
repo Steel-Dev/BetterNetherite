@@ -120,7 +120,7 @@ public class BetterConfig {
         NEW_UPDATE_MESSAGE_ON_RELOAD = config.getBoolean("UpdateCheck.MessageOnReload");
         ENABLE_NETHERITE_CRAFTING = config.getBoolean("NetheriteCrafting");
         IMPROVED_UPGRADING = config.getBoolean("ImprovedUpgrading.Enabled");
-        if(ENABLE_NETHERITE_CRAFTING && IMPROVED_UPGRADING){
+        if (ENABLE_NETHERITE_CRAFTING && IMPROVED_UPGRADING) {
             throw new WhyNoWorkException("Netherite Crafting and Improved Upgrading cannot both be true.");
         }
         ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED = config.getBoolean("AncientDebris.BetterSmelting.Enabled");

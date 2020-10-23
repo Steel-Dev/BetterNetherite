@@ -10,31 +10,31 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 
-public class KillAllBNMobs  implements CommandExecutor {
+public class KillAllBNMobs implements CommandExecutor {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if(commandSender instanceof Player) {
-            Player player = (Player)commandSender;
+        if (commandSender instanceof Player) {
+            Player player = (Player) commandSender;
             int entityAmount = 0;
 
-            for(LivingEntity entity : player.getWorld().getLivingEntities()){
-                if(entity.getCustomName() != null){
-                    if(entity.getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING)){
+            for (LivingEntity entity : player.getWorld().getLivingEntities()) {
+                if (entity.getCustomName() != null) {
+                    if (entity.getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING)) {
                         entity.remove();
                         entityAmount++;
                     }
                 }
             }
 
-            if(entityAmount == 0){
+            if (entityAmount == 0) {
                 commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOBS_KILL_FAILED_MSG));
                 return true;
             }
 
             commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOBS_KILLED_MSG.replaceAll("MOBAMOUNT", String.valueOf(entityAmount))));
-        }else{
+        } else {
             commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.PLAYERS_ONLY_MSG));
         }
         return true;

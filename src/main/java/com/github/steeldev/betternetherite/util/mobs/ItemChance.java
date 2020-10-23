@@ -1,113 +1,138 @@
 package com.github.steeldev.betternetherite.util.mobs;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
+import com.github.steeldev.betternetherite.misc.BNItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ItemChance {
+    public Material nItem;
+    public BNItem item;
+    public int maxAmount;
+    public int chance;
+    public float chanceF;
+    public boolean damaged;
     BetterNetherite main = BetterNetherite.getInstance();
 
-    public Material Item;
-    public int MaxAmount;
-    public int Chance;
-    public float ChanceF;
-    public String ItemName;
-    public List<String> ItemLore;
-    public boolean Damaged;
-
-    public ItemChance(Material item, int maxAmount, int chance){
-        this.Item = item;
-        this.MaxAmount = maxAmount;
-        this.Chance = chance;
+    public ItemChance(BNItem item, int chance) {
+        this.item = item;
+        this.chance = chance;
     }
 
-    public ItemChance(Material item, int maxAmount, int chance, boolean damaged){
-        this.Item = item;
-        this.MaxAmount = maxAmount;
-        this.Chance = chance;
-        this.Damaged = damaged;
+    public ItemChance(BNItem item, int chance, boolean damaged) {
+        this.item = item;
+        this.chance = chance;
+        this.damaged = damaged;
     }
 
-    public ItemChance(Material item, int maxAmount, int chance, String itemName, List<String> itemLore){
-        this.Item = item;
-        this.MaxAmount = maxAmount;
-        this.Chance = chance;
-        this.ItemName = itemName;
-        this.ItemLore = itemLore;
+    public ItemChance(BNItem item, int maxAmount, int chance) {
+        this.item = item;
+        this.maxAmount = maxAmount;
+        this.chance = chance;
     }
 
-    public ItemChance(Material item, int maxAmount, int chance, boolean damaged, String itemName, List<String> itemLore){
-        this.Item = item;
-        this.MaxAmount = maxAmount;
-        this.Chance = chance;
-        this.ItemName = itemName;
-        this.ItemLore = itemLore;
-        this.Damaged = damaged;
+    public ItemChance(BNItem item, int maxAmount, int chance, boolean damaged) {
+        this.item = item;
+        this.maxAmount = maxAmount;
+        this.chance = chance;
+        this.damaged = damaged;
     }
 
-    public ItemChance(Material item, int chance){
-        this.Item = item;
-        this.Chance = chance;
+    public ItemChance(BNItem item, float chance) {
+        this.item = item;
+        this.chanceF = chance;
     }
 
-    public ItemChance(Material item, float chance){
-        this.Item = item;
-        this.ChanceF = chance;
+    public ItemChance(BNItem item, float chance, boolean damaged) {
+        this.item = item;
+        this.chanceF = chance;
+        this.damaged = damaged;
     }
 
-    public ItemChance(Material item, float chance, boolean damaged){
-        this.Item = item;
-        this.ChanceF = chance;
-        this.Damaged = damaged;
+    public ItemChance(BNItem item, int maxAmount, float chance) {
+        this.item = item;
+        this.maxAmount = maxAmount;
+        this.chanceF = chance;
     }
 
-    public ItemChance(Material item, float chance, String itemName, List<String> itemLore){
-        this.Item = item;
-        this.ChanceF = chance;
-        this.ItemName = itemName;
-        this.ItemLore = itemLore;
+    public ItemChance(BNItem item, int maxAmount, float chance, boolean damaged) {
+        this.item = item;
+        this.maxAmount = maxAmount;
+        this.chanceF = chance;
+        this.damaged = damaged;
     }
 
-    public ItemChance(Material item, float chance, boolean damaged, String itemName, List<String> itemLore){
-        this.Item = item;
-        this.ChanceF = chance;
-        this.ItemName = itemName;
-        this.ItemLore = itemLore;
-        this.Damaged = damaged;
+
+    public ItemChance(Material item, int chance) {
+        this.nItem = item;
+        this.chance = chance;
     }
 
-    public ItemStack getItem(){
-        ItemStack returnItem = new ItemStack(Item);
+    public ItemChance(Material item, int chance, boolean damaged) {
+        this.nItem = item;
+        this.chance = chance;
+        this.damaged = damaged;
+    }
 
-        int maxAm = MaxAmount;
-        int finalAm = (maxAm > 1) ? main.rand.nextInt(maxAm) : 1;
-        if(finalAm < 1) finalAm = 1;
-        if(finalAm > 64) finalAm = 64;
+    public ItemChance(Material item, int maxAmount, int chance) {
+        this.nItem = item;
+        this.maxAmount = maxAmount;
+        this.chance = chance;
+    }
 
-        returnItem.setAmount(finalAm);
+    public ItemChance(Material item, int maxAmount, int chance, boolean damaged) {
+        this.nItem = item;
+        this.maxAmount = maxAmount;
+        this.chance = chance;
+        this.damaged = damaged;
+    }
 
-        ItemMeta returnItemMeta = (returnItem.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(Item) : returnItem.getItemMeta();
-        if(returnItemMeta instanceof Damageable) {
-            if (Damaged)
-                ((Damageable) returnItemMeta).setDamage(main.rand.nextInt(returnItem.getType().getMaxDurability() - 10));
-        }
-        if(ItemName != null && !ItemName.equals(""))
-            returnItemMeta.setDisplayName(main.colorize(ItemName));
-        if(ItemLore != null && ItemLore.size() > 0){
-            List<String> lore = new ArrayList<>();
-            for(String line : ItemLore){
-                lore.add(main.colorize(line));
+    public ItemChance(Material item, float chance) {
+        this.nItem = item;
+        this.chanceF = chance;
+    }
+
+    public ItemChance(Material item, float chance, boolean damaged) {
+        this.nItem = item;
+        this.chanceF = chance;
+        this.damaged = damaged;
+    }
+
+    public ItemChance(Material item, int maxAmount, float chance) {
+        this.nItem = item;
+        this.maxAmount = maxAmount;
+        this.chanceF = chance;
+    }
+
+    public ItemChance(Material item, int maxAmount, float chance, boolean damaged) {
+        this.nItem = item;
+        this.maxAmount = maxAmount;
+        this.chanceF = chance;
+        this.damaged = damaged;
+    }
+
+    public ItemStack getItem(boolean damaged) {
+        if (nItem != null) {
+            ItemStack customItem = new ItemStack(nItem);
+
+            ItemMeta customItemMeta = (customItem.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(nItem) : customItem.getItemMeta();
+
+            if (customItemMeta != null) {
+                if (damaged) {
+                    if (customItemMeta instanceof Damageable)
+                        ((Damageable) customItemMeta).setDamage(main.rand.nextInt(nItem.getMaxDurability() - 20));
+                }
+
+                customItem.setItemMeta(customItemMeta);
             }
-            returnItemMeta.setLore(lore);
-        }
-        returnItem.setItemMeta(returnItemMeta);
 
-        return returnItem;
+            return customItem;
+        } else if (item != null) {
+            return item.getItem(damaged);
+        }
+        return null;
     }
 }

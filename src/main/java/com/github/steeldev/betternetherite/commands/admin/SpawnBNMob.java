@@ -10,7 +10,10 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SpawnBNMob implements CommandExecutor, TabCompleter {
@@ -18,22 +21,20 @@ public class SpawnBNMob implements CommandExecutor, TabCompleter {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if(commandSender instanceof Player) {
+        if (commandSender instanceof Player) {
             BNMob specifiedMob = BNMobManager.getBNMob(strings[0]);
             if (specifiedMob != null) {
                 Player player = (Player) commandSender;
-                if(!player.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
+                if (!player.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
                     specifiedMob.spawnMob(player.getLocation(), null);
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_SPAWNED_MSG.replace("MOBNAME", specifiedMob.EntityName)));
+                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_SPAWNED_MSG.replace("MOBNAME", specifiedMob.entityName)));
+                } else {
+                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_SPAWN_FAILED_MSG.replaceAll("MOBNAME", specifiedMob.entityName)));
                 }
-                else{
-                    commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_SPAWN_FAILED_MSG.replaceAll("MOBNAME", specifiedMob.EntityName)));
-                }
-            }
-            else{
+            } else {
                 commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.CUSTOM_MOB_INVALID_MSG.replaceAll("MOBID", strings[0])));
             }
-        }else{
+        } else {
             commandSender.sendMessage(main.colorize(Lang.PREFIX + Lang.PLAYERS_ONLY_MSG));
         }
         return true;
@@ -41,6 +42,11 @@ public class SpawnBNMob implements CommandExecutor, TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        return BNMobManager.getValidMobList();
+        List<String> mobs = BNMobManager.getValidMobList();
+
+        final List<String> completions = new ArrayList<>();
+        StringUtil.copyPartialMatches(strings[0], mobs, completions);
+        Collections.sort(completions);
+        return completions;
     }
 }

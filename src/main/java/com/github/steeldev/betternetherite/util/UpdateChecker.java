@@ -22,12 +22,23 @@ public class UpdateChecker {
     int resourceID;
 
     public UpdateChecker(JavaPlugin plugin,
-                         int resourceID){
+                         int resourceID) {
         this.plugin = plugin;
         this.resourceID = resourceID;
     }
 
-    public void getVersion(final Consumer<String> consumer){
+    public static void sendNewUpdateMessageToPlayer(Player player) {
+        if (!player.isOp() && !player.hasPermission("betternetherite.admin")) return;
+
+        if (!main.outdated) return;
+
+        player.sendMessage(main.colorize(Lang.PREFIX + "&a&oA new version of &6&oBetter &7&oNetherite&a&o is available! &7&o(Current: " + main.getDescription().getVersion() + ", Latest: " + main.newVersion + ")"));
+        TextComponent link = new TextComponent(main.colorize("&6&lClick here to update"));
+        link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/better-netherite.84526"));
+        player.spigot().sendMessage(link);
+    }
+
+    public void getVersion(final Consumer<String> consumer) {
         Bukkit.getScheduler().runTaskAsynchronously(this.plugin, () -> {
             try (InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceID).openStream(); Scanner scanner = new Scanner(inputStream)) {
                 if (scanner.hasNext()) {
@@ -37,16 +48,5 @@ public class UpdateChecker {
                 this.plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
             }
         });
-    }
-
-    public static void sendNewUpdateMessageToPlayer(Player player){
-        if(!player.isOp() && !player.hasPermission("betternetherite.admin")) return;
-
-        if(!main.outdated) return;
-
-        player.sendMessage(main.colorize(Lang.PREFIX + "&a&oA new version of &6&oBetter &7&oNetherite&a&o is available! &7&o(Current: "+main.getDescription().getVersion()+", Latest: " + main.newVersion + ")"));
-        TextComponent link = new TextComponent(main.colorize("&6&lClick here to update"));
-        link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/better-netherite.84526"));
-        player.spigot().sendMessage(link);
     }
 }

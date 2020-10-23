@@ -54,32 +54,28 @@ public class SmithingTable implements Listener {
                     slot1Item.getType() == Material.AIR)
                 return;
 
-            if(slot0Item.getType().toString().contains("WOODEN")) {
+            if (slot0Item.getType().toString().contains("WOODEN")) {
                 upgradeRecipes = BetterConfig.UPGRADE_RECIPES_WOOD_TO_STONE;
                 matNeeded = Material.COBBLESTONE;
-            }
-            else if(slot0Item.getType().toString().contains("STONE")) {
+            } else if (slot0Item.getType().toString().contains("STONE")) {
                 upgradeRecipes = BetterConfig.UPGRADE_RECIPES_STONE_TO_IRON;
                 matNeeded = Material.IRON_INGOT;
-            }
-            else if(slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.DIAMOND)) {
+            } else if (slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.DIAMOND)) {
                 upgradeRecipes = BetterConfig.UPGRADE_RECIPES_IRON_TO_DIAMOND;
                 matNeeded = Material.DIAMOND;
-            }
-            else if(slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.GOLD_INGOT)){
+            } else if (slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.GOLD_INGOT)) {
                 upgradeRecipes = BetterConfig.UPGRADE_RECIPES_IRON_TO_GOLD;
                 matNeeded = Material.GOLD_INGOT;
-            }
-            else if(slot0Item.getType().toString().contains("DIAMOND")) {
+            } else if (slot0Item.getType().toString().contains("DIAMOND")) {
                 upgradeRecipes = BetterConfig.UPGRADE_RECIPES_DIAMOND_TO_NETHERITE;
                 matNeeded = Material.NETHERITE_INGOT;
             }
 
-            if(slot1Item.getType() != matNeeded)
+            if (slot1Item.getType() != matNeeded)
                 return;
-            if(upgradeRecipes == null)
+            if (upgradeRecipes == null)
                 return;
-            if(!upgradeRecipes.containsKey(String.valueOf(slot0Item.getType())))
+            if (!upgradeRecipes.containsKey(String.valueOf(slot0Item.getType())))
                 return;
 
             int ingotAmount = upgradeRecipes.get(String.valueOf(slot0Item.getType()));

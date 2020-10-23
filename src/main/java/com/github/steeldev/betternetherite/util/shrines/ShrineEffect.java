@@ -8,17 +8,17 @@ import org.bukkit.Sound;
 import java.util.List;
 
 public class ShrineEffect {
-    public ShrineEffectType ShrineEffectType;
-    public Sound UseSound;
-    public Sound BreakSound;
-    public Sound NoChargesSound;
-    public Effect BreakEffect;
-    public Particle BreakParticle;
-    public String EffectDisplay;
-    public String EffectResultDisplay;
-    public String EffectLoreDisplay;
-    public Particle ShrineUsedParticle;
-    public List<BNPotionEffect> PotionEffects;
+    public ShrineEffectType shrineEffectType;
+    public Sound useSound;
+    public Sound breakSound;
+    public Sound noChargesSound;
+    public Effect breakEffect;
+    public Particle breakParticle;
+    public String effectDisplay;
+    public String effectResultDisplay;
+    public String effectLoreDisplay;
+    public Particle shrineUsedParticle;
+    public List<BNPotionEffect> potionEffects;
 
     public ShrineEffect(ShrineEffectType shrineEffectType,
                         Sound useSound,
@@ -30,16 +30,16 @@ public class ShrineEffect {
                         String effectLoreDisplay,
                         String effectResultDisplay,
                         Particle shrineUsedParticle) {
-        this.ShrineEffectType = shrineEffectType;
-        this.BreakParticle = breakParticle;
-        this.UseSound = useSound;
-        this.BreakSound = breakSound;
-        this.NoChargesSound = noChargesSound;
-        this.BreakEffect = breakEffect;
-        this.EffectDisplay = effectDisplay;
-        this.EffectLoreDisplay = effectLoreDisplay;
-        this.EffectResultDisplay = effectResultDisplay;
-        this.ShrineUsedParticle = shrineUsedParticle;
+        this.shrineEffectType = shrineEffectType;
+        this.breakParticle = breakParticle;
+        this.useSound = useSound;
+        this.breakSound = breakSound;
+        this.noChargesSound = noChargesSound;
+        this.breakEffect = breakEffect;
+        this.effectDisplay = effectDisplay;
+        this.effectLoreDisplay = effectLoreDisplay;
+        this.effectResultDisplay = effectResultDisplay;
+        this.shrineUsedParticle = shrineUsedParticle;
     }
 
     public ShrineEffect(ShrineEffectType shrineEffectType,
@@ -50,16 +50,16 @@ public class ShrineEffect {
                         Particle breakParticle,
                         String effectDisplay,
                         String effectResultDisplay,
-                        Particle shrineUsedParticle){
-        this.ShrineEffectType = shrineEffectType;
-        this.BreakParticle = breakParticle;
-        this.UseSound = useSound;
-        this.BreakSound = breakSound;
-        this.NoChargesSound = noChargesSound;
-        this.BreakEffect = breakEffect;
-        this.EffectDisplay = effectDisplay;
-        this.EffectResultDisplay = effectResultDisplay;
-        this.ShrineUsedParticle = shrineUsedParticle;
+                        Particle shrineUsedParticle) {
+        this.shrineEffectType = shrineEffectType;
+        this.breakParticle = breakParticle;
+        this.useSound = useSound;
+        this.breakSound = breakSound;
+        this.noChargesSound = noChargesSound;
+        this.breakEffect = breakEffect;
+        this.effectDisplay = effectDisplay;
+        this.effectResultDisplay = effectResultDisplay;
+        this.shrineUsedParticle = shrineUsedParticle;
     }
 
     public ShrineEffect(ShrineEffectType shrineEffectType,
@@ -71,16 +71,16 @@ public class ShrineEffect {
                         String effectDisplay,
                         String effectResultDisplay,
                         Particle shrineUsedParticle,
-                        List<BNPotionEffect> potionEffects){
-        this.ShrineEffectType = shrineEffectType;
-        this.BreakParticle = breakParticle;
-        this.UseSound = useSound;
-        this.BreakSound = breakSound;
-        this.NoChargesSound = noChargesSound;
-        this.BreakEffect = breakEffect;
-        this.EffectDisplay = effectDisplay;
-        this.EffectResultDisplay = effectResultDisplay;
-        this.ShrineUsedParticle = shrineUsedParticle;
-        this.PotionEffects = potionEffects;
+                        List<BNPotionEffect> potionEffects) {
+        this.shrineEffectType = shrineEffectType;
+        this.breakParticle = breakParticle;
+        this.useSound = useSound;
+        this.breakSound = breakSound;
+        this.noChargesSound = noChargesSound;
+        this.breakEffect = breakEffect;
+        this.effectDisplay = effectDisplay;
+        this.effectResultDisplay = effectResultDisplay;
+        this.shrineUsedParticle = shrineUsedParticle;
+        this.potionEffects = potionEffects;
     }
 }

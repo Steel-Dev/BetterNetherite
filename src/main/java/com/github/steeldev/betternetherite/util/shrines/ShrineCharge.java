@@ -5,15 +5,15 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 
 public class ShrineCharge {
-    public Sound UsedSound;
-    public Material ChargeMaterial;
-    public Particle UsedParticle;
+    public Sound usedSound;
+    public Material chargeMaterial;
+    public Particle usedParticle;
 
     public ShrineCharge(Sound usedSound,
                         Material chargeMaterial,
-                        Particle usedParticle){
-        this.UsedSound = usedSound;
-        this.ChargeMaterial = chargeMaterial;
-        this.UsedParticle = usedParticle;
+                        Particle usedParticle) {
+        this.usedSound = usedSound;
+        this.chargeMaterial = chargeMaterial;
+        this.usedParticle = usedParticle;
     }
 }

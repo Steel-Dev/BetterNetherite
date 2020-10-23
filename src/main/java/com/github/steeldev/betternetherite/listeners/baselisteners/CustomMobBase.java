@@ -20,63 +20,70 @@ import org.bukkit.persistence.PersistentDataType;
 public class CustomMobBase implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
     BNMob mob;
-    public CustomMobBase(String mobID){
+
+    public CustomMobBase(String mobID) {
         this.mob = BNMobManager.getBNMob(mobID);
     }
 
     @EventHandler
-    public void customMobSpawn(EntitySpawnEvent e){
+    public void customMobSpawn(EntitySpawnEvent e) {
         World world = e.getLocation().getWorld();
-        if(mob == null) return;
-        if(world == null) return;
-        if(!mob.ValidSpawnWorlds.contains(world.getEnvironment())) return;
-        if(e.getEntity().getCustomName() != null) return;
-        if(!mob.EntityToReplace.contains(e.getEntityType())) return;
+        if (mob == null) return;
+        if (world == null) return;
+        if (mob.validSpawnWorlds == null || !mob.validSpawnWorlds.contains(world.getEnvironment())) return;
+        if (e.getEntity().getCustomName() != null) return;
+        if (mob.entityToReplace == null || mob.entityToReplace.size() < 1 || !mob.entityToReplace.contains(e.getEntityType()))
+            return;
 
 
-        if(main.chanceOf(mob.SpawnChance))
+        if (main.chanceOf(mob.spawnChance))
             mob.spawnMob(e.getLocation(), (LivingEntity) e.getEntity());
     }
 
     @EventHandler
-    public void customMobDeath(EntityDeathEvent e){
-        if(mob == null) return;
-        if(!e.getEntityType().equals(mob.BaseEntity)) return;
-        if(e.getEntity().getCustomName() == null) return;
-        if(!e.getEntity().getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING)) return;
-        if(!ChatColor.stripColor(e.getEntity().getCustomName()).equals(mob.getUncoloredName())) return;
+    public void customMobDeath(EntityDeathEvent e) {
+        if (mob == null) return;
+        if (!e.getEntityType().equals(mob.baseEntity)) return;
+        if (e.getEntity().getCustomName() == null) return;
+        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING)) return;
+        if (!ChatColor.stripColor(e.getEntity().getCustomName()).equals(mob.getUncoloredName())) return;
 
-        if(mob.DropsToRemove != null && mob.DropsToRemove.size() > 0)
-            e.getDrops().removeIf(item -> mob.DropsToRemove.contains(item.getType()));
+        if (mob.dropsToRemove != null && mob.dropsToRemove.size() > 0)
+            e.getDrops().removeIf(item -> mob.dropsToRemove.contains(item.getType()));
 
-        for(ItemChance entry : mob.Drops){
-            if(main.chanceOf(entry.Chance)) {
-                ItemStack dropItem = entry.getItem();
-                e.getDrops().add(dropItem);
+        if (mob.drops != null && mob.drops.size() > 0) {
+            for (ItemChance entry : mob.drops) {
+                if (main.chanceOf(entry.chance)) {
+                    ItemStack dropItem = entry.getItem(entry.damaged);
+                    e.getDrops().add(dropItem);
+                }
             }
         }
-        e.setDroppedExp(main.rand.nextInt(mob.DeathEXP));
+        e.setDroppedExp(main.rand.nextInt(mob.deathEXP));
 
-        if(!mob.ExplosionOnDeathInfo.Enabled) return;
-        if(main.chanceOf(mob.ExplosionOnDeathInfo.Chance))
-            e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), mob.ExplosionOnDeathInfo.Size, mob.ExplosionOnDeathInfo.CreatesFire);
+        if (mob.explosionOnDeathInfo == null) return;
+        if (!mob.explosionOnDeathInfo.enabled) return;
+        if (main.chanceOf(mob.explosionOnDeathInfo.chance))
+            e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), mob.explosionOnDeathInfo.size, mob.explosionOnDeathInfo.createsFire);
     }
 
     @EventHandler
     public void customMobDamageEntity(EntityDamageByEntityEvent e) {
         if (mob == null) return;
-        if (!e.getDamager().getType().equals(mob.BaseEntity)) return;
-        if(e.getDamager().getCustomName() == null) return;
-        if(!e.getEntity().getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING)) return;
-        if(!ChatColor.stripColor(e.getDamager().getCustomName()).equals(mob.getUncoloredName())) return;
+        if (!e.getDamager().getType().equals(mob.baseEntity)) return;
+        if (e.getDamager().getCustomName() == null) return;
+        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING)) return;
+        if (!ChatColor.stripColor(e.getDamager().getCustomName()).equals(mob.getUncoloredName())) return;
 
         if (e.getEntity() instanceof LivingEntity) {
-            for(BNPotionEffect entry : mob.BNPotionEffectsInfo){
-                LivingEntity victim = (LivingEntity) e.getEntity();
-                if(main.chanceOf(entry.Chance)) {
-                    victim.addPotionEffect(entry.getPotionEffect(), false);
-                    if(BetterConfig.DEBUG)
-                        main.getLogger().info(main.colorize(String.format("&aCustom Mob &6%s &cinflicted &e%s &cwith &4%s&c!", mob.getUncoloredName(), victim.getName(), entry.Effect)));
+            if (mob.hitEffects != null && mob.hitEffects.size() > 0) {
+                for (BNPotionEffect entry : mob.hitEffects) {
+                    LivingEntity victim = (LivingEntity) e.getEntity();
+                    if (main.chanceOf(entry.chance)) {
+                        victim.addPotionEffect(entry.getPotionEffect(), false);
+                        if (BetterConfig.DEBUG)
+                            main.getLogger().info(main.colorize(String.format("&aCustom Mob &6%s &cinflicted &e%s &cwith &4%s&c!", mob.getUncoloredName(), victim.getName(), entry.effect)));
+                    }
                 }
             }
         }

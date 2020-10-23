@@ -16,8 +16,8 @@ public class BetterNetheriteReload implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         main.loadCustomConfigs();
         commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, "&aSuccessfully reloaded all configurations! &c&oWarning: A lot of systems require a server restart!")));
-        if(commandSender instanceof Player) {
-            if(BetterConfig.NEW_UPDATE_MESSAGE_ON_RELOAD)
+        if (commandSender instanceof Player) {
+            if (BetterConfig.NEW_UPDATE_MESSAGE_ON_RELOAD)
                 UpdateChecker.sendNewUpdateMessageToPlayer((Player) commandSender);
         }
         return true;

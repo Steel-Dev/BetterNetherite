@@ -33,6 +33,12 @@ public class Lang {
     public static String CUSTOM_MOBS_KILL_FAILED_MSG;
     public static String CUSTOM_MOB_REGISTERED_MSG;
 
+    public static String CUSTOM_ITEM_GIVEN_MSG;
+    public static String CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG;
+    public static String CUSTOM_ITEM_INVALID_MSG;
+
+    public static String INVALID_PLAYER_MSG;
+
     private final BetterNetherite plugin;
     private FileConfiguration lang;
     private File langFile;
@@ -107,5 +113,11 @@ public class Lang {
         CUSTOM_MOBS_KILLED_MSG = lang.getString("BNMobsKilled");
         CUSTOM_MOBS_KILL_FAILED_MSG = lang.getString("NoBNMobsSpawned");
         CUSTOM_MOB_REGISTERED_MSG = lang.getString("BNMobRegistered");
+
+        CUSTOM_ITEM_GIVEN_MSG = lang.getString("BNItemGivenMsg");
+        CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG = lang.getString("BNInventoryFullMsg");
+        CUSTOM_ITEM_INVALID_MSG = lang.getString("BNItemInvalidMsg");
+
+        INVALID_PLAYER_MSG = lang.getString("PlayerNotOnline");
     }
 }

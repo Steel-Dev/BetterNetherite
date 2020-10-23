@@ -9,14 +9,14 @@ import java.util.List;
 
 public class BNShrine {
 
-    public String Key;
-    public String Display;
-    public ShrineCore Core;
-    public ShrineCharge Charge;
-    public ShrineEffect Effect;
-    public List<World.Environment> ValidUseWorlds;
-    public int ExplodeChance;
-    public boolean RequiresValidItems;
+    public String key;
+    public String display;
+    public ShrineCore core;
+    public ShrineCharge charge;
+    public ShrineEffect effect;
+    public List<World.Environment> validUseWorlds;
+    public int explodeChance;
+    public boolean requiresValidItems;
 
     public BNShrine(String key,
                     String display,
@@ -25,14 +25,14 @@ public class BNShrine {
                     ShrineEffect effect,
                     List<World.Environment> validUseWorlds,
                     int explodeChance,
-                    boolean requiresValidItems){
-        this.Key = key;
-        this.Display = display;
-        this.Core = core;
-        this.Charge = charge;
-        this.Effect = effect;
-        this.ValidUseWorlds = validUseWorlds;
-        this.ExplodeChance = explodeChance;
-        this.RequiresValidItems = requiresValidItems;
+                    boolean requiresValidItems) {
+        this.key = key;
+        this.display = display;
+        this.core = core;
+        this.charge = charge;
+        this.effect = effect;
+        this.validUseWorlds = validUseWorlds;
+        this.explodeChance = explodeChance;
+        this.requiresValidItems = requiresValidItems;
     }
 }

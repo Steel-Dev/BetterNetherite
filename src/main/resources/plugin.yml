@@ -20,6 +20,11 @@ commands:
     aliases: killallbnmobs
     permission: betternetherite.admin
     permission-message: You dont have permission to use this command.
+  givebetternetheriteitem:
+    description: Give yourself the specified custom item.
+    aliases: givebnitem
+    permission: betternetherite.admin
+    permission-message: You dont have permission to use this command.
 permissions:
   betternetherite.admin:
     description: Allows the user administrator permissions for Better Netherite.

@@ -3,19 +3,19 @@ package com.github.steeldev.betternetherite.util.misc;
 import org.bukkit.potion.PotionEffectType;
 
 public class BNPotionEffect {
-    public PotionEffectType Effect;
-    public int Chance;
-    public int Amplifier;
-    public int Duration;
+    public PotionEffectType effect;
+    public int chance;
+    public int amplifier;
+    public int duration;
 
-    public BNPotionEffect(PotionEffectType effect, int chance, int amplifier, int duration){
-        this.Effect = effect;
-        this.Chance = chance;
-        this.Amplifier = amplifier;
-        this.Duration = duration;
+    public BNPotionEffect(PotionEffectType effect, int chance, int amplifier, int duration) {
+        this.effect = effect;
+        this.chance = chance;
+        this.amplifier = amplifier;
+        this.duration = duration;
     }
 
-    public org.bukkit.potion.PotionEffect getPotionEffect(){
-        return new org.bukkit.potion.PotionEffect(Effect, Duration, Amplifier);
+    public org.bukkit.potion.PotionEffect getPotionEffect() {
+        return new org.bukkit.potion.PotionEffect(effect, duration, amplifier);
     }
 }

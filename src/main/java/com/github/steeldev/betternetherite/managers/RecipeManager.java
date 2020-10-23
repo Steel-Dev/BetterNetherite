@@ -18,14 +18,23 @@ public class RecipeManager {
         if (BetterConfig.ENABLE_NETHERITE_CRAFTING &&
                 !BetterConfig.IMPROVED_UPGRADING)
             registerNetheriteItems();
-        if(BetterConfig.IMPROVED_UPGRADING &&
+        if (BetterConfig.IMPROVED_UPGRADING &&
                 !BetterConfig.ENABLE_NETHERITE_CRAFTING)
             registerImprovedUpgradingSmithingTableItems();
         if (BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
             registerBetterNetheriteScrapSmelting();
+
+        registerCustomItemRecipes();
     }
 
-    static void registerImprovedUpgradingSmithingTableItems(){
+    static void registerCustomItemRecipes() {
+        if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
+            addSmeltingRecipe("furnace_hound_meat", SmeltType.FURNACE, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("hound_meat").getItem(false)), 2, 130);
+            addSmeltingRecipe("smoker_hound_meat", SmeltType.SMOKER, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("hound_meat").getItem(false)), 4, 100);
+        }
+    }
+
+    static void registerImprovedUpgradingSmithingTableItems() {
         // Wood to Stone
         addSmithingRecipe("wood_to_stone_sword_smithing",
                 new ItemStack(Material.STONE_SWORD),
@@ -47,7 +56,7 @@ public class RecipeManager {
                 new ItemStack(Material.STONE_PICKAXE),
                 Material.WOODEN_PICKAXE,
                 new ItemStack(Material.COBBLESTONE));
-        
+
         // Stone to Iron
         addSmithingRecipe("stone_to_iron_sword_smithing",
                 new ItemStack(Material.IRON_SWORD),
@@ -69,7 +78,7 @@ public class RecipeManager {
                 new ItemStack(Material.IRON_PICKAXE),
                 Material.STONE_PICKAXE,
                 new ItemStack(Material.IRON_INGOT));
-        
+
         // Iron to Gold
         addSmithingRecipe("iron_to_gold_sword_smithing",
                 new ItemStack(Material.GOLDEN_SWORD),
@@ -156,9 +165,10 @@ public class RecipeManager {
                 Material.NETHERITE_SWORD,
                 1,
                 Arrays.asList(" N ", " N ", " S "),
-                new HashMap<Character, Material>(){{
+                new HashMap<Character, Material>() {{
                     put('N', Material.NETHERITE_INGOT);
-                    put('S', Material.STICK);}});
+                    put('S', Material.STICK);
+                }});
         //
         //NETHERITE AXE
         //
@@ -167,17 +177,19 @@ public class RecipeManager {
                 Material.NETHERITE_AXE,
                 1,
                 Arrays.asList("NN ", "NS ", " S "),
-                new HashMap<Character, Material>(){{
+                new HashMap<Character, Material>() {{
                     put('N', Material.NETHERITE_INGOT);
-                    put('S', Material.STICK);}});
+                    put('S', Material.STICK);
+                }});
         addCraftingRecipe("netherite_axe_flip",
                 true,
                 Material.NETHERITE_AXE,
                 1,
                 Arrays.asList(" NN", " SN", " S "),
-                new HashMap<Character, Material>(){{
+                new HashMap<Character, Material>() {{
                     put('N', Material.NETHERITE_INGOT);
-                    put('S', Material.STICK);}});
+                    put('S', Material.STICK);
+                }});
         //
         //NETHERITE SHOVEL
         //
@@ -186,9 +198,10 @@ public class RecipeManager {
                 Material.NETHERITE_SHOVEL,
                 1,
                 Arrays.asList(" N ", " S ", " S "),
-                new HashMap<Character, Material>(){{
+                new HashMap<Character, Material>() {{
                     put('N', Material.NETHERITE_INGOT);
-                    put('S', Material.STICK);}});
+                    put('S', Material.STICK);
+                }});
         //
         //NETHERITE PICKAXE
         //
@@ -197,9 +210,10 @@ public class RecipeManager {
                 Material.NETHERITE_PICKAXE,
                 1,
                 Arrays.asList("NNN", " S ", " S "),
-                new HashMap<Character, Material>(){{
+                new HashMap<Character, Material>() {{
                     put('N', Material.NETHERITE_INGOT);
-                    put('S', Material.STICK);}});
+                    put('S', Material.STICK);
+                }});
         //
         //NETHERITE HOE
         //
@@ -208,9 +222,10 @@ public class RecipeManager {
                 Material.NETHERITE_HOE,
                 1,
                 Arrays.asList("NN ", " S ", " S "),
-                new HashMap<Character, Material>(){{
+                new HashMap<Character, Material>() {{
                     put('N', Material.NETHERITE_INGOT);
-                    put('S', Material.STICK);}});
+                    put('S', Material.STICK);
+                }});
         //
         //NETHERITE HELMET
         //
@@ -219,8 +234,9 @@ public class RecipeManager {
                 Material.NETHERITE_HELMET,
                 1,
                 Arrays.asList("NNN", "N N", "   "),
-                new HashMap<Character, Material>(){{
-                    put('N', Material.NETHERITE_INGOT);}});
+                new HashMap<Character, Material>() {{
+                    put('N', Material.NETHERITE_INGOT);
+                }});
         //
         //NETHERITE CHESTPLATE
         //
@@ -229,8 +245,9 @@ public class RecipeManager {
                 Material.NETHERITE_CHESTPLATE,
                 1,
                 Arrays.asList("N N", "NNN", "NNN"),
-                new HashMap<Character, Material>(){{
-                    put('N', Material.NETHERITE_INGOT);}});
+                new HashMap<Character, Material>() {{
+                    put('N', Material.NETHERITE_INGOT);
+                }});
         //
         //NETHERITE LEGGINGS
         //
@@ -239,8 +256,9 @@ public class RecipeManager {
                 Material.NETHERITE_LEGGINGS,
                 1,
                 Arrays.asList("NNN", "N N", "N N"),
-                new HashMap<Character, Material>(){{
-                    put('N', Material.NETHERITE_INGOT);}});
+                new HashMap<Character, Material>() {{
+                    put('N', Material.NETHERITE_INGOT);
+                }});
         //
         //NETHERITE BOOTS
         //
@@ -249,22 +267,23 @@ public class RecipeManager {
                 Material.NETHERITE_BOOTS,
                 1,
                 Arrays.asList("   ", "N N", "N N"),
-                new HashMap<Character, Material>(){{
-                    put('N', Material.NETHERITE_INGOT);}});
+                new HashMap<Character, Material>() {{
+                    put('N', Material.NETHERITE_INGOT);
+                }});
     }
 
     static void registerBetterNetheriteScrapSmelting() {
         removeRecipe("minecraft:netherite_scrap");
         removeRecipe("minecraft:netherite_scrap_from_blasting");
         addSmeltingRecipe("netherite_scrap",
-                false,
+                SmeltType.FURNACE,
                 Material.NETHERITE_SCRAP,
                 BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
                 Material.ANCIENT_DEBRIS,
                 BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP,
                 BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME);
         addSmeltingRecipe("netherite_scrap_from_blasting",
-                true,
+                SmeltType.BLASTING,
                 Material.NETHERITE_SCRAP,
                 BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
                 Material.ANCIENT_DEBRIS,
@@ -272,13 +291,13 @@ public class RecipeManager {
                 BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME);
     }
 
-    static void addSmithingRecipe(String key, ItemStack result, Material baseMat, ItemStack itemNeeded){
+    static void addSmithingRecipe(String key, ItemStack result, Material baseMat, ItemStack itemNeeded) {
         NamespacedKey smithingRecKey = new NamespacedKey(main, key);
-        SmithingRecipe smithingRec = new SmithingRecipe(smithingRecKey,result,new RecipeChoice.MaterialChoice(baseMat), new RecipeChoice.ExactChoice(itemNeeded));
+        SmithingRecipe smithingRec = new SmithingRecipe(smithingRecKey, result, new RecipeChoice.MaterialChoice(baseMat), new RecipeChoice.ExactChoice(itemNeeded));
         addRecipe(smithingRec);
     }
 
-    static void addSmeltingRecipe(String key, boolean blasting, Material result, int resultAmount, Material smelted, int EXP, int time){
+    static void addSmeltingRecipe(String key, SmeltType type, Material result, int resultAmount, Material smelted, int EXP, int time) {
         NamespacedKey smeltingRecKey = new NamespacedKey(main, key);
         int am = resultAmount;
         if (am > 64) am = 64;
@@ -287,15 +306,51 @@ public class RecipeManager {
 
         Recipe recToAdd;
 
-        if (blasting)
-            recToAdd = new BlastingRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
-        else
-            recToAdd = new FurnaceRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+        switch (type) {
+            case FURNACE:
+                recToAdd = new FurnaceRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+                break;
+            case BLASTING:
+                recToAdd = new BlastingRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+                break;
+            case SMOKER:
+                recToAdd = new SmokingRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
 
         addRecipe(recToAdd);
     }
 
-    static void addCraftingRecipe(String key, boolean shaped, Material result, int resultAmount, List<String> rows, Map<Character, Material> ingredients){
+    static void addSmeltingRecipe(String key, SmeltType type, RecipeChoice result, int resultAmount, RecipeChoice smelted, int EXP, int time) {
+        NamespacedKey smeltingRecKey = new NamespacedKey(main, key);
+        int am = resultAmount;
+        if (am > 64) am = 64;
+        if (am < 1) am = 1;
+        ItemStack resultItem = result.getItemStack();
+        resultItem.setAmount(am);
+
+        Recipe recToAdd;
+
+        switch (type) {
+            case FURNACE:
+                recToAdd = new FurnaceRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+                break;
+            case BLASTING:
+                recToAdd = new BlastingRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+                break;
+            case SMOKER:
+                recToAdd = new SmokingRecipe(smeltingRecKey, resultItem, smelted, EXP, time);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + type);
+        }
+
+        addRecipe(recToAdd);
+    }
+
+    static void addCraftingRecipe(String key, boolean shaped, Material result, int resultAmount, List<String> rows, Map<Character, Material> ingredients) {
         NamespacedKey craftingRecKey = new NamespacedKey(main, key);
         int am = resultAmount;
         if (am > 64) am = 64;
@@ -304,27 +359,26 @@ public class RecipeManager {
 
         Recipe recToAdd;
 
-        if(shaped) {
+        if (shaped) {
             recToAdd = new ShapedRecipe(craftingRecKey, resultItem);
-            ((ShapedRecipe)recToAdd).shape(rows.get(0),rows.get(1),rows.get(2));
-            for (Character ingKey: ingredients.keySet()) {
-                ((ShapedRecipe)recToAdd).setIngredient(ingKey,ingredients.get(ingKey));
+            ((ShapedRecipe) recToAdd).shape(rows.get(0), rows.get(1), rows.get(2));
+            for (Character ingKey : ingredients.keySet()) {
+                ((ShapedRecipe) recToAdd).setIngredient(ingKey, ingredients.get(ingKey));
             }
-        }
-        else{
+        } else {
             recToAdd = new ShapelessRecipe(craftingRecKey, resultItem);
-            for (Character ingKey: ingredients.keySet()) {
-                ((ShapelessRecipe)recToAdd).addIngredient(ingredients.get(ingKey));
+            for (Character ingKey : ingredients.keySet()) {
+                ((ShapelessRecipe) recToAdd).addIngredient(ingredients.get(ingKey));
             }
         }
 
         addRecipe(recToAdd);
     }
 
-    public static void addRecipe(Recipe recipe){
+    public static void addRecipe(Recipe recipe) {
         Bukkit.addRecipe(recipe);
-        if(BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize("&aRecipe &e"+((Keyed)recipe).getKey()+"&a has been &2added."));
+        if (BetterConfig.DEBUG)
+            main.getLogger().info(main.colorize("&aRecipe &e" + ((Keyed) recipe).getKey() + "&a has been &2added."));
     }
 
     public static void removeRecipe(String key) {
@@ -333,11 +387,17 @@ public class RecipeManager {
             Recipe rec = it.next();
             if (rec != null) {
                 if (((Keyed) rec).getKey().toString().equals(key)) {
-                    if(BetterConfig.DEBUG)
-                        main.getLogger().info(main.colorize("&aRecipe &e"+key+"&a has been &cremoved."));
+                    if (BetterConfig.DEBUG)
+                        main.getLogger().info(main.colorize("&aRecipe &e" + key + "&a has been &cremoved."));
                     it.remove();
                 }
             }
         }
+    }
+
+    enum SmeltType {
+        FURNACE,
+        SMOKER,
+        BLASTING
     }
 }

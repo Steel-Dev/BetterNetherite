@@ -17,43 +17,43 @@ public class ReinforcedItem implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @EventHandler
-    public void reinforcedItemDamage(PlayerItemDamageEvent e){
+    public void reinforcedItemDamage(PlayerItemDamageEvent e) {
         Player player = e.getPlayer();
-        if(player.getGameMode() != GameMode.SURVIVAL &&
+        if (player.getGameMode() != GameMode.SURVIVAL &&
                 player.getGameMode() != GameMode.ADVENTURE)
             return;
         ItemStack tool = e.getItem();
-        if(tool.getType() == Material.AIR)
+        if (tool.getType() == Material.AIR)
             return;
 
         NBTItem toolNBT = new NBTItem(tool);
 
-        if(!toolNBT.hasKey("netherite_reinforced"))
+        if (!toolNBT.hasKey("netherite_reinforced"))
             return;
 
-        if(!main.chanceOf(BetterConfig.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
+        if (!main.chanceOf(BetterConfig.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
             e.setCancelled(true);
     }
 
     @EventHandler
-    public void reinforcedItemAttack(EntityDamageByEntityEvent e){
-        if(e.getDamager() instanceof Player && e.getEntity() instanceof LivingEntity) {
+    public void reinforcedItemAttack(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Player && e.getEntity() instanceof LivingEntity) {
             Player player = (Player) e.getDamager();
-            if(player.getGameMode() != GameMode.SURVIVAL &&
+            if (player.getGameMode() != GameMode.SURVIVAL &&
                     player.getGameMode() != GameMode.ADVENTURE)
                 return;
             LivingEntity entity = (LivingEntity) e.getEntity();
 
             ItemStack tool = player.getInventory().getItemInMainHand();
-            if(tool.getType() == Material.AIR)
+            if (tool.getType() == Material.AIR)
                 return;
 
             NBTItem toolNBT = new NBTItem(tool);
 
-            if(!toolNBT.hasKey("netherite_reinforced"))
+            if (!toolNBT.hasKey("netherite_reinforced"))
                 return;
 
-            if(main.chanceOf(BetterConfig.REINFORCED_ITEM_EXTRA_DMG_CHANCE))
+            if (main.chanceOf(BetterConfig.REINFORCED_ITEM_EXTRA_DMG_CHANCE))
                 entity.damage(BetterConfig.REINFORCED_ITEM_DAMAGE_INCREASE);
         }
     }

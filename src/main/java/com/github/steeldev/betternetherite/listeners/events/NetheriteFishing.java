@@ -25,7 +25,7 @@ public class NetheriteFishing implements Listener {
         if (e.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
             boolean gotNewItem = false;
             if (e.getCaught() != null) {
-                ItemStack caught = ((Item)e.getCaught()).getItemStack();
+                ItemStack caught = ((Item) e.getCaught()).getItemStack();
                 if (!caught.getType().equals(Material.COD) &&
                         !caught.getType().equals(Material.TROPICAL_FISH) &&
                         !caught.getType().equals(Material.SALMON) &&
@@ -35,14 +35,14 @@ public class NetheriteFishing implements Listener {
 
                         int maxAm = Integer.parseInt(lootEntrySplit.get(1));
                         int finalAm = (maxAm > 1) ? main.rand.nextInt(maxAm) : 1;
-                        if(finalAm < 1) finalAm = 1;
-                        if(finalAm > 64) finalAm = 64;
+                        if (finalAm < 1) finalAm = 1;
+                        if (finalAm > 64) finalAm = 64;
 
                         ItemStack lootItem = new ItemStack(Material.valueOf(lootEntrySplit.get(0)), finalAm);
                         ItemMeta lootItemMeta = (lootItem.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(lootItem.getType()) : lootItem.getItemMeta();
 
-                        if(lootItemMeta instanceof Damageable)
-                            ((Damageable)lootItemMeta).setDamage(main.rand.nextInt(lootItem.getType().getMaxDurability()-20));
+                        if (lootItemMeta instanceof Damageable)
+                            ((Damageable) lootItemMeta).setDamage(main.rand.nextInt(lootItem.getType().getMaxDurability() - 20));
 
                         lootItem.setItemMeta(lootItemMeta);
 
@@ -53,7 +53,7 @@ public class NetheriteFishing implements Listener {
                                 caught.setItemMeta(lootItem.getItemMeta());
                                 caught.setType(lootItem.getType());
                                 caught.setAmount(lootItem.getAmount());
-                                ((Item)e.getCaught()).setItemStack(caught);
+                                ((Item) e.getCaught()).setItemStack(caught);
                                 gotNewItem = true;
                             }
                         }
