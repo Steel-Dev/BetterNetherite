@@ -3,7 +3,6 @@ package com.github.steeldev.betternetherite.config;
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.util.WhyNoWorkException;
 import org.bukkit.Material;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -67,12 +66,28 @@ public class BetterConfig {
     public static List<String> NETHERITE_FISH_TREASURE_LOOT;
 
     //Mobs
+    public static int CUSTOM_MOB_CAP;
+
     public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
+    public static int CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE;
+
     public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED;
+    public static int CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE;
+
     public static boolean CUSTOM_MOB_HELLHOUND_ENABLED;
+    public static int CUSTOM_MOB_HELLHOUND_SPAWNCHANCE;
+
     public static boolean CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED;
+    public static int CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE;
+
     public static boolean CUSTOM_MOB_LOST_SOUL_ENABLED;
+    public static int CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE;
+
     public static boolean CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED;
+    public static int CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE;
+
+    public static boolean CUSTOM_MOB_TANK_ENABLED;
+    public static int CUSTOM_MOB_TANK_SPAWNCHANCE;
 
     private final BetterNetherite plugin;
     private FileConfiguration config;
@@ -155,12 +170,29 @@ public class BetterConfig {
         NETHERITE_FISH_TREASURE_ENABLED = config.getBoolean("NetheriteFishing.Enabled");
         NETHERITE_FISH_TREASURE_LOOT = config.getStringList("NetheriteFishing.Loot");
 
+        CUSTOM_MOB_CAP = config.getInt("CustomMobs.MobCap");
+
         CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauder.Enabled");
+        CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteMarauder.SpawnChance");
+
         CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauderBrute.Enabled");
+        CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteMarauderBrute.SpawnChance");
+
         CUSTOM_MOB_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.Hellhound.Enabled");
+        CUSTOM_MOB_HELLHOUND_SPAWNCHANCE = config.getInt("CustomMobs.Hellhound.SpawnChance");
+
         CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.AlphaHellhound.Enabled");
+        CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE = config.getInt("CustomMobs.AlphaHellhound.SpawnChance");
+
         CUSTOM_MOB_LOST_SOUL_ENABLED = config.getBoolean("CustomMobs.LostSoul.Enabled");
+        CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE = config.getInt("CustomMobs.LostSoul.SpawnChance");
+
         CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED = config.getBoolean("CustomMobs.ZombifiedDemon.Enabled");
+        CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE = config.getInt("CustomMobs.ZombifiedDemon.SpawnChance");
+
+        CUSTOM_MOB_TANK_ENABLED = config.getBoolean("CustomMobs.Tank.Enabled");
+        CUSTOM_MOB_TANK_SPAWNCHANCE = config.getInt("CustomMobs.Tank.SpawnChance");
+
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");

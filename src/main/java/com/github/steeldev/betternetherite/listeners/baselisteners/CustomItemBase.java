@@ -65,7 +65,7 @@ public class CustomItemBase implements Listener {
         if (item == null) return;
         if (e.getHand() != EquipmentSlot.HAND) return;
         if (e.isCancelled()) return;
-        if(e.getAction() != Action.RIGHT_CLICK_BLOCK &&
+        if (e.getAction() != Action.RIGHT_CLICK_BLOCK &&
                 e.getAction() != Action.RIGHT_CLICK_AIR) return;
         Player player = e.getPlayer();
         ItemStack useItem = e.getPlayer().getInventory().getItemInMainHand();

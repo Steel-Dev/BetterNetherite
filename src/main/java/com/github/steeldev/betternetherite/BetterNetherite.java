@@ -11,6 +11,7 @@ import com.github.steeldev.betternetherite.listeners.blocks.SmithingTable;
 import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
+import com.github.steeldev.betternetherite.listeners.world.BNWorldListener;
 import com.github.steeldev.betternetherite.managers.BNItemManager;
 import com.github.steeldev.betternetherite.managers.BNMobManager;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
@@ -32,6 +33,7 @@ public class BetterNetherite extends JavaPlugin {
     public boolean outdated;
     public String newVersion;
 
+
     public static BetterNetherite getInstance() {
         return instance;
     }
@@ -41,9 +43,10 @@ public class BetterNetherite extends JavaPlugin {
         instance = this;
 
         loadCustomConfigs();
+        BNMobManager.init();
+        registerEventListeners();
         registerBlockListeners();
         registerItemListeners();
-        registerEventListeners();
         BNShrineManager.registerShrines();
         BNItemManager.registerCustomItems();
         BNMobManager.registerCustomMobs();
@@ -91,6 +94,7 @@ public class BetterNetherite extends JavaPlugin {
     }
 
     public void registerEventListeners() {
+        getServer().getPluginManager().registerEvents(new BNWorldListener(), this);
         getServer().getPluginManager().registerEvents(new NetheriteFishing(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
     }

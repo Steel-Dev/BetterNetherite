@@ -41,8 +41,10 @@ public class NetheriteFishing implements Listener {
                         ItemStack lootItem = new ItemStack(Material.valueOf(lootEntrySplit.get(0)), finalAm);
                         ItemMeta lootItemMeta = (lootItem.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(lootItem.getType()) : lootItem.getItemMeta();
 
-                        if (lootItemMeta instanceof Damageable)
-                            ((Damageable) lootItemMeta).setDamage(main.rand.nextInt(lootItem.getType().getMaxDurability() - 20));
+                        if (lootItemMeta instanceof Damageable) {
+                            if(lootItem.getType().getMaxDurability() > 0)
+                                ((Damageable) lootItemMeta).setDamage(lootItem.getType().getMaxDurability() - 20);
+                        }
 
                         lootItem.setItemMeta(lootItemMeta);
 

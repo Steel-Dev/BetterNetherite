@@ -6,11 +6,14 @@ import com.github.steeldev.betternetherite.util.items.*;
 import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.Colorable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,7 @@ public class BNItem {
     public List<BNPotionEffect> attackEffect;
     public ItemConsumeEffect consumeEffect;
     public List<ItemNBTCompound> nbtCompoundList;
+    public Color color;
     BetterNetherite main = BetterNetherite.getInstance();
 
     public BNItem(String key,
@@ -93,6 +97,11 @@ public class BNItem {
         return this;
     }
 
+    public BNItem withColor(Color color) {
+        this.color = color;
+        return this;
+    }
+
     public ItemStack getItem(boolean damaged) {
         ItemStack customItem = new ItemStack(baseItem);
 
@@ -120,6 +129,11 @@ public class BNItem {
             if (damaged) {
                 if (customItemMeta instanceof Damageable)
                     ((Damageable) customItemMeta).setDamage(main.rand.nextInt(baseItem.getMaxDurability() - 20));
+            }
+
+            if (color != null) {
+                if (customItemMeta instanceof Colorable)
+                    ((Colorable) customItemMeta).setColor(DyeColor.getByColor(color));
             }
 
             customItem.setItemMeta(customItemMeta);

@@ -23,7 +23,7 @@ public class GiveBNItem implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {
             Player specifiedPlayer = (Player) commandSender;
-            if(strings.length < 1) return false;
+            if (strings.length < 1) return false;
             BNItem specifiedItem = BNItemManager.getBNItem(strings[0]);
             int amount = 1;
             if (strings.length > 1) {

@@ -3,7 +3,6 @@ package com.github.steeldev.betternetherite.listeners.blocks;
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.config.Lang;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -17,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class SmithingTable implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
@@ -62,7 +60,7 @@ public class SmithingTable implements Listener {
             int matAmount = 0;
 
             if (slot0Item.getType().toString().contains("WOODEN")) {
-                if(!BetterConfig.IMPROVED_UPGRADING_WOOD_TO_STONE_ENABLED) return;
+                if (!BetterConfig.IMPROVED_UPGRADING_WOOD_TO_STONE_ENABLED) return;
                 matAmount = BetterConfig.IMPROVED_UPGRADING_WOOD_TO_STONE_AMOUNT;
                 validUpgradableItems = new ArrayList<>(Arrays.asList(Material.WOODEN_AXE,
                         Material.WOODEN_HOE,
@@ -71,7 +69,7 @@ public class SmithingTable implements Listener {
                         Material.WOODEN_SHOVEL));
                 matNeeded = Material.COBBLESTONE;
             } else if (slot0Item.getType().toString().contains("STONE")) {
-                if(!BetterConfig.IMPROVED_UPGRADING_STONE_TO_IRON_ENABLED) return;
+                if (!BetterConfig.IMPROVED_UPGRADING_STONE_TO_IRON_ENABLED) return;
                 matAmount = BetterConfig.IMPROVED_UPGRADING_STONE_TO_IRON_AMOUNT;
                 validUpgradableItems = new ArrayList<>(Arrays.asList(Material.STONE_AXE,
                         Material.STONE_HOE,
@@ -80,7 +78,7 @@ public class SmithingTable implements Listener {
                         Material.STONE_SHOVEL));
                 matNeeded = Material.IRON_INGOT;
             } else if (slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.DIAMOND)) {
-                if(!BetterConfig.IMPROVED_UPGRADING_IRON_TO_DIAMOND_ENABLED) return;
+                if (!BetterConfig.IMPROVED_UPGRADING_IRON_TO_DIAMOND_ENABLED) return;
                 matAmount = BetterConfig.IMPROVED_UPGRADING_IRON_TO_DIAMOND_AMOUNT;
                 validUpgradableItems = new ArrayList<>(Arrays.asList(Material.IRON_AXE,
                         Material.IRON_HOE,
@@ -93,7 +91,7 @@ public class SmithingTable implements Listener {
                         Material.IRON_BOOTS));
                 matNeeded = Material.DIAMOND;
             } else if (slot0Item.getType().toString().contains("IRON") && slot1Item.getType().equals(Material.GOLD_INGOT)) {
-                if(!BetterConfig.IMPROVED_UPGRADING_IRON_TO_GOLD_ENABLED) return;
+                if (!BetterConfig.IMPROVED_UPGRADING_IRON_TO_GOLD_ENABLED) return;
                 matAmount = BetterConfig.IMPROVED_UPGRADING_IRON_TO_GOLD_AMOUNT;
                 validUpgradableItems = new ArrayList<>(Arrays.asList(Material.IRON_AXE,
                         Material.IRON_HOE,
@@ -106,7 +104,7 @@ public class SmithingTable implements Listener {
                         Material.IRON_BOOTS));
                 matNeeded = Material.GOLD_INGOT;
             } else if (slot0Item.getType().toString().contains("DIAMOND")) {
-                if(!BetterConfig.IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED) return;
+                if (!BetterConfig.IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED) return;
                 matAmount = BetterConfig.IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT;
                 validUpgradableItems = new ArrayList<>(Arrays.asList(Material.DIAMOND_AXE,
                         Material.DIAMOND_HOE,
@@ -122,7 +120,7 @@ public class SmithingTable implements Listener {
 
             if (slot1Item.getType() != matNeeded) return;
 
-            if(!validUpgradableItems.contains(slot0Item.getType())) return;
+            if (!validUpgradableItems.contains(slot0Item.getType())) return;
 
             String finalIt = main.formalizedString(slot0Item.getType().toString());
             String notEnoughIngotsMsg = Lang.NOT_ENOUGH_MATS_UPGRADE_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString()));

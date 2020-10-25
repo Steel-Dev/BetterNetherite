@@ -4,19 +4,16 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.managers.BNMobManager;
 import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
-import com.github.steeldev.betternetherite.util.mobs.DeathExplosionInfo;
-import com.github.steeldev.betternetherite.util.mobs.ItemChance;
-import com.github.steeldev.betternetherite.util.mobs.MountInfo;
+import com.github.steeldev.betternetherite.util.mobs.*;
 import jdk.internal.jline.internal.Nullable;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Wolf;
+import org.bukkit.entity.*;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +25,7 @@ public class BNMob {
     public EntityType baseEntity;
     public MountInfo mountInfo;
     public boolean angry;
+    public BurningInfo burningInfo;
     public int deathEXP;
     public float maxHP;
     public float moveSpeed;
@@ -38,6 +36,10 @@ public class BNMob {
     public List<Material> dropsToRemove;
     public List<ItemChance> drops;
     public List<ItemChance> equipment;
+    public List<BNPotionEffect> spawnPotionEffects;
+    public MobTargetEffect targetEffect;
+    public BabyInfo babyInfo;
+    public List<EntityType> targetableEntityTypes;
     BetterNetherite main = BetterNetherite.getInstance();
 
     public BNMob(String key,
@@ -90,6 +92,17 @@ public class BNMob {
     public BNMob withHitEffect(BNPotionEffect effect) {
         if (this.hitEffects == null) this.hitEffects = new ArrayList<>();
         this.hitEffects.add(effect);
+        return this;
+    }
+
+    public BNMob withSpawnEffect(BNPotionEffect effect) {
+        if (this.spawnPotionEffects == null) this.spawnPotionEffects = new ArrayList<>();
+        this.spawnPotionEffects.add(effect);
+        return this;
+    }
+
+    public BNMob withBurningEffect(BurningInfo burningInfo) {
+        this.burningInfo = burningInfo;
         return this;
     }
 
@@ -176,6 +189,22 @@ public class BNMob {
         return this;
     }
 
+    public BNMob withTargetEffect(MobTargetEffect effect) {
+        this.targetEffect = effect;
+        return this;
+    }
+
+    public BNMob setBaby(BabyInfo babyInfo) {
+        this.babyInfo = babyInfo;
+        return this;
+    }
+
+    public BNMob withPossibleTarget(EntityType type) {
+        if (this.targetableEntityTypes == null) this.targetableEntityTypes = new ArrayList<>();
+        this.targetableEntityTypes.add(type);
+        return this;
+    }
+
     public String getColoredName() {
         return main.colorize(entityName);
     }
@@ -184,7 +213,7 @@ public class BNMob {
         return ChatColor.stripColor(getColoredName());
     }
 
-    public LivingEntity spawnMob(Location location, @Nullable LivingEntity spawnedEnt) {
+    public void spawnMob(Location location, @Nullable LivingEntity spawnedEnt) {
         World world = location.getWorld();
         if (spawnedEnt != null) {
             if (!spawnedEnt.getType().equals(baseEntity))
@@ -192,9 +221,59 @@ public class BNMob {
         }
         spawnedEnt = (LivingEntity) world.spawnEntity(location, baseEntity);
         if (baseEntity.equals(EntityType.WOLF)) {
-            if (spawnedEnt instanceof Wolf)
-                ((Wolf) spawnedEnt).setAngry(angry);
+            if (spawnedEnt instanceof Wolf) {
+                if (angry) {
+                    Wolf finalSpawnedEnt = (Wolf) spawnedEnt;
+                    finalSpawnedEnt.setAngry(true);
+
+                    // Because Bukkit is a dildo and doesn't let me modify the ticks of anger.
+                    // or make anger forever.. guess thats a minecraft issue.
+                    //  So I have to do this bullshit.
+                    //  Don't like it? Yeah, me either. Deal with it :D
+                    //   Tried using NBTApi but it didn't work, rip.
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (!finalSpawnedEnt.isDead()) {
+                                if (!finalSpawnedEnt.isAngry())
+                                    finalSpawnedEnt.setAngry(angry);
+                            } else {
+                                this.cancel();
+                            }
+                        }
+                    }.runTaskTimer(main, 70, 70);
+
+                    // Make hostile towards anything
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (!finalSpawnedEnt.isDead()) {
+                                if (finalSpawnedEnt.isAngry()) {
+                                    if (finalSpawnedEnt.getTarget() == null) {
+                                        List<Entity> nearbyEntities = finalSpawnedEnt.getNearbyEntities(5, 5, 5);
+                                        List<LivingEntity> nearbyLivingEntities = new ArrayList<>();
+                                        for (Entity entity : nearbyEntities) {
+                                            if (entity instanceof LivingEntity) {
+                                                if (targetableEntityTypes == null || targetableEntityTypes.contains(entity.getType()))
+                                                    nearbyLivingEntities.add((LivingEntity) entity);
+                                            }
+                                        }
+                                        if (nearbyLivingEntities.size() > 0) {
+                                            LivingEntity newTarget = nearbyLivingEntities.get(main.rand.nextInt(nearbyLivingEntities.size()));
+
+                                            finalSpawnedEnt.setTarget(newTarget);
+                                        }
+                                    }
+                                }
+                            } else {
+                                this.cancel();
+                            }
+                        }
+                    }.runTaskTimer(main, 5, 100);
+                }
+            }
         }
+
         spawnedEnt.setCustomName(main.colorize(entityName));
         if (maxHP > 0) {
             spawnedEnt.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHP);
@@ -204,7 +283,7 @@ public class BNMob {
         if (moveSpeed > 0)
             spawnedEnt.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(moveSpeed);
 
-        if(equipment != null) {
+        if (equipment != null) {
             ItemChance mainHand = equipment.get(0);
             if (mainHand != null) {
                 spawnedEnt.getEquipment().setItemInMainHand(mainHand.getItem(mainHand.damaged));
@@ -248,15 +327,43 @@ public class BNMob {
             }
         }
 
-        if (BetterConfig.DEBUG) {
-            String mobName = getUncoloredName();
-            if (ridingMob)
-                mobName = getUncoloredName() + " Rider";
-            main.getLogger().info(main.colorize(String.format("&aCustom Mob &6%s &aspawned at &e%s&a!", mobName, location)));
+        if (burningInfo != null)
+            if (burningInfo.burning)
+                spawnedEnt.setFireTicks(burningInfo.burnTime);
+
+        if (spawnPotionEffects != null) {
+            for (BNPotionEffect effect : spawnPotionEffects) {
+                if (main.chanceOf(effect.chance))
+                    spawnedEnt.addPotionEffect(effect.getPotionEffect(), false);
+            }
+        }
+
+        boolean isBaby = false;
+        if (spawnedEnt instanceof Ageable) {
+            if (babyInfo != null && babyInfo.canBeBaby) {
+                if (main.chanceOf(babyInfo.chance)) {
+                    ((Ageable) spawnedEnt).setBaby();
+                    isBaby = true;
+                }
+            } else {
+                ((Ageable) spawnedEnt).setAdult();
+                isBaby = false;
+            }
         }
 
         spawnedEnt.getPersistentDataContainer().set(BNMobManager.MobsKey, PersistentDataType.STRING, key);
 
-        return spawnedEnt;
+        spawnedEnt.setPortalCooldown(Integer.MAX_VALUE);
+
+        BNMobManager.addMobToSpawned(spawnedEnt);
+
+        if (BetterConfig.DEBUG) {
+            String mobName = getUncoloredName();
+            if (ridingMob)
+                mobName += " Rider";
+            if (isBaby)
+                mobName += " Baby";
+            main.getLogger().info(main.colorize(String.format("&aCustom Mob &6%s &aspawned at &e%s&a!", mobName, location)));
+        }
     }
 }

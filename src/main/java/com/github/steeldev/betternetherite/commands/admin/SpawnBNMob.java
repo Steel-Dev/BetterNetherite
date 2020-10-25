@@ -22,7 +22,7 @@ public class SpawnBNMob implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player) {
-            if(strings.length < 1) return false;
+            if (strings.length < 1) return false;
             BNMob specifiedMob = BNMobManager.getBNMob(strings[0]);
             if (specifiedMob != null) {
                 Player player = (Player) commandSender;
