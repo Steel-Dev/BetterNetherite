@@ -15,8 +15,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-import static com.github.steeldev.betternetherite.util.Util.colorize;
-
 public class BNMobManager {
     static BetterNetherite main = BetterNetherite.getInstance();
     public static NamespacedKey MobsKey = new NamespacedKey(main, "better_netherite_mob");

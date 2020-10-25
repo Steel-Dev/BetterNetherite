@@ -14,6 +14,7 @@ public class BNLogger extends Logger {
 
     @Override
     public void info(String msg) {
-        Util.log(msg);
+        String prefix = msg.replace("[NBTAPI]", Util.getNbtapiPrefix());
+        Util.log(prefix);
     }
 }

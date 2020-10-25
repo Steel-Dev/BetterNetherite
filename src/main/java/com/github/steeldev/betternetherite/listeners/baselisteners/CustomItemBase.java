@@ -24,7 +24,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import static com.github.steeldev.betternetherite.util.Util.chanceOf;
-import static com.github.steeldev.betternetherite.util.Util.colorize;
 
 public class CustomItemBase implements Listener {
 

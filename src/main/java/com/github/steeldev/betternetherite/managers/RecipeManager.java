@@ -11,8 +11,6 @@ import org.bukkit.inventory.*;
 
 import java.util.*;
 
-import static com.github.steeldev.betternetherite.util.Util.colorize;
-
 public class RecipeManager {
 
     final static BetterNetherite main = BetterNetherite.getInstance();

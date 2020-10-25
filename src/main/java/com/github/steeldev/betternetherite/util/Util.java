@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 public class Util {
     private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f0-9]){6}>");
     private static final String PREFIX = "&7[&6Better&cNetherite&7] ";
+    private static final String NBTAPI_PREFIX = "&7[&6NBT&cAPI&7]";
 
     public static Random rand = new Random();
 
@@ -46,6 +47,10 @@ public class Util {
                 finalIt.append(" ");
         }
         return finalIt.toString();
+    }
+
+    public static String getNbtapiPrefix(){
+        return NBTAPI_PREFIX;
     }
 
     public static void log(String log) {

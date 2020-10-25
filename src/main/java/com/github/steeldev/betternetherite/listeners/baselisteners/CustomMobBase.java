@@ -18,7 +18,8 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
-import static com.github.steeldev.betternetherite.util.Util.*;
+import static com.github.steeldev.betternetherite.util.Util.chanceOf;
+import static com.github.steeldev.betternetherite.util.Util.rand;
 
 public class CustomMobBase implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();

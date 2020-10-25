@@ -14,8 +14,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-import static com.github.steeldev.betternetherite.util.Util.colorize;
-
 public class BNShrineManager {
     static BetterNetherite main = BetterNetherite.getInstance();
     static Map<String, BNShrine> bnShrineMap;

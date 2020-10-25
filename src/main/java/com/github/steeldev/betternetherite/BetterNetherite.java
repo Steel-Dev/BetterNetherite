@@ -18,13 +18,16 @@ import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.managers.RecipeManager;
 import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
+import de.tr7zw.changeme.nbtapi.NBTContainer;
+import de.tr7zw.changeme.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.logging.Logger;
-
-import static com.github.steeldev.betternetherite.util.Util.colorize;
 
 public class BetterNetherite extends JavaPlugin {
     public static BetterNetherite instance;
@@ -34,7 +37,6 @@ public class BetterNetherite extends JavaPlugin {
     public String newVersion;
 
     public Logger logger;
-
 
     public static BetterNetherite getInstance() {
         return instance;
@@ -50,6 +52,10 @@ public class BetterNetherite extends JavaPlugin {
     public void onEnable() {
         long start = System.currentTimeMillis();
         instance = this;
+
+        MinecraftVersion.logger = getLogger();
+
+        loadNBTAPI();
 
         loadCustomConfigs();
         BNMobManager.init();
@@ -71,12 +77,11 @@ public class BetterNetherite extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        long start = System.currentTimeMillis();
-        getLogger().info(String.format("&cSuccessfully disabled &2%s &cin &e%s Seconds&c.", getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000));
+        getLogger().info("&cSuccessfully disabled!");
     }
 
     public void checkForNewVersion() {
-        getLogger().info(colorize("&e&oChecking for a new version..."));
+        getLogger().info("&e&oChecking for a new version...");
         new UpdateChecker(this, 84526).getVersion(version -> {
             int latestVersion = Integer.parseInt(version.replaceAll("\\.", ""));
             int currentVersion = Integer.parseInt(this.getDescription().getVersion().replaceAll("\\.", ""));
@@ -94,6 +99,13 @@ public class BetterNetherite extends JavaPlugin {
                 getLogger().info("&a&oDownload it here: &e&ohttps://www.spigotmc.org/resources/better-netherite.84526/");
             }
         });
+    }
+
+    public void loadNBTAPI() {
+        getLogger().info("&aLoading NBT-API...");
+        NBTItem loadingItem = new NBTItem(new ItemStack(Material.STONE));
+        loadingItem.mergeCompound(new NBTContainer("{}"));
+        getLogger().info("&aSuccessfully loaded NBT-API!");
     }
 
     public void loadCustomConfigs() {

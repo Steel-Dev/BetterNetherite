@@ -7,14 +7,34 @@
       <option name="url" value="https://repo.maven.apache.org/maven2" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="codemc-repo" />
-      <option name="name" value="codemc-repo" />
-      <option name="url" value="https://repo.codemc.org/repository/maven-public/" />
+      <option name="id" value="monsterque" />
+      <option name="name" value="monsterque" />
+      <option name="url" value="https://github.com/Steel-Dev/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jitpack.io" />
+      <option name="name" value="jitpack.io" />
+      <option name="url" value="https://jitpack.io" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="com.github.steeldev" />
+      <option name="name" value="com.github.steeldev" />
+      <option name="url" value="https://github.com/Steel-Dev?tab=repositories" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="monsterque" />
       <option name="name" value="monsterque" />
-      <option name="url" value="https://github.com/Steel-Dev/" />
+      <option name="url" value="https://github.com/Steel-Dev/Monsterque" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="codemc-repo" />
+      <option name="name" value="codemc-repo" />
+      <option name="url" value="https://repo.codemc.org/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="com.github.steeldev" />
@@ -32,14 +52,9 @@
       <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
     </remote-repository>
     <remote-repository>
-      <option name="id" value="central" />
-      <option name="name" value="Maven Central repository" />
-      <option name="url" value="https://repo1.maven.org/maven2" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="com.github.steeldev" />
-      <option name="name" value="com.github.steeldev" />
-      <option name="url" value="https://github.com/Steel-Dev?tab=repositories" />
+      <option name="id" value="shanebeestudios-repo" />
+      <option name="name" value="shanebeestudios-repo" />
+      <option name="url" value="https://shanebeestudios.com/maven/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="jboss.community" />
@@ -50,11 +65,6 @@
       <option name="id" value="monsterque" />
       <option name="name" value="monsterque" />
       <option name="url" value="https://github.com/Steel-Dev/?tab=repositories" />
-    </remote-repository>
-    <remote-repository>
-      <option name="id" value="monsterque" />
-      <option name="name" value="monsterque" />
-      <option name="url" value="https://github.com/Steel-Dev/Monsterque" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="com.github.steeldev" />
