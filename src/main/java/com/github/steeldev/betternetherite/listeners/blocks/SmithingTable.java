@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+import static com.github.steeldev.betternetherite.util.Util.formalizedString;
+
 public class SmithingTable implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
@@ -30,7 +33,7 @@ public class SmithingTable implements Listener {
         Player p = e.getPlayer();
         if (b.getType().equals(Material.SMITHING_TABLE)) {
             e.setCancelled(true);
-            p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.NETHERITE_UPGRADING_DISABLE_MSG)));
+            p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.NETHERITE_UPGRADING_DISABLE_MSG)));
         }
     }
 
@@ -40,7 +43,7 @@ public class SmithingTable implements Listener {
         if (!BetterConfig.IMPROVED_UPGRADING) return;
 
         Player p = (Player) e.getWhoClicked();
-        if (p.getOpenInventory().getTitle().contains(main.colorize("Upgrade Gear"))) {
+        if (p.getOpenInventory().getTitle().contains(colorize("Upgrade Gear"))) {
             Material matNeeded = null;
             ItemStack slot0Item = p.getOpenInventory().getItem(0);
             ItemStack slot1Item = p.getOpenInventory().getItem(1);
@@ -122,16 +125,16 @@ public class SmithingTable implements Listener {
 
             if (!validUpgradableItems.contains(slot0Item.getType())) return;
 
-            String finalIt = main.formalizedString(slot0Item.getType().toString());
-            String notEnoughIngotsMsg = Lang.NOT_ENOUGH_MATS_UPGRADE_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString()));
-            String upgradeSuccessMsg = Lang.UPGRADE_SUCCESS_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", main.formalizedString(matNeeded.toString())).replaceAll("UPGRADEDTO", main.formalizedString(slot2Item.getType().toString()));
+            String finalIt = formalizedString(slot0Item.getType().toString());
+            String notEnoughIngotsMsg = Lang.NOT_ENOUGH_MATS_UPGRADE_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", formalizedString(matNeeded.toString()));
+            String upgradeSuccessMsg = Lang.UPGRADE_SUCCESS_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", formalizedString(matNeeded.toString())).replaceAll("UPGRADEDTO", formalizedString(slot2Item.getType().toString()));
 
             if (slot1Item.getAmount() < matAmount) {
                 e.setCancelled(true);
-                p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, notEnoughIngotsMsg)));
+                p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, notEnoughIngotsMsg)));
             } else {
                 slot1Item.setAmount(slot1Item.getAmount() - (matAmount - 1));
-                p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, upgradeSuccessMsg)));
+                p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, upgradeSuccessMsg)));
             }
         }
     }

@@ -15,6 +15,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.github.steeldev.betternetherite.util.Util.chanceOf;
+import static com.github.steeldev.betternetherite.util.Util.rand;
+
 public class NetheriteFishing implements Listener {
     final static BetterNetherite main = BetterNetherite.getInstance();
 
@@ -34,7 +37,7 @@ public class NetheriteFishing implements Listener {
                         List<String> lootEntrySplit = Arrays.asList(lootEntry.split(";"));
 
                         int maxAm = Integer.parseInt(lootEntrySplit.get(1));
-                        int finalAm = (maxAm > 1) ? main.rand.nextInt(maxAm) : 1;
+                        int finalAm = (maxAm > 1) ? rand.nextInt(maxAm) : 1;
                         if (finalAm < 1) finalAm = 1;
                         if (finalAm > 64) finalAm = 64;
 
@@ -42,7 +45,7 @@ public class NetheriteFishing implements Listener {
                         ItemMeta lootItemMeta = (lootItem.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(lootItem.getType()) : lootItem.getItemMeta();
 
                         if (lootItemMeta instanceof Damageable) {
-                            if(lootItem.getType().getMaxDurability() > 0)
+                            if (lootItem.getType().getMaxDurability() > 0)
                                 ((Damageable) lootItemMeta).setDamage(lootItem.getType().getMaxDurability() - 20);
                         }
 
@@ -50,7 +53,7 @@ public class NetheriteFishing implements Listener {
 
                         int chance = Integer.parseInt(lootEntrySplit.get(2));
 
-                        if (main.chanceOf(chance)) {
+                        if (chanceOf(chance)) {
                             if (!gotNewItem) {
                                 caught.setItemMeta(lootItem.getItemMeta());
                                 caught.setType(lootItem.getType());

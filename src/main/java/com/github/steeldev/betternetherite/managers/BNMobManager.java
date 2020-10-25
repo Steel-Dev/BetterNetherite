@@ -15,6 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class BNMobManager {
     static BetterNetherite main = BetterNetherite.getInstance();
     public static NamespacedKey MobsKey = new NamespacedKey(main, "better_netherite_mob");
@@ -37,7 +39,7 @@ public class BNMobManager {
         main.getServer().getPluginManager().registerEvents(new CustomMobBase(mob.key), main);
 
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize(String.format("&aCustom mob &ebetternetherite:%s&a has been &2registered.", mob.key)));
+            main.getLogger().info(String.format("&aCustom mob &ebetternetherite:%s&a has been &2registered.", mob.key));
     }
 
     public static BNMob getBNMob(String key) {

@@ -8,6 +8,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import static com.github.steeldev.betternetherite.util.Util.rand;
+
 public class ItemChance {
     public Material nItem;
     public BNItem item;
@@ -123,7 +125,7 @@ public class ItemChance {
             if (customItemMeta != null) {
                 if (damaged) {
                     if (customItemMeta instanceof Damageable)
-                        ((Damageable) customItemMeta).setDamage(main.rand.nextInt(nItem.getMaxDurability() - 20));
+                        ((Damageable) customItemMeta).setDamage(rand.nextInt(nItem.getMaxDurability() - 20));
                 }
 
                 customItem.setItemMeta(customItemMeta);

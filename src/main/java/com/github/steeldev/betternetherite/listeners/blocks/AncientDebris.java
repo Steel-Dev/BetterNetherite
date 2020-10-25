@@ -13,6 +13,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import static com.github.steeldev.betternetherite.util.Util.chanceOf;
+import static com.github.steeldev.betternetherite.util.Util.rand;
+
 public class AncientDebris implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
@@ -24,7 +27,7 @@ public class AncientDebris implements Listener {
                 block.hasMetadata("PlacedByPlayer"))
             return;
 
-        int sw = main.rand.nextInt(3);
+        int sw = rand.nextInt(3);
         if (sw == 1) {
             if (BetterConfig.ANCIENT_DEBRIS_SCRAP_DROP_ENABLED) {
                 ItemStack netheriteScrap = new ItemStack(Material.NETHERITE_SCRAP);
@@ -32,12 +35,12 @@ public class AncientDebris implements Listener {
                 int chance = BetterConfig.ANCIENT_DEBRIS_SCRAP_DROP_CHANCE;
 
                 int maxNumber = BetterConfig.ANCIENT_DEBRIS_SCRAP_DROP_MAX;
-                int randAmount = main.rand.nextInt(maxNumber);
+                int randAmount = rand.nextInt(maxNumber);
                 int amount = (randAmount == 0) ? 1 : randAmount;
                 if (amount > 64) amount = 64;
 
                 netheriteScrap.setAmount(amount);
-                if (main.chanceOf(chance)) {
+                if (chanceOf(chance)) {
                     block.getWorld().dropItem(block.getLocation(), netheriteScrap);
                     block.getWorld().spawnParticle(Particle.CRIMSON_SPORE, block.getLocation(), 3);
                     block.getWorld().playSound(block.getLocation(), Sound.BLOCK_ANCIENT_DEBRIS_FALL, 1, 0.5f);
@@ -50,7 +53,7 @@ public class AncientDebris implements Listener {
                 int chance = BetterConfig.ANCIENT_DEBRIS_INGOT_DROP_CHANCE;
 
                 netheriteIngot.setAmount(1);
-                if (main.chanceOf(chance)) {
+                if (chanceOf(chance)) {
                     block.getWorld().dropItem(block.getLocation(), netheriteIngot);
                     block.getWorld().spawnParticle(Particle.CRIMSON_SPORE, block.getLocation(), 5);
                     block.getWorld().playSound(block.getLocation(), Sound.BLOCK_ANCIENT_DEBRIS_FALL, 1.3f, 0.5f);

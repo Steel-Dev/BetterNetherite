@@ -14,6 +14,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class BNShrineManager {
     static BetterNetherite main = BetterNetherite.getInstance();
     static Map<String, BNShrine> bnShrineMap;
@@ -28,7 +30,7 @@ public class BNShrineManager {
         main.getServer().getPluginManager().registerEvents(new ShrineBase(shrine.key), main);
 
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize(String.format("&aCustom shrine &ebetternetherite:%s&a has been &2registered.", shrine.key)));
+            main.getLogger().info(String.format("&aCustom shrine &ebetternetherite:%s&a has been &2registered.", shrine.key));
     }
 
     public static BNShrine getBNShrine(String key) {

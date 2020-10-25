@@ -23,6 +23,9 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
+import static com.github.steeldev.betternetherite.util.Util.chanceOf;
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class CustomItemBase implements Listener {
 
     BetterNetherite main = BetterNetherite.getInstance();
@@ -50,10 +53,10 @@ public class CustomItemBase implements Listener {
             if (e.getEntity() instanceof LivingEntity) {
                 for (BNPotionEffect entry : item.attackEffect) {
                     LivingEntity victim = (LivingEntity) e.getEntity();
-                    if (main.chanceOf(entry.chance)) {
+                    if (chanceOf(entry.chance)) {
                         victim.addPotionEffect(entry.getPotionEffect(), false);
                         if (BetterConfig.DEBUG)
-                            main.getLogger().info(main.colorize(String.format("&aCustom item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, victim.getName(), entry.effect)));
+                            main.getLogger().info(String.format("&aCustom item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, victim.getName(), entry.effect));
                     }
                 }
             }
@@ -90,10 +93,10 @@ public class CustomItemBase implements Listener {
                 mobToSpawn.spawnMob(e.getClickedBlock().getLocation().add(0, 1, 0), null);
         } else if (item.useEffect.type == ItemUseEffectType.EFFECT_HOLDER) {
             for (BNPotionEffect effect : item.useEffect.potionEffects) {
-                if (main.chanceOf(effect.chance)) {
+                if (chanceOf(effect.chance)) {
                     player.addPotionEffect(effect.getPotionEffect(), false);
                     if (BetterConfig.DEBUG)
-                        main.getLogger().info(main.colorize(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, e.getPlayer().getName(), item.consumeEffect.effectDisplay)));
+                        main.getLogger().info(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, e.getPlayer().getName(), item.consumeEffect.effectDisplay));
                 }
             }
         }
@@ -124,10 +127,10 @@ public class CustomItemBase implements Listener {
                 return;
             for (BNPotionEffect effect : item.useEffect.potionEffects) {
                 LivingEntity victim = (LivingEntity) e.getRightClicked();
-                if (main.chanceOf(effect.chance)) {
+                if (chanceOf(effect.chance)) {
                     victim.addPotionEffect(effect.getPotionEffect(), false);
                     if (BetterConfig.DEBUG)
-                        main.getLogger().info(main.colorize(String.format("&aCustom Item &6%s &aheld by &e%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, player.getName(), victim.getName(), effect)));
+                        main.getLogger().info(String.format("&aCustom Item &6%s &aheld by &e%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, player.getName(), victim.getName(), effect));
                 }
             }
         }
@@ -154,14 +157,14 @@ public class CustomItemBase implements Listener {
         boolean effected = false;
 
         for (BNPotionEffect effect : item.consumeEffect.potionEffects) {
-            if (main.chanceOf(effect.chance)) {
+            if (chanceOf(effect.chance)) {
                 e.getPlayer().addPotionEffect(effect.getPotionEffect(), false);
                 if (BetterConfig.DEBUG)
-                    main.getLogger().info(main.colorize(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, e.getPlayer().getName(), item.consumeEffect.effectDisplay)));
+                    main.getLogger().info(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, e.getPlayer().getName(), item.consumeEffect.effectDisplay));
                 effected = true;
             }
         }
         if (effected)
-            e.getPlayer().sendMessage(main.colorize(String.format("&7You ate %s &7and got effected with %s", item.displayName, item.consumeEffect.effectDisplay)));
+            e.getPlayer().sendMessage(String.format("&7You ate %s &7and got effected with %s", item.displayName, item.consumeEffect.effectDisplay));
     }
 }

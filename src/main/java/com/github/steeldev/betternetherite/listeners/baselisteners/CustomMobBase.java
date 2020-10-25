@@ -18,6 +18,8 @@ import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
+import static com.github.steeldev.betternetherite.util.Util.*;
+
 public class CustomMobBase implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
     BNMob mob;
@@ -37,7 +39,7 @@ public class CustomMobBase implements Listener {
                 mob.entityToReplace.size() < 1 ||
                 !mob.entityToReplace.contains(e.getEntityType())) return;
 
-        if (main.chanceOf(mob.spawnChance)) {
+        if (chanceOf(mob.spawnChance)) {
             int bnMobCount = BNMobManager.getSpawnedMobs().size();
             if (bnMobCount >= BetterConfig.CUSTOM_MOB_CAP) {
                 e.setCancelled(true);
@@ -61,17 +63,17 @@ public class CustomMobBase implements Listener {
 
         if (mob.drops != null && mob.drops.size() > 0) {
             for (ItemChance entry : mob.drops) {
-                if (main.chanceOf(entry.chance)) {
+                if (chanceOf(entry.chance)) {
                     ItemStack dropItem = entry.getItem(entry.damaged);
                     e.getDrops().add(dropItem);
                 }
             }
         }
-        e.setDroppedExp(main.rand.nextInt(mob.deathEXP));
+        e.setDroppedExp(rand.nextInt(mob.deathEXP));
 
         if (mob.explosionOnDeathInfo == null) return;
         if (!mob.explosionOnDeathInfo.enabled) return;
-        if (main.chanceOf(mob.explosionOnDeathInfo.chance))
+        if (chanceOf(mob.explosionOnDeathInfo.chance))
             e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), mob.explosionOnDeathInfo.size, mob.explosionOnDeathInfo.createsFire);
         BNMobManager.removeMobFromSpawned(e.getEntity());
     }
@@ -88,10 +90,10 @@ public class CustomMobBase implements Listener {
             if (mob.hitEffects != null && mob.hitEffects.size() > 0) {
                 for (BNPotionEffect entry : mob.hitEffects) {
                     LivingEntity victim = (LivingEntity) e.getEntity();
-                    if (main.chanceOf(entry.chance)) {
+                    if (chanceOf(entry.chance)) {
                         victim.addPotionEffect(entry.getPotionEffect(), false);
                         if (BetterConfig.DEBUG)
-                            main.getLogger().info(main.colorize(String.format("&aCustom Mob &6%s &cinflicted &e%s &cwith &4%s&c!", mob.getUncoloredName(), victim.getName(), entry.effect)));
+                            main.getLogger().info(String.format("&aCustom Mob &6%s &cinflicted &e%s &cwith &4%s&c!", mob.getUncoloredName(), victim.getName(), entry.effect));
                     }
                 }
             }
@@ -119,7 +121,7 @@ public class CustomMobBase implements Listener {
             }
         }
 
-        if (main.chanceOf(mob.targetEffect.chance)) {
+        if (chanceOf(mob.targetEffect.chance)) {
             if (mob.targetEffect.targetParticle != null) {
                 if (mob.targetEffect.targetParticle.particle != null &&
                         mob.targetEffect.targetParticle.amount > 0)
@@ -135,14 +137,14 @@ public class CustomMobBase implements Listener {
 
             if (mob.targetEffect.selfEffects != null && mob.targetEffect.selfEffects.size() > 0) {
                 for (BNPotionEffect effect : mob.targetEffect.selfEffects) {
-                    if (main.chanceOf(effect.chance))
+                    if (chanceOf(effect.chance))
                         entity.addPotionEffect(effect.getPotionEffect(), false);
                 }
             }
 
             if (mob.targetEffect.targetEffects != null && mob.targetEffect.targetEffects.size() > 0) {
                 for (BNPotionEffect effect : mob.targetEffect.targetEffects) {
-                    if (main.chanceOf(effect.chance))
+                    if (chanceOf(effect.chance))
                         target.addPotionEffect(effect.getPotionEffect(), false);
                 }
             }

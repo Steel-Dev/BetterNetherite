@@ -16,22 +16,24 @@ import com.github.steeldev.betternetherite.managers.BNItemManager;
 import com.github.steeldev.betternetherite.managers.BNMobManager;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.managers.RecipeManager;
+import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
-import org.bukkit.ChatColor;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.logging.Logger;
+
+import static com.github.steeldev.betternetherite.util.Util.colorize;
 
 public class BetterNetherite extends JavaPlugin {
-    private static final Pattern HEX_PATTERN = Pattern.compile("<#([A-Fa-f0-9]){6}>");
     public static BetterNetherite instance;
     public BetterConfig config = null;
     public Lang lang = null;
-    public Random rand = new Random();
     public boolean outdated;
     public String newVersion;
+
+    public Logger logger;
 
 
     public static BetterNetherite getInstance() {
@@ -39,7 +41,14 @@ public class BetterNetherite extends JavaPlugin {
     }
 
     @Override
+    public @NotNull Logger getLogger() {
+        if (logger == null) logger = BNLogger.getLogger();
+        return this.logger;
+    }
+
+    @Override
     public void onEnable() {
+        long start = System.currentTimeMillis();
         instance = this;
 
         loadCustomConfigs();
@@ -53,25 +62,36 @@ public class BetterNetherite extends JavaPlugin {
         registerCommands();
         RecipeManager.RegisterRecipes();
 
-        getLogger().info(colorize(String.format("&6Better &7Netherite &eVersion %s &aenabled!", getDescription().getVersion())));
+        enableMetrics();
+
+        getLogger().info(String.format("&aSuccessfully enabled &2%s &ain &e%s Seconds&a.", getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000));
+
         checkForNewVersion();
     }
 
     @Override
     public void onDisable() {
-        getLogger().info(colorize(String.format("&6Better &7Netherite &eVersion %s &cdisabled!", getDescription().getVersion())));
+        long start = System.currentTimeMillis();
+        getLogger().info(String.format("&cSuccessfully disabled &2%s &cin &e%s Seconds&c.", getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000));
     }
 
     public void checkForNewVersion() {
-        getLogger().info(colorize("&e&oChecking for plugin update..."));
+        getLogger().info(colorize("&e&oChecking for a new version..."));
         new UpdateChecker(this, 84526).getVersion(version -> {
-            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+            int latestVersion = Integer.parseInt(version.replaceAll("\\.", ""));
+            int currentVersion = Integer.parseInt(this.getDescription().getVersion().replaceAll("\\.", ""));
+
+            if (currentVersion == latestVersion) {
                 outdated = false;
-                getLogger().info(colorize(String.format("&2&oYou are on the latest version of &6&oBetter &7&oNetherite&2&o! &7&o(%s)", version)));
+                getLogger().info(String.format("&2&oYou are on the latest version! &7&o(%s)", version));
+            } else if (currentVersion > latestVersion) {
+                outdated = false;
+                getLogger().info(String.format("&e&oYou are on an in-dev preview version! &7&o(%s)", this.getDescription().getVersion()));
             } else {
                 outdated = true;
                 newVersion = version;
-                getLogger().info(colorize(String.format("&a&oA new version of &6&oBetter &7&oNetherite&a&o is available! &7&o(Current: %s, Latest: %s)", this.getDescription().getVersion(), version)));
+                getLogger().info(String.format("&a&oA new version is available! &7&o(Current: %s, Latest: %s)", this.getDescription().getVersion(), version));
+                getLogger().info("&a&oDownload it here: &e&ohttps://www.spigotmc.org/resources/better-netherite.84526/");
             }
         });
     }
@@ -79,6 +99,13 @@ public class BetterNetherite extends JavaPlugin {
     public void loadCustomConfigs() {
         this.lang = new Lang(this);
         this.config = new BetterConfig(this);
+    }
+
+    public void enableMetrics() {
+        Metrics metrics = new Metrics(this, 9202);
+
+        if (metrics.isEnabled())
+            getLogger().info("&7Starting Metrics. Opt-out using the global bStats config.");
     }
 
     public void registerCommands() {
@@ -107,32 +134,5 @@ public class BetterNetherite extends JavaPlugin {
     public void registerItemListeners() {
         if (BetterConfig.CRIMSON_NETHERITE_SHRINE_ENABLED)
             getServer().getPluginManager().registerEvents(new ReinforcedItem(), this);
-    }
-
-    public String colorize(String string) {
-        Matcher matcher = HEX_PATTERN.matcher(string);
-        while (matcher.find()) {
-            final net.md_5.bungee.api.ChatColor hexColor = net.md_5.bungee.api.ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
-            final String before = string.substring(0, matcher.start());
-            final String after = string.substring(matcher.end());
-            string = before + hexColor + after;
-            matcher = HEX_PATTERN.matcher(string);
-        }
-        return ChatColor.translateAlternateColorCodes('&', string);
-    }
-
-    public boolean chanceOf(int chance) {
-        return rand.nextInt(100) < chance;
-    }
-
-    public String formalizedString(String string) {
-        String[] itemSplit = string.toLowerCase().split("_");
-        StringBuilder finalIt = new StringBuilder();
-        for (int i = 0; i < itemSplit.length; i++) {
-            finalIt.append(itemSplit[i].substring(0, 1).toUpperCase() + itemSplit[i].substring(1));
-            if (i < itemSplit.length - 1)
-                finalIt.append(" ");
-        }
-        return finalIt.toString();
     }
 }

@@ -15,6 +15,8 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class BNItemManager {
     static BetterNetherite main = BetterNetherite.getInstance();
     static Map<String, BNItem> bnItemMap;
@@ -29,7 +31,7 @@ public class BNItemManager {
         main.getServer().getPluginManager().registerEvents(new CustomItemBase(item.key), main);
 
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize(String.format("&aCustom item &ebetternetherite:%s&a has been &2registered.", item.key)));
+            main.getLogger().info(String.format("&aCustom item &ebetternetherite:%s&a has been &2registered.", item.key));
     }
 
     public static BNItem getBNItem(String key) {

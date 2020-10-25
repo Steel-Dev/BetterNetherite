@@ -11,6 +11,8 @@ import org.bukkit.inventory.*;
 
 import java.util.*;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class RecipeManager {
 
     final static BetterNetherite main = BetterNetherite.getInstance();
@@ -379,7 +381,7 @@ public class RecipeManager {
     public static void addRecipe(Recipe recipe) {
         Bukkit.addRecipe(recipe);
         if (BetterConfig.DEBUG)
-            main.getLogger().info(main.colorize(String.format("&aRecipe &e%s&a has been &2added.", ((Keyed) recipe).getKey())));
+            main.getLogger().info(String.format("&aRecipe &e%s&a has been &2added.", ((Keyed) recipe).getKey()));
     }
 
     public static void removeRecipe(String key) {
@@ -389,7 +391,7 @@ public class RecipeManager {
             if (rec != null) {
                 if (((Keyed) rec).getKey().toString().equals(key)) {
                     if (BetterConfig.DEBUG)
-                        main.getLogger().info(main.colorize(String.format("&aRecipe &e%s&a has been &cremoved.", key)));
+                        main.getLogger().info(String.format("&aRecipe &e%s&a has been &cremoved.", key));
                     it.remove();
                 }
             }

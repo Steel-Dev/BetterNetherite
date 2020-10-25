@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+import static com.github.steeldev.betternetherite.util.Util.rand;
+
 public class BNItem {
     public String key;
     public Material baseItem;
@@ -109,11 +112,11 @@ public class BNItem {
 
         if (customItemMeta != null) {
             if (displayName != null && !displayName.equals(""))
-                customItemMeta.setDisplayName(main.colorize(displayName));
+                customItemMeta.setDisplayName(colorize(displayName));
             if (lore != null && lore.size() > 0) {
                 List<String> lore = new ArrayList<>();
                 for (String line : this.lore) {
-                    lore.add(main.colorize(line));
+                    lore.add(colorize(line));
                 }
                 customItemMeta.setLore(lore);
             }
@@ -128,7 +131,7 @@ public class BNItem {
 
             if (damaged) {
                 if (customItemMeta instanceof Damageable)
-                    ((Damageable) customItemMeta).setDamage(main.rand.nextInt(baseItem.getMaxDurability() - 20));
+                    ((Damageable) customItemMeta).setDamage(rand.nextInt(baseItem.getMaxDurability() - 20));
             }
 
             if (color != null) {

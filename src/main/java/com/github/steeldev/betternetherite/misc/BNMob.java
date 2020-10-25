@@ -18,6 +18,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.steeldev.betternetherite.util.Util.*;
+
 public class BNMob {
     public String key;
     public String entityName;
@@ -206,7 +208,7 @@ public class BNMob {
     }
 
     public String getColoredName() {
-        return main.colorize(entityName);
+        return colorize(entityName);
     }
 
     public String getUncoloredName() {
@@ -259,7 +261,7 @@ public class BNMob {
                                             }
                                         }
                                         if (nearbyLivingEntities.size() > 0) {
-                                            LivingEntity newTarget = nearbyLivingEntities.get(main.rand.nextInt(nearbyLivingEntities.size()));
+                                            LivingEntity newTarget = nearbyLivingEntities.get(rand.nextInt(nearbyLivingEntities.size()));
 
                                             finalSpawnedEnt.setTarget(newTarget);
                                         }
@@ -274,7 +276,7 @@ public class BNMob {
             }
         }
 
-        spawnedEnt.setCustomName(main.colorize(entityName));
+        spawnedEnt.setCustomName(colorize(entityName));
         if (maxHP > 0) {
             spawnedEnt.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHP);
             spawnedEnt.setHealth(maxHP);
@@ -319,7 +321,7 @@ public class BNMob {
         boolean ridingMob = false;
         if (mountInfo != null) {
             if (mountInfo.riding != null) {
-                if (main.chanceOf(mountInfo.chance)) {
+                if (chanceOf(mountInfo.chance)) {
                     LivingEntity entityToRide = mountInfo.spawnMount(location);
                     entityToRide.setPassenger(spawnedEnt);
                     ridingMob = true;
@@ -333,7 +335,7 @@ public class BNMob {
 
         if (spawnPotionEffects != null) {
             for (BNPotionEffect effect : spawnPotionEffects) {
-                if (main.chanceOf(effect.chance))
+                if (chanceOf(effect.chance))
                     spawnedEnt.addPotionEffect(effect.getPotionEffect(), false);
             }
         }
@@ -341,7 +343,7 @@ public class BNMob {
         boolean isBaby = false;
         if (spawnedEnt instanceof Ageable) {
             if (babyInfo != null && babyInfo.canBeBaby) {
-                if (main.chanceOf(babyInfo.chance)) {
+                if (chanceOf(babyInfo.chance)) {
                     ((Ageable) spawnedEnt).setBaby();
                     isBaby = true;
                 }
@@ -363,7 +365,7 @@ public class BNMob {
                 mobName += " Rider";
             if (isBaby)
                 mobName += " Baby";
-            main.getLogger().info(main.colorize(String.format("&aCustom Mob &6%s &aspawned at &e%s&a!", mobName, location)));
+            main.getLogger().info(colorize(String.format("&aCustom Mob &6%s &aspawned at &e%s&a!", mobName, location)));
         }
     }
 }

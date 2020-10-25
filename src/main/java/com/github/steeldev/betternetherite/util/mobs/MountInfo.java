@@ -9,6 +9,9 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
+import static com.github.steeldev.betternetherite.util.Util.chanceOf;
+import static com.github.steeldev.betternetherite.util.Util.rand;
+
 public class MountInfo {
     public EntityType riding;
     public int chance;
@@ -36,8 +39,8 @@ public class MountInfo {
             if (entityToRide instanceof Horse) {
                 ((Horse) entityToRide).getInventory().setSaddle(new ItemStack(Material.SADDLE));
                 if (armorTypes != null && armorTypes.size() > 0) {
-                    Material randArmor = armorTypes.get(main.rand.nextInt(armorTypes.size()));
-                    if (main.chanceOf(armorChance))
+                    Material randArmor = armorTypes.get(rand.nextInt(armorTypes.size()));
+                    if (chanceOf(armorChance))
                         ((Horse) entityToRide).getInventory().setArmor(new ItemStack(randArmor));
                 }
             }

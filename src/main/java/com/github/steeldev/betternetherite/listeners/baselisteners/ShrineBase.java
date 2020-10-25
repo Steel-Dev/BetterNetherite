@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.github.steeldev.betternetherite.util.Util.*;
+
 public class ShrineBase implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
@@ -54,7 +56,7 @@ public class ShrineBase implements Listener {
                 if (cryingObsidian.getType().equals(Material.CRYING_OBSIDIAN)) {
                     e.setCancelled(true);
                     if (!shrine.validUseWorlds.contains(p.getWorld().getEnvironment())) {
-                        p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CANT_USE_IN_WORLD_MSG.replaceAll("SHRINE", shrine.display))));
+                        p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CANT_USE_IN_WORLD_MSG.replaceAll("SHRINE", shrine.display))));
                         return;
                     }
                     Block polishedBlackstone1 = cryingObsidian.getRelative(0, 0, 1);
@@ -149,14 +151,14 @@ public class ShrineBase implements Listener {
                                         }
                                         if (chargesLeft > 0) {
                                             if (shrine.requiresValidItems && !BetterConfig.USABLE_SHRINE_ITEMS.containsKey(item.getType().toString())) {
-                                                p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_INVALID_ITEM_MSG.replaceAll("SHRINE", shrine.display))));
+                                                p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_INVALID_ITEM_MSG.replaceAll("SHRINE", shrine.display))));
                                                 return;
                                             }
                                             if (shrine.effect.shrineEffectType == ShrineEffectType.REINFORCE_ITEM) {
                                                 NBTItem nbtItem = new NBTItem(item);
                                                 if (nbtItem.hasKey("netherite_reinforced")) {
                                                     if (nbtItem.getBoolean("netherite_reinforced")) {
-                                                        p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_ITEM_ALREADY_EFFECTED_MSG.replaceAll("EFFECT", shrine.effect.effectDisplay))));
+                                                        p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_ITEM_ALREADY_EFFECTED_MSG.replaceAll("EFFECT", shrine.effect.effectDisplay))));
                                                         return;
                                                     }
                                                 }
@@ -165,7 +167,7 @@ public class ShrineBase implements Listener {
                                                 item = nbtItem.getItem();
                                                 ItemMeta meta = (item.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(item.getType()) : item.getItemMeta();
                                                 List<String> curLore = (meta.getLore() == null) ? new ArrayList<>() : meta.getLore();
-                                                curLore.add(main.colorize(shrine.effect.effectLoreDisplay));
+                                                curLore.add(colorize(shrine.effect.effectLoreDisplay));
                                                 meta.setLore(curLore);
                                                 item.setItemMeta(meta);
                                                 p.getInventory().setItemInMainHand(item);
@@ -173,7 +175,7 @@ public class ShrineBase implements Listener {
                                                 Damageable damMeta = (item.getItemMeta() != null) ? (Damageable) item.getItemMeta() : (Damageable) Bukkit.getItemFactory().getItemMeta(item.getType());
 
                                                 if (damMeta.getDamage() <= 0) {
-                                                    p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_ITEM_FULL_DUR_MSG.replaceAll("EFFECT", shrine.effect.effectDisplay))));
+                                                    p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_ITEM_FULL_DUR_MSG.replaceAll("EFFECT", shrine.effect.effectDisplay))));
                                                     return;
                                                 }
                                                 damMeta.setDamage(0);
@@ -183,10 +185,10 @@ public class ShrineBase implements Listener {
                                                 if (shrine.effect.potionEffects != null) {
                                                     if (shrine.effect.potionEffects.size() > 0) {
                                                         for (BNPotionEffect effect : shrine.effect.potionEffects) {
-                                                            if (main.chanceOf(effect.chance)) {
+                                                            if (chanceOf(effect.chance)) {
                                                                 p.addPotionEffect(effect.getPotionEffect(), false);
                                                                 if (BetterConfig.DEBUG)
-                                                                    main.getLogger().info(main.colorize(String.format("&6%s &cinflicted &e%s &cwith &4%s&c!", shrine.display, p.getName(), effect.effect)));
+                                                                    main.getLogger().info(String.format("&6%s &cinflicted &e%s &cwith &4%s&c!", shrine.display, p.getName(), effect.effect));
                                                             }
                                                         }
                                                     }
@@ -208,14 +210,14 @@ public class ShrineBase implements Listener {
                                             p.getWorld().playSound(chargeChosen.getLocation(), shrine.charge.usedSound, 1.5f, 1.5f);
                                             p.getWorld().playSound(clickedBlock.getLocation(), shrine.effect.useSound, 1.6f, 1.6f);
                                             if (chargesLeft < 3) {
-                                                String chargeMat = main.formalizedString(shrine.charge.chargeMaterial.toString());
-                                                p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CHARGES_LOW_MSG.replaceAll("CHARGEMAT", chargeMat))));
+                                                String chargeMat = formalizedString(shrine.charge.chargeMaterial.toString());
+                                                p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CHARGES_LOW_MSG.replaceAll("CHARGEMAT", chargeMat))));
                                             } else {
-                                                p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CHARGES_MSG.replaceAll("CHARGESAVAILABLE", String.valueOf(chargesLeft)))));
+                                                p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CHARGES_MSG.replaceAll("CHARGESAVAILABLE", String.valueOf(chargesLeft)))));
                                             }
 
                                             if (chargesLeft < 1) {
-                                                if (main.chanceOf(shrine.explodeChance)) {
+                                                if (chanceOf(shrine.explodeChance)) {
                                                     p.getWorld().playSound(clickedBlock.getLocation(), shrine.effect.breakSound, 1.6f, 1.6f);
                                                     p.getWorld().strikeLightning(clickedBlock.getLocation());
                                                     Bukkit.getScheduler().scheduleSyncDelayedTask(main, new Runnable() {
@@ -239,11 +241,11 @@ public class ShrineBase implements Listener {
                                             }
                                             p.getWorld().spawnParticle(shrine.effect.shrineUsedParticle, clickedBlock.getLocation(), 2);
                                             String usedMSG = (shrine.requiresValidItems) ? Lang.SHRINE_USED_MSG : Lang.POTION_SHRINE_USED_MSG;
-                                            p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, usedMSG.replaceAll("SHRINE", shrine.display).replaceAll("EFFECT", shrine.effect.effectDisplay).replaceAll("EFFRES", shrine.effect.effectResultDisplay))));
+                                            p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, usedMSG.replaceAll("SHRINE", shrine.display).replaceAll("EFFECT", shrine.effect.effectDisplay).replaceAll("EFFRES", shrine.effect.effectResultDisplay))));
                                         } else {
-                                            String chargeMat = main.formalizedString(shrine.charge.chargeMaterial.toString());
+                                            String chargeMat = formalizedString(shrine.charge.chargeMaterial.toString());
                                             p.getWorld().playSound(clickedBlock.getLocation(), shrine.effect.noChargesSound, 1.6f, 1.6f);
-                                            p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_NO_CHARGES_MSG.replaceAll("SHRINE", shrine.display).replaceAll("CHARGEMAT", chargeMat))));
+                                            p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_NO_CHARGES_MSG.replaceAll("SHRINE", shrine.display).replaceAll("CHARGEMAT", chargeMat))));
                                         }
                                     }
                                 }
@@ -253,7 +255,7 @@ public class ShrineBase implements Listener {
                 }
             }
             if (!correct)
-                p.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_BUILT_INCORRECT_MSG.replaceAll("SHRINE", shrine.display))));
+                p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_BUILT_INCORRECT_MSG.replaceAll("SHRINE", shrine.display))));
         }
     }
 }

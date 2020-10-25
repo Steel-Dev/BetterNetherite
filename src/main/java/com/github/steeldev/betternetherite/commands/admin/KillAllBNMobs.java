@@ -13,6 +13,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class KillAllBNMobs implements CommandExecutor {
     BetterNetherite main = BetterNetherite.getInstance();
 
@@ -21,7 +23,7 @@ public class KillAllBNMobs implements CommandExecutor {
         if (commandSender instanceof Player) {
             int entityAmount = BNMobManager.getSpawnedMobs().size();
             if (entityAmount == 0) {
-                commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOBS_KILL_FAILED_MSG)));
+                commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOBS_KILL_FAILED_MSG)));
                 return true;
             }
 
@@ -34,9 +36,9 @@ public class KillAllBNMobs implements CommandExecutor {
                 }
             }
 
-            commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOBS_KILLED_MSG.replaceAll("MOBAMOUNT", String.valueOf(entityAmount)))));
+            commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOBS_KILLED_MSG.replaceAll("MOBAMOUNT", String.valueOf(entityAmount)))));
         } else {
-            commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
+            commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
         }
         return true;
     }

@@ -9,13 +9,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 public class BetterNetheriteReload implements CommandExecutor {
     final BetterNetherite main = BetterNetherite.getInstance();
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         main.loadCustomConfigs();
-        commandSender.sendMessage(main.colorize(String.format("%s%s", Lang.PREFIX, "&aSuccessfully reloaded all configurations! &c&oWarning: A lot of systems require a server restart!")));
+        commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, "&aSuccessfully reloaded all configurations! &c&oWarning: A lot of systems require a server restart!")));
         if (commandSender instanceof Player) {
             if (BetterConfig.NEW_UPDATE_MESSAGE_ON_RELOAD)
                 UpdateChecker.sendNewUpdateMessageToPlayer((Player) commandSender);

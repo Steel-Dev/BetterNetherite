@@ -14,6 +14,8 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
+
 //https://www.spigotmc.org/resources/better-netherite.84526
 //https://api.spigotmc.org/legacy/update.php?resource=84526
 public class UpdateChecker {
@@ -32,8 +34,8 @@ public class UpdateChecker {
 
         if (!main.outdated) return;
 
-        player.sendMessage(main.colorize(String.format("%s&a&oA new version of &6&oBetter &7&oNetherite&a&o is available! &7&o(Current: %s, Latest: %s)", Lang.PREFIX, main.getDescription().getVersion(), main.newVersion)));
-        TextComponent link = new TextComponent(main.colorize("&6&lClick here to update"));
+        player.sendMessage(colorize(String.format("%s&a&oA new version is available! &7&o(Current: %s, Latest: %s)", Lang.PREFIX, main.getDescription().getVersion(), main.newVersion)));
+        TextComponent link = new TextComponent(colorize("&6&lClick here to update"));
         link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/better-netherite.84526"));
         player.spigot().sendMessage(link);
     }
@@ -45,7 +47,7 @@ public class UpdateChecker {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                this.plugin.getLogger().info(String.format("Cannot look for updates: %s", exception.getMessage()));
+                this.plugin.getLogger().info(String.format("&cCannot look for updates: %s", exception.getMessage()));
             }
         });
     }

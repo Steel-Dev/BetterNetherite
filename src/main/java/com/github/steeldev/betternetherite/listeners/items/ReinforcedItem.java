@@ -13,6 +13,8 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerItemDamageEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static com.github.steeldev.betternetherite.util.Util.chanceOf;
+
 public class ReinforcedItem implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
@@ -31,7 +33,7 @@ public class ReinforcedItem implements Listener {
         if (!toolNBT.hasKey("netherite_reinforced"))
             return;
 
-        if (!main.chanceOf(BetterConfig.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
+        if (!chanceOf(BetterConfig.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
             e.setCancelled(true);
     }
 
@@ -53,7 +55,7 @@ public class ReinforcedItem implements Listener {
             if (!toolNBT.hasKey("netherite_reinforced"))
                 return;
 
-            if (main.chanceOf(BetterConfig.REINFORCED_ITEM_EXTRA_DMG_CHANCE))
+            if (chanceOf(BetterConfig.REINFORCED_ITEM_EXTRA_DMG_CHANCE))
                 entity.damage(BetterConfig.REINFORCED_ITEM_DAMAGE_INCREASE);
         }
     }
