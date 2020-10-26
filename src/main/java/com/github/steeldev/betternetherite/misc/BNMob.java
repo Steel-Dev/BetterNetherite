@@ -353,7 +353,7 @@ public class BNMob {
             }
         }
 
-        spawnedEnt.getPersistentDataContainer().set(BNMobManager.MobsKey, PersistentDataType.STRING, key);
+        spawnedEnt.getPersistentDataContainer().set(BNMobManager.customMobKey, PersistentDataType.STRING, key);
 
         spawnedEnt.setPortalCooldown(Integer.MAX_VALUE);
 

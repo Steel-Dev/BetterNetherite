@@ -155,7 +155,7 @@ public class BNItemManager {
                     .withAttribute(new ItemAttributeInfo("generic.armor_toughness", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR_TOUGHNESS, 0.6))
                     .withAttribute(new ItemAttributeInfo("generic.knockback_resistance", EquipmentSlot.HEAD, Attribute.GENERIC_KNOCKBACK_RESISTANCE, 0.2)));
 
-            registerNewBNItem(new BNItem("tank_boots", Material.LEATHER_LEGGINGS)
+            registerNewBNItem(new BNItem("tank_boots", Material.LEATHER_BOOTS)
                     .withDisplayName("<#f1e46a>Tanks Boots")
                     .withColor(Color.BLACK)
                     .withLore("&7The boots of a Tank.")

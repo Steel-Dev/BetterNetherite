@@ -1,15 +1,13 @@
 package com.github.steeldev.betternetherite;
 
-import com.github.steeldev.betternetherite.commands.admin.BetterNetheriteReload;
-import com.github.steeldev.betternetherite.commands.admin.GiveBNItem;
-import com.github.steeldev.betternetherite.commands.admin.KillAllBNMobs;
-import com.github.steeldev.betternetherite.commands.admin.SpawnBNMob;
+import com.github.steeldev.betternetherite.commands.admin.*;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.config.Lang;
 import com.github.steeldev.betternetherite.listeners.blocks.AncientDebris;
 import com.github.steeldev.betternetherite.listeners.blocks.SmithingTable;
 import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
+import com.github.steeldev.betternetherite.listeners.inventory.BNItemListInventory;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
 import com.github.steeldev.betternetherite.listeners.world.BNWorldListener;
 import com.github.steeldev.betternetherite.managers.BNItemManager;
@@ -67,6 +65,7 @@ public class BetterNetherite extends JavaPlugin {
         BNMobManager.registerCustomMobs();
         registerCommands();
         RecipeManager.RegisterRecipes();
+        registerInventoryListeners();
 
         enableMetrics();
 
@@ -128,7 +127,14 @@ public class BetterNetherite extends JavaPlugin {
             this.getCommand("killallbetternetheritemobs").setExecutor(new KillAllBNMobs());
         }
         if (BNItemManager.getValidItemList().size() > 0) {
+            this.getCommand("listbetternetheriteitems").setExecutor(new ListBNItems());
             this.getCommand("givebetternetheriteitem").setExecutor(new GiveBNItem());
+        }
+    }
+
+    public void registerInventoryListeners(){
+        if (BNItemManager.getValidItemList().size() > 0) {
+            getServer().getPluginManager().registerEvents(new BNItemListInventory(), this);
         }
     }
 

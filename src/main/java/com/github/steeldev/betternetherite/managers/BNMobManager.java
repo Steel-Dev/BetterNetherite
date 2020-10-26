@@ -17,7 +17,7 @@ import java.util.*;
 
 public class BNMobManager {
     static BetterNetherite main = BetterNetherite.getInstance();
-    public static NamespacedKey MobsKey = new NamespacedKey(main, "better_netherite_mob");
+    public static NamespacedKey customMobKey = new NamespacedKey(main, "better_netherite_mob");
     static Map<String, BNMob> bnMobMap;
 
 

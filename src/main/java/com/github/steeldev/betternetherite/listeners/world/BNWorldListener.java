@@ -15,7 +15,7 @@ public class BNWorldListener implements Listener {
     public void chunkLoad(ChunkLoadEvent e) {
         for (Entity entity : e.getChunk().getEntities()) {
             if (entity instanceof LivingEntity) {
-                if (entity.getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING))
+                if (entity.getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
                     BNMobManager.addMobToSpawned((LivingEntity) entity);
             }
         }
@@ -25,7 +25,7 @@ public class BNWorldListener implements Listener {
     public void chunkUnload(ChunkUnloadEvent e) {
         for (Entity entity : e.getChunk().getEntities()) {
             if (entity instanceof LivingEntity) {
-                if (entity.getPersistentDataContainer().has(BNMobManager.MobsKey, PersistentDataType.STRING))
+                if (entity.getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
                     BNMobManager.removeMobFromSpawned((LivingEntity) entity);
             }
         }

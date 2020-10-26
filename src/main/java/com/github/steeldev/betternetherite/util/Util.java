@@ -2,6 +2,7 @@ package com.github.steeldev.betternetherite.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -51,6 +52,10 @@ public class Util {
 
     public static String getNbtapiPrefix(){
         return NBTAPI_PREFIX;
+    }
+
+    public static String getUncoloredItemName(ItemStack item){
+        return ChatColor.stripColor(item.getItemMeta().getDisplayName());
     }
 
     public static void log(String log) {

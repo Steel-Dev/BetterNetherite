@@ -25,6 +25,11 @@ commands:
     aliases: givebnitem
     permission: betternetherite.admin
     permission-message: You dont have permission to use this command.
+  listbetternetheriteitems:
+    description: Open a GUI that displays all registered custom items. Clicking one will give it to you.
+    aliases: listbnitems
+    permission: betternetherite.admin
+    permission-message: You dont have permission to use this command.
 permissions:
   betternetherite.admin:
     description: Allows the user administrator permissions for Better Netherite.
