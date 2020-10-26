@@ -50,11 +50,11 @@ public class Util {
         return finalIt.toString();
     }
 
-    public static String getNbtapiPrefix(){
+    public static String getNbtapiPrefix() {
         return NBTAPI_PREFIX;
     }
 
-    public static String getUncoloredItemName(ItemStack item){
+    public static String getUncoloredItemName(ItemStack item) {
         String name = (item.getItemMeta() == null) ? formalizedString(item.getType().toString()) : item.getItemMeta().getDisplayName();
         return ChatColor.stripColor(name);
     }

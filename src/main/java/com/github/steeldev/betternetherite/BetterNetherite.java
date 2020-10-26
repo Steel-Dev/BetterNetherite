@@ -132,7 +132,7 @@ public class BetterNetherite extends JavaPlugin {
         }
     }
 
-    public void registerInventoryListeners(){
+    public void registerInventoryListeners() {
         if (BNItemManager.getValidItemList().size() > 0) {
             getServer().getPluginManager().registerEvents(new BNItemListInventory(), this);
         }

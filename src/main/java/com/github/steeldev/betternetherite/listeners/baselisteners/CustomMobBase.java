@@ -56,7 +56,8 @@ public class CustomMobBase implements Listener {
         if (mob == null) return;
         if (!e.getEntityType().equals(mob.baseEntity)) return;
         if (e.getEntity().getCustomName() == null) return;
-        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING)) return;
+        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
+            return;
         if (!ChatColor.stripColor(e.getEntity().getCustomName()).equals(mob.getUncoloredName())) return;
 
         if (mob.dropsToRemove != null && mob.dropsToRemove.size() > 0)
@@ -84,7 +85,8 @@ public class CustomMobBase implements Listener {
         if (mob == null) return;
         if (!e.getDamager().getType().equals(mob.baseEntity)) return;
         if (e.getDamager().getCustomName() == null) return;
-        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING)) return;
+        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
+            return;
         if (!ChatColor.stripColor(e.getDamager().getCustomName()).equals(mob.getUncoloredName())) return;
 
         if (e.getEntity() instanceof LivingEntity) {
