@@ -89,6 +89,12 @@ public class BetterConfig {
     public static boolean CUSTOM_MOB_TANK_ENABLED;
     public static int CUSTOM_MOB_TANK_SPAWNCHANCE;
 
+
+
+    public static boolean RESOURCE_PACK_ENABLED;
+    public static String RESOURCE_PACK_URL;
+
+
     private final BetterNetherite plugin;
     private FileConfiguration config;
     private File configFile;
@@ -192,6 +198,10 @@ public class BetterConfig {
 
         CUSTOM_MOB_TANK_ENABLED = config.getBoolean("CustomMobs.Tank.Enabled");
         CUSTOM_MOB_TANK_SPAWNCHANCE = config.getInt("CustomMobs.Tank.SpawnChance");
+
+
+        RESOURCE_PACK_ENABLED = config.getBoolean("ResourcePack.Enabled");
+        RESOURCE_PACK_URL = config.getString("ResourcePack.URL");
 
 
         USABLE_SHRINE_ITEMS = new HashMap<>();

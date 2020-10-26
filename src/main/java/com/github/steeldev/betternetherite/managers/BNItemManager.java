@@ -43,11 +43,13 @@ public class BNItemManager {
         if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED || BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
             registerNewBNItem(new BNItem("marauder_bone", Material.BONE)
                     .withDisplayName("<#3c1a4c>Marauder Bone")
+                    .withCustomModelData(1)
                     .withLore("&7A Netherite Marauder's bone."));
 
             registerNewBNItem(new BNItem("marauder_sword", Material.NETHERITE_SWORD)
                     .withDisplayName("<#3c1a4c>Marauder Sword")
                     .setReinforced(true)
+                    .withCustomModelData(1)
                     .withLore("&7A Netherite Marauder's sword.")
                     .withAttribute(new ItemAttributeInfo("generic.attack_damage", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_DAMAGE, 9))
                     .withAttribute(new ItemAttributeInfo("generic.attack_speed", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_SPEED, 1.7)));
@@ -61,8 +63,9 @@ public class BNItemManager {
                     .withAttribute(new ItemAttributeInfo("generic.knockback_resistance", EquipmentSlot.CHEST, Attribute.GENERIC_KNOCKBACK_RESISTANCE, 1.2)));
 
             if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED) {
-                registerNewBNItem(new BNItem("netherite_marauder_spawn_egg", Material.ENDERMAN_SPAWN_EGG)
+                registerNewBNItem(new BNItem("netherite_marauder_spawn_egg", Material.GHAST_SPAWN_EGG)
                         .withDisplayName("<#3c1a4c>Spawn Netherite Marauder")
+                        .withCustomModelData(1)
                         .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "netherite_marauder")));
             }
         }
@@ -70,26 +73,31 @@ public class BNItemManager {
             registerNewBNItem(new BNItem("marauder_axe", Material.NETHERITE_AXE)
                     .withDisplayName("<#3c1a4c>Marauder Axe")
                     .setReinforced(true)
+                    .withCustomModelData(1)
                     .withLore("&7A Netherite Marauder's axe.")
                     .withAttribute(new ItemAttributeInfo("generic.attack_damage", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_DAMAGE, 11))
                     .withAttribute(new ItemAttributeInfo("generic.attack_speed", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_SPEED, 1.8)));
 
-            registerNewBNItem(new BNItem("netherite_marauder_brute_spawn_egg", Material.ENDERMITE_SPAWN_EGG)
+            registerNewBNItem(new BNItem("netherite_marauder_brute_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#3c1a4c>Spawn Netherite Marauder Brute")
+                    .withCustomModelData(2)
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "netherite_marauder_brute")));
         }
         if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
             registerNewBNItem(new BNItem("hound_meat", Material.PORKCHOP)
+                    .withCustomModelData(1)
                     .withDisplayName("<#915103>Raw Hound Meat"));
 
             registerNewBNItem(new BNItem("cooked_hound_meat", Material.COOKED_PORKCHOP)
                     .withDisplayName("<#915103>Cooked Hound Meat")
+                    .withCustomModelData(1)
                     .withConsumeEffect(new ItemConsumeEffect("&bHounds Grace",
                             Arrays.asList(new BNPotionEffect(PotionEffectType.ABSORPTION, 12, 2, 2000),
                                     new BNPotionEffect(PotionEffectType.REGENERATION, 25, 2, 2000)))));
 
             registerNewBNItem(new BNItem("rotten_hound_meat", Material.ROTTEN_FLESH)
                     .withDisplayName("<#2d2501>Rotted Hound Meat")
+                    .withCustomModelData(1)
                     .withConsumeEffect(new ItemConsumeEffect("&cFood Poisoning",
                             Arrays.asList(new BNPotionEffect(PotionEffectType.POISON, 50, 1, 2000),
                                     new BNPotionEffect(PotionEffectType.CONFUSION, 50, 1, 2000)))));
@@ -97,39 +105,46 @@ public class BNItemManager {
             if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED) {
                 registerNewBNItem(new BNItem("hellhound_spawn_egg", Material.GHAST_SPAWN_EGG)
                         .withDisplayName("<#571664>Spawn Hellhound")
+                        .withCustomModelData(3)
                         .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "hellhound")));
             }
 
             if (BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
                 registerNewBNItem(new BNItem("alpha_hellhound_spawn_egg", Material.GHAST_SPAWN_EGG)
                         .withDisplayName("<#571664>Spawn Alpha Hellhound")
+                        .withCustomModelData(4)
                         .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "alpha_hellhound")));
             }
         }
         if (BetterConfig.CUSTOM_MOB_LOST_SOUL_ENABLED) {
             registerNewBNItem(new BNItem("soul", Material.GHAST_TEAR)
                     .withDisplayName("<#1152a6>Soul")
+                    .withCustomModelData(1)
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.EFFECT_HOLDER,
                             Collections.singletonList(new BNPotionEffect(PotionEffectType.REGENERATION, 90, 2, 2000)), true)));
 
-            registerNewBNItem(new BNItem("lost_soul_spawn_egg", Material.SHEEP_SPAWN_EGG)
+            registerNewBNItem(new BNItem("lost_soul_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#1152a6>Spawn Lost Soul")
+                    .withCustomModelData(5)
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "lost_soul")));
         }
         if (BetterConfig.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
             registerNewBNItem(new BNItem("rotten_demon_flesh", Material.ROTTEN_FLESH)
                     .withDisplayName("<#2d2501>Rotten Demon Flesh")
+                    .withCustomModelData(2)
                     .withConsumeEffect(new ItemConsumeEffect("&cFood Poisoning",
                             Arrays.asList(new BNPotionEffect(PotionEffectType.POISON, 50, 1, 2000),
                                     new BNPotionEffect(PotionEffectType.CONFUSION, 50, 1, 2000)))));
 
-            registerNewBNItem(new BNItem("zombified_demon_spawn_egg", Material.ZOMBIE_HORSE_SPAWN_EGG)
+            registerNewBNItem(new BNItem("zombified_demon_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#2d2501>Spawn Zombified Demon")
+                    .withCustomModelData(6)
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "zombified_demon")));
         }
         if (BetterConfig.CUSTOM_MOB_TANK_ENABLED) {
             registerNewBNItem(new BNItem("tank_sword", Material.STONE_SWORD)
                     .withDisplayName("<#f1e46a>Tenonus")
+                    .withCustomModelData(1)
                     .withEnchant(new ItemEnchantInfo(Enchantment.DAMAGE_ALL, 1)));
 
             registerNewBNItem(new BNItem("tank_helmet", Material.LEATHER_HELMET)
@@ -164,12 +179,14 @@ public class BNItemManager {
                     .withAttribute(new ItemAttributeInfo("generic.armor_toughness", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR_TOUGHNESS, 0.2))
                     .withAttribute(new ItemAttributeInfo("generic.knockback_resistance", EquipmentSlot.HEAD, Attribute.GENERIC_KNOCKBACK_RESISTANCE, 0.1)));
 
-            registerNewBNItem(new BNItem("demon_tank_spawn_egg", Material.HUSK_SPAWN_EGG)
+            registerNewBNItem(new BNItem("demon_tank_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#f1e46a>Spawn Demon Tank")
+                    .withCustomModelData(7)
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "demon_tank")));
 
             registerNewBNItem(new BNItem("demon_tank_totem", Material.TOTEM_OF_UNDYING)
                     .withDisplayName("&6Tank Totem")
+                    .withCustomModelData(1)
                     .withLore("&7A special rare totem that can be used as a revival token")
                     .withLore("&7or for limited special effects.")
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.EFFECT_HOLDER, Arrays.asList(new BNPotionEffect(PotionEffectType.ABSORPTION, 12, 2, 3000),

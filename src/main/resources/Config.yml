@@ -12,6 +12,13 @@
 #   a development option, put here for ease of development.
 Debug: false
 
+# Enable the resource pack?
+#  the resource pack will not replace any existing
+#  textures (except netherite)
+ResourcePack:
+  Enabled: true
+  URL: 'Nothing'
+
 UpdateCheck:
   # Should the plugin notify OPs/Players with the plugins admin perm
   #  when a new update is available when they join/reload the plugin?
