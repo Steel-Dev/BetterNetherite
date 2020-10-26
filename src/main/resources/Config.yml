@@ -17,7 +17,14 @@ Debug: false
 #  textures (except netherite)
 ResourcePack:
   Enabled: true
-  URL: 'Nothing'
+  # The URL of the resource pack
+  #  this is here so you can download it and customize it, add more
+  #  or combine it with your own resource pack.
+  URL: 'https://www.dropbox.com/s/vca2gm312urqmbq/BetterNetherite-ResourcePack.zip?dl=1'
+  # Should the player be told the server uses a resource pack when they join?
+  JoinMsgEnabled: true
+  # Should the download status of the resource pack be sent to the player?
+  StatusMsgsEnabled: true
 
 UpdateCheck:
   # Should the plugin notify OPs/Players with the plugins admin perm

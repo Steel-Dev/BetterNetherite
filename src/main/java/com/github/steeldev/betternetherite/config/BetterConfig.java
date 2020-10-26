@@ -93,6 +93,8 @@ public class BetterConfig {
 
     public static boolean RESOURCE_PACK_ENABLED;
     public static String RESOURCE_PACK_URL;
+    public static boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
+    public static boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
 
 
     private final BetterNetherite plugin;
@@ -202,7 +204,8 @@ public class BetterConfig {
 
         RESOURCE_PACK_ENABLED = config.getBoolean("ResourcePack.Enabled");
         RESOURCE_PACK_URL = config.getString("ResourcePack.URL");
-
+        RESOURCE_PACK_JOIN_MSG_ENABLED = config.getBoolean("ResourcePack.JoinMsgEnabled");
+        RESOURCE_PACK_STATUS_MSGS_ENABLED = config.getBoolean("ResourcePack.StatusMsgsEnabled");
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");
