@@ -55,7 +55,8 @@ public class Util {
     }
 
     public static String getUncoloredItemName(ItemStack item){
-        return ChatColor.stripColor(item.getItemMeta().getDisplayName());
+        String name = (item.getItemMeta() == null) ? formalizedString(item.getType().toString()) : item.getItemMeta().getDisplayName();
+        return ChatColor.stripColor(name);
     }
 
     public static void log(String log) {
