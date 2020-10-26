@@ -13,6 +13,7 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.material.Colorable;
 
 import java.util.ArrayList;
@@ -135,8 +136,10 @@ public class BNItem {
             }
 
             if (color != null) {
-                if (customItemMeta instanceof Colorable)
-                    ((Colorable) customItemMeta).setColor(DyeColor.getByColor(color));
+                if (customItemMeta instanceof LeatherArmorMeta)
+                    ((LeatherArmorMeta) customItemMeta).setColor(color);
+                if(customItemMeta instanceof Colorable)
+                    ((Colorable)customItemMeta).setColor(DyeColor.getByColor(color));
             }
 
             customItem.setItemMeta(customItemMeta);

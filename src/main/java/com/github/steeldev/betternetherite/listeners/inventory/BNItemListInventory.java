@@ -44,6 +44,12 @@ public class BNItemListInventory implements Listener {
         for (String item : BNItemManager.getValidItemList()) {
             BNItem customItem = BNItemManager.getBNItem(item);
             ItemStack bnItem = customItem.getItem(false);
+            ItemMeta bnItemMeta = bnItem.getItemMeta();
+            List<String> lore = (bnItemMeta.getLore() == null) ? new ArrayList<>() : bnItemMeta.getLore();
+            lore.add("");
+            lore.add(colorize("&7&oClick to give item."));
+            bnItemMeta.setLore(lore);
+            bnItem.setItemMeta(bnItemMeta);
             NBTItem bnItemNBT = new NBTItem(bnItem);
             bnItemNBT.addCompound("InventoryAction");
             bnItemNBT.setString("InventoryAction", "GIVE_ITEM");
