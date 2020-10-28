@@ -57,6 +57,10 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>com.github.steeldev.betternetherite.util.api.bStats</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>dev.dbassett.skullcreator</pattern>
+                            <shadedPattern>com.github.steeldev.betternetherite.util.api.SkullCreator</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
             </plugin>
@@ -80,6 +84,10 @@
         <repository>
             <id>shanebeestudios-repo</id>
             <url>https://shanebeestudios.com/maven/</url>
+        </repository>
+        <repository>
+            <id>skullcreator-repo</id>
+            <url>https://dl.bintray.com/deanveloper/SkullCreator</url>
         </repository>
     </repositories>
     <dependencies>
@@ -107,6 +115,12 @@
                     <artifactId>nbt-injector</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>dev.dbassett</groupId>
+            <artifactId>skullcreator</artifactId>
+            <version>3.0.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.bstats</groupId>

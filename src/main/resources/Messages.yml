@@ -14,7 +14,7 @@
 # Traditional color codes supported, and Hex.
 #  EG: &cHi! <#5C040F>Hey!
 
-Prefix: '&6Better <#5C040F>Netherite &7» '
+Prefix: '&6Better &cNetherite &7» '
 NetheriteUpgradingDisabledMsg: '&cSmithing Table upgrading is disabled.'
 NotEnoughMatsToUpgradeMsg: '&cYou do not have enough &eMATNEEDED&c in the second slot to upgrade your &6ITEM&c. You need &6AMOUNT&c!'
 UpgradeSuccessMsg: '&aYou have successfully upgraded your &6ITEM &ato &eUPGRADEDTO&a for &6AMOUNT &eMATNEEDED&a!'

@@ -57,6 +57,11 @@
       <option name="url" value="https://shanebeestudios.com/maven/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="skullcreator-repo" />
+      <option name="name" value="skullcreator-repo" />
+      <option name="url" value="https://dl.bintray.com/deanveloper/SkullCreator" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="jboss.community" />
       <option name="name" value="JBoss Community repository" />
       <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />

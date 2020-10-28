@@ -156,8 +156,6 @@ public class BNMobManager {
                     .withHitEffect(new BNPotionEffect(PotionEffectType.BLINDNESS, 50, 1, 60))
                     .withDeathExplosion(true, 90, 2, true)
                     .withDrop(new ItemChance(BNItemManager.getBNItem("soul"), 2, 5))
-                    .withBurningEffect(new BurningInfo(true, Integer.MAX_VALUE))
-                    .withSpawnEffect(new BNPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new BNParticle(Particle.SOUL_FIRE_FLAME, 6),
                             new BNSound(Sound.ENTITY_VEX_CHARGE, SoundCategory.HOSTILE, 1, 0.6f),
                             Arrays.asList(new BNPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null)));
@@ -177,7 +175,12 @@ public class BNMobManager {
                     .withHitEffect(new BNPotionEffect(PotionEffectType.HUNGER, 30, 1, 60))
                     .withHitEffect(new BNPotionEffect(PotionEffectType.POISON, 70, 1, 60))
                     .withDrop(new ItemChance(BNItemManager.getBNItem("rotten_demon_flesh"), 2, 5))
-                    .withHelmet(new ItemChance(Material.IRON_HELMET, 0.3f, true))
+                    .withHelmet(new ItemChance(BNItemManager.getBNItem("demon_head"), 0.05f, false))
+                    .withChestplate(new ItemChance(BNItemManager.getBNItem("demon_chestplate"), 0.03f, true))
+                    .withLeggings(new ItemChance(BNItemManager.getBNItem("demon_leggings"), 0.03f, true))
+                    .withBoots(new ItemChance(BNItemManager.getBNItem("demon_boots"), 0.03f, true))
+                    .withBurningEffect(new BurningInfo(true, Integer.MAX_VALUE))
+                    .withSpawnEffect(new BNPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new BNParticle(Particle.CRIMSON_SPORE, 6),
                             new BNSound(Sound.ENTITY_ZOMBIE_AMBIENT, SoundCategory.HOSTILE, 1, 0.6f),
                             Arrays.asList(new BNPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
@@ -199,7 +202,7 @@ public class BNMobManager {
                     .withValidSpawnWorld(World.Environment.THE_END)
                     .withHitEffect(new BNPotionEffect(PotionEffectType.POISON, 80, 1, 90))
                     .withMainHandItem(new ItemChance(BNItemManager.getBNItem("tank_sword"), 0.1f, true))
-                    .withHelmet(new ItemChance(BNItemManager.getBNItem("tank_helmet"), 0.1f, true))
+                    .withHelmet(new ItemChance(BNItemManager.getBNItem("tank_head"), 0.1f, false))
                     .withChestplate(new ItemChance(BNItemManager.getBNItem("tank_chestplate"), 0.1f, true))
                     .withLeggings(new ItemChance(BNItemManager.getBNItem("tank_leggings"), 0.1f, true))
                     .withBoots(new ItemChance(BNItemManager.getBNItem("tank_boots"), 0.1f, true))

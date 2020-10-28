@@ -140,6 +140,28 @@ public class BNItemManager {
                     .withDisplayName("<#2d2501>Spawn Zombified Demon")
                     .withCustomModelData(6)
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "zombified_demon")));
+
+            registerNewBNItem(new BNItem("demon_head", Material.PLAYER_HEAD)
+                    .withDisplayName("<#2d2501>Demon Head")
+                    .withSkullOwnerByBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTg4ODExM2E5ZWE2OGM4ZDg4N2U3ZDNlZTU0YmFjM2VhNDIxMGJmYmFiNzIwZDhlODRiZTU3MDVjZmFkYzViIn19fQ=="));
+
+            registerNewBNItem(new BNItem("demon_chestplate", Material.LEATHER_CHESTPLATE)
+                    .withDisplayName("<#2d2501>Demons Chestplate")
+                    .withColor(Color.GRAY)
+                    .withAttribute(new ItemAttributeInfo("generic.armor", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR, 1))
+                    .withAttribute(new ItemAttributeInfo("generic.armor_toughness", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR_TOUGHNESS, 1)));
+
+            registerNewBNItem(new BNItem("demon_leggings", Material.LEATHER_LEGGINGS)
+                    .withDisplayName("<#2d2501>Demons Leggings")
+                    .withColor(Color.GRAY)
+                    .withAttribute(new ItemAttributeInfo("generic.armor", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR, 1.2))
+                    .withAttribute(new ItemAttributeInfo("generic.armor_toughness", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR_TOUGHNESS, 1.1)));
+
+            registerNewBNItem(new BNItem("demon_boots", Material.LEATHER_BOOTS)
+                    .withDisplayName("<#2d2501>Demons Boots")
+                    .withColor(Color.BLACK)
+                    .withAttribute(new ItemAttributeInfo("generic.armor", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR, 1.3))
+                    .withAttribute(new ItemAttributeInfo("generic.armor_toughness", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR_TOUGHNESS, 0.9)));
         }
         if (BetterConfig.CUSTOM_MOB_TANK_ENABLED) {
             registerNewBNItem(new BNItem("tank_sword", Material.STONE_SWORD)
@@ -147,13 +169,10 @@ public class BNItemManager {
                     .withCustomModelData(1)
                     .withEnchant(new ItemEnchantInfo(Enchantment.DAMAGE_ALL, 1)));
 
-            registerNewBNItem(new BNItem("tank_helmet", Material.LEATHER_HELMET)
-                    .withDisplayName("<#f1e46a>Tanks Helmet")
-                    .withColor(Color.RED)
-                    .withLore("&7The helmet of a Tank.")
-                    .withAttribute(new ItemAttributeInfo("generic.armor", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR, 1.5))
-                    .withAttribute(new ItemAttributeInfo("generic.armor_toughness", EquipmentSlot.HEAD, Attribute.GENERIC_ARMOR_TOUGHNESS, 1))
-                    .withAttribute(new ItemAttributeInfo("generic.knockback_resistance", EquipmentSlot.HEAD, Attribute.GENERIC_KNOCKBACK_RESISTANCE, 0.2)));
+            registerNewBNItem(new BNItem("tank_head", Material.PLAYER_HEAD)
+                    .withDisplayName("<#f1e46a>Tanks Head")
+                    .withSkullOwnerByBase64("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDI5NzViNjdjMTlmOWJhMjM0NGY4ZWVlOTU2YzUwMTVhZDYzZDllODhhZDQ4ODJhZTc5MzY5Mzc0ZmIzOTc1In19fQ==")
+                    .withColor(Color.RED));
 
             registerNewBNItem(new BNItem("tank_chestplate", Material.LEATHER_CHESTPLATE)
                     .withDisplayName("<#f1e46a>Tanks Chestplate")

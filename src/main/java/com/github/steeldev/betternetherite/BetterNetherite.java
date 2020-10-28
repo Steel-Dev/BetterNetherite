@@ -10,10 +10,7 @@ import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
 import com.github.steeldev.betternetherite.listeners.inventory.BNItemListInventory;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
 import com.github.steeldev.betternetherite.listeners.world.BNWorldListener;
-import com.github.steeldev.betternetherite.managers.BNItemManager;
-import com.github.steeldev.betternetherite.managers.BNMobManager;
-import com.github.steeldev.betternetherite.managers.BNShrineManager;
-import com.github.steeldev.betternetherite.managers.RecipeManager;
+import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
 import de.tr7zw.changeme.nbtapi.NBTContainer;
@@ -25,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class BetterNetherite extends JavaPlugin {
@@ -56,6 +54,11 @@ public class BetterNetherite extends JavaPlugin {
         loadNBTAPI();
 
         loadCustomConfigs();
+        try {
+            BNResourcePackManager.checkResourcePack();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         BNMobManager.init();
         registerEventListeners();
         registerBlockListeners();
@@ -77,6 +80,7 @@ public class BetterNetherite extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().info("&cSuccessfully disabled!");
+        instance = null;
     }
 
     public void checkForNewVersion() {

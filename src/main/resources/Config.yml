@@ -14,17 +14,23 @@ Debug: false
 
 # Enable the resource pack?
 #  the resource pack will not replace any existing
-#  textures (except netherite)
+#  textures (except netherite items).
+#  It only adds new items, using custom model data.
 ResourcePack:
   Enabled: true
   # The URL of the resource pack
   #  this is here so you can download it and customize it, add more
   #  or combine it with your own resource pack.
-  URL: 'https://www.dropbox.com/s/vca2gm312urqmbq/BetterNetherite-ResourcePack.zip?dl=1'
+  URL: 'https://www.dropbox.com/s/h6iuhk16bg8c8xf/BetterNetherite-ResourcePack-v1.zip?dl=1'
   # Should the player be told the server uses a resource pack when they join?
   JoinMsgEnabled: true
   # Should the download status of the resource pack be sent to the player?
   StatusMsgsEnabled: true
+  # Should the pack auto update the download URL in the config if it detects it's not the same
+  #  as the latest updates resource pack?
+  #  Note: this WILL override any custom packs you input, only enable this if you
+  #  want to use the default pack provided.
+  AutoUpdate: true
 
 UpdateCheck:
   # Should the plugin notify OPs/Players with the plugins admin perm

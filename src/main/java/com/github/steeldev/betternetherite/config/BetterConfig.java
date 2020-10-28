@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -95,11 +96,12 @@ public class BetterConfig {
     public static String RESOURCE_PACK_URL;
     public static boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
     public static boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
+    public static boolean RESOURCE_PACK_AUTO_UPDATE;
 
 
     private final BetterNetherite plugin;
-    private FileConfiguration config;
-    private File configFile;
+    private static FileConfiguration config;
+    private static File configFile;
 
     public BetterConfig(BetterNetherite plugin) {
         this.plugin = plugin;
@@ -206,6 +208,7 @@ public class BetterConfig {
         RESOURCE_PACK_URL = config.getString("ResourcePack.URL");
         RESOURCE_PACK_JOIN_MSG_ENABLED = config.getBoolean("ResourcePack.JoinMsgEnabled");
         RESOURCE_PACK_STATUS_MSGS_ENABLED = config.getBoolean("ResourcePack.StatusMsgsEnabled");
+        RESOURCE_PACK_AUTO_UPDATE = config.getBoolean("ResourcePack.AutoUpdate");
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");
@@ -228,5 +231,11 @@ public class BetterConfig {
 
         IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED = config.getBoolean("ImprovedUpgrading.UpgradeRecipes.DiamondToNetherite.Enabled");
         IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT = config.getInt("ImprovedUpgrading.UpgradeRecipes.DiamondToNetherite.MaterialAmount");
+    }
+
+    public static void setString(String path, String value) throws IOException {
+        config.set(path,value);
+
+        config.save(configFile);
     }
 }
