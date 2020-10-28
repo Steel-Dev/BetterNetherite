@@ -99,7 +99,7 @@ public class BetterNetherite extends JavaPlugin {
                 outdated = true;
                 newVersion = version;
                 getLogger().info(String.format("&a&oA new version is available! &7&o(Current: %s, Latest: %s)", this.getDescription().getVersion(), version));
-                getLogger().info("&a&oDownload it here: &e&ohttps://www.spigotmc.org/resources/better-netherite.84526/");
+                getLogger().info("&e&ohttps://www.spigotmc.org/resources/better-netherite.84526/");
             }
         });
     }
@@ -112,8 +112,8 @@ public class BetterNetherite extends JavaPlugin {
     }
 
     public void loadCustomConfigs() {
-        this.lang = new Lang(this);
         this.config = new BetterConfig(this);
+        this.lang = new Lang(this);
     }
 
     public void enableMetrics() {

@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,33 +23,33 @@ public class SpawnBNMob implements CommandExecutor, TabCompleter {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (commandSender instanceof Player) {
-            if (strings.length < 1) return false;
-            BNMob specifiedMob = BNMobManager.getBNMob(strings[0]);
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (sender instanceof Player) {
+            if (args.length < 1) return false;
+            BNMob specifiedMob = BNMobManager.getBNMob(args[0]);
             if (specifiedMob != null) {
-                Player player = (Player) commandSender;
+                Player player = (Player) sender;
                 if (!player.getWorld().getDifficulty().equals(Difficulty.PEACEFUL)) {
                     specifiedMob.spawnMob(player.getLocation(), null);
-                    commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_SPAWNED_MSG.replace("MOBNAME", specifiedMob.entityName))));
+                    sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_SPAWNED_MSG.replace("MOBNAME", specifiedMob.entityName))));
                 } else {
-                    commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_SPAWN_FAILED_MSG.replaceAll("MOBNAME", specifiedMob.entityName))));
+                    sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_SPAWN_FAILED_MSG.replaceAll("MOBNAME", specifiedMob.entityName))));
                 }
             } else {
-                commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_INVALID_MSG.replaceAll("MOBID", strings[0]))));
+                sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_MOB_INVALID_MSG.replaceAll("MOBID", args[0]))));
             }
         } else {
-            commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
+            sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
         }
         return true;
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         List<String> mobs = BNMobManager.getValidMobList();
 
         final List<String> completions = new ArrayList<>();
-        StringUtil.copyPartialMatches(strings[0], mobs, completions);
+        StringUtil.copyPartialMatches(args[0], mobs, completions);
         Collections.sort(completions);
         return completions;
     }

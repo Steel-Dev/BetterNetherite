@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.github.steeldev</groupId>
   <artifactId>BetterNetherite</artifactId>
-  <version>1.0.8</version>
+  <version>1.0.9</version>
   <build>
     <sourceDirectory>src/main/java</sourceDirectory>
     <resources>
@@ -14,7 +14,7 @@
         <includes>
           <include>plugin.yml</include>
           <include>Config.yml</include>
-          <include>Messages.yml</include>
+          <include>Lang.yml</include>
         </includes>
       </resource>
     </resources>

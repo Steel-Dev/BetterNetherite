@@ -36,11 +36,11 @@ public class CustomItemBase implements Listener {
     }
 
     @EventHandler
-    public void customItemAttack(EntityDamageByEntityEvent e) {
+    public void customItemAttack(EntityDamageByEntityEvent event) {
         if (item == null) return;
-        if (e.isCancelled()) return;
-        if (e.getDamager() instanceof Player) {
-            ItemStack attackItem = ((Player) e.getDamager()).getInventory().getItemInMainHand();
+        if (event.isCancelled()) return;
+        if (event.getDamager() instanceof Player) {
+            ItemStack attackItem = ((Player) event.getDamager()).getInventory().getItemInMainHand();
             if (attackItem.getType().equals(Material.AIR)) return;
             if (attackItem.getType() != item.baseItem) return;
             NBTItem attackItemNBT = new NBTItem(attackItem);
@@ -49,9 +49,9 @@ public class CustomItemBase implements Listener {
 
             if (item.attackEffect == null || item.attackEffect.size() < 1) return;
 
-            if (e.getEntity() instanceof LivingEntity) {
+            if (event.getEntity() instanceof LivingEntity) {
                 for (BNPotionEffect entry : item.attackEffect) {
-                    LivingEntity victim = (LivingEntity) e.getEntity();
+                    LivingEntity victim = (LivingEntity) event.getEntity();
                     if (chanceOf(entry.chance)) {
                         victim.addPotionEffect(entry.getPotionEffect(), false);
                         if (BetterConfig.DEBUG)
@@ -63,14 +63,14 @@ public class CustomItemBase implements Listener {
     }
 
     @EventHandler
-    public void customItemUse(PlayerInteractEvent e) {
+    public void customItemUse(PlayerInteractEvent event) {
         if (item == null) return;
-        if (e.getHand() != EquipmentSlot.HAND) return;
-        if (e.isCancelled()) return;
-        if (e.getAction() != Action.RIGHT_CLICK_BLOCK &&
-                e.getAction() != Action.RIGHT_CLICK_AIR) return;
-        Player player = e.getPlayer();
-        ItemStack useItem = e.getPlayer().getInventory().getItemInMainHand();
+        if (event.getHand() != EquipmentSlot.HAND) return;
+        if (event.isCancelled()) return;
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK &&
+                event.getAction() != Action.RIGHT_CLICK_AIR) return;
+        Player player = event.getPlayer();
+        ItemStack useItem = event.getPlayer().getInventory().getItemInMainHand();
         if (useItem.getType().equals(Material.AIR)) return;
         if (useItem.getType() != item.baseItem) return;
         NBTItem useItemNBT = new NBTItem(useItem);
@@ -79,38 +79,38 @@ public class CustomItemBase implements Listener {
 
         if (item.useEffect == null) return;
 
-        e.setCancelled(true);
+        event.setCancelled(true);
 
         if (item.useEffect.type == ItemUseEffectType.SPAWN_CUSTOM_MOB) {
-            if (e.getClickedBlock() == null) return;
-            if (e.getClickedBlock().getType() == Material.AIR) return;
+            if (event.getClickedBlock() == null) return;
+            if (event.getClickedBlock().getType() == Material.AIR) return;
             if (item.useEffect.mobID.equals("")) return;
 
             BNMob mobToSpawn = BNMobManager.getBNMob(item.useEffect.mobID);
 
             if (mobToSpawn != null)
-                mobToSpawn.spawnMob(e.getClickedBlock().getLocation().add(0, 1, 0), null);
+                mobToSpawn.spawnMob(event.getClickedBlock().getLocation().add(0, 1, 0), null);
         } else if (item.useEffect.type == ItemUseEffectType.EFFECT_HOLDER) {
             for (BNPotionEffect effect : item.useEffect.potionEffects) {
                 if (chanceOf(effect.chance)) {
                     player.addPotionEffect(effect.getPotionEffect(), false);
                     if (BetterConfig.DEBUG)
-                        main.getLogger().info(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, e.getPlayer().getName(), item.consumeEffect.effectDisplay));
+                        main.getLogger().info(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, event.getPlayer().getName(), item.consumeEffect.effectDisplay));
                 }
             }
         }
-        if (e.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.consumeItemOnUse ||
-                (e.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.type == ItemUseEffectType.SPAWN_CUSTOM_MOB))
+        if (event.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.consumeItemOnUse ||
+                (event.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.type == ItemUseEffectType.SPAWN_CUSTOM_MOB))
             useItem.setAmount(useItem.getAmount() - 1);
     }
 
     @EventHandler
-    public void customItemUseOnEntity(PlayerInteractAtEntityEvent e) {
+    public void customItemUseOnEntity(PlayerInteractAtEntityEvent event) {
         if (item == null) return;
-        if (e.getHand() != EquipmentSlot.HAND) return;
-        if (e.isCancelled()) return;
-        Player player = e.getPlayer();
-        ItemStack useItem = e.getPlayer().getInventory().getItemInMainHand();
+        if (event.getHand() != EquipmentSlot.HAND) return;
+        if (event.isCancelled()) return;
+        Player player = event.getPlayer();
+        ItemStack useItem = event.getPlayer().getInventory().getItemInMainHand();
         if (useItem.getType().equals(Material.AIR)) return;
         if (useItem.getType() != item.baseItem) return;
         NBTItem useItemNBT = new NBTItem(useItem);
@@ -119,13 +119,13 @@ public class CustomItemBase implements Listener {
 
         if (item.useEffect == null) return;
 
-        e.setCancelled(true);
+        event.setCancelled(true);
 
         if (item.useEffect.type == ItemUseEffectType.EFFECT_CLICKED) {
-            if (!(e.getRightClicked() instanceof LivingEntity))
+            if (!(event.getRightClicked() instanceof LivingEntity))
                 return;
             for (BNPotionEffect effect : item.useEffect.potionEffects) {
-                LivingEntity victim = (LivingEntity) e.getRightClicked();
+                LivingEntity victim = (LivingEntity) event.getRightClicked();
                 if (chanceOf(effect.chance)) {
                     victim.addPotionEffect(effect.getPotionEffect(), false);
                     if (BetterConfig.DEBUG)
@@ -134,17 +134,17 @@ public class CustomItemBase implements Listener {
             }
         }
 
-        if (e.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.consumeItemOnUse ||
-                (e.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.type == ItemUseEffectType.SPAWN_CUSTOM_MOB))
+        if (event.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.consumeItemOnUse ||
+                (event.getPlayer().getGameMode() != GameMode.CREATIVE && item.useEffect.type == ItemUseEffectType.SPAWN_CUSTOM_MOB))
             useItem.setAmount(useItem.getAmount() - 1);
     }
 
     @EventHandler
-    public void customItemConsume(PlayerItemConsumeEvent e) {
+    public void customItemConsume(PlayerItemConsumeEvent event) {
         if (item == null) return;
-        if (e.isCancelled()) return;
+        if (event.isCancelled()) return;
 
-        ItemStack consumedItem = e.getItem();
+        ItemStack consumedItem = event.getItem();
         if (consumedItem.getType().equals(Material.AIR)) return;
         if (consumedItem.getType() != item.baseItem) return;
         NBTItem consumedItemNBT = new NBTItem(consumedItem);
@@ -157,13 +157,13 @@ public class CustomItemBase implements Listener {
 
         for (BNPotionEffect effect : item.consumeEffect.potionEffects) {
             if (chanceOf(effect.chance)) {
-                e.getPlayer().addPotionEffect(effect.getPotionEffect(), false);
+                event.getPlayer().addPotionEffect(effect.getPotionEffect(), false);
                 if (BetterConfig.DEBUG)
-                    main.getLogger().info(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, e.getPlayer().getName(), item.consumeEffect.effectDisplay));
+                    main.getLogger().info(String.format("&aCustom Item &6%s &cinflicted &e%s &cwith &4%s&c!", item.displayName, event.getPlayer().getName(), item.consumeEffect.effectDisplay));
                 effected = true;
             }
         }
         if (effected)
-            e.getPlayer().sendMessage(String.format("&7You ate %s &7and got effected with %s", item.displayName, item.consumeEffect.effectDisplay));
+            event.getPlayer().sendMessage(String.format("&7You ate %s &7and got effected with %s", item.displayName, item.consumeEffect.effectDisplay));
     }
 }

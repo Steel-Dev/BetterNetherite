@@ -10,13 +10,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static com.github.steeldev.betternetherite.util.Util.formalizedString;
 
 public class BetterConfig {
     // Config stuff
     public static boolean DEBUG;
+    public static String SELECTED_LANGUAGE;
     public static boolean NEW_UPDATE_MESSAGE_ON_JOIN;
     public static boolean NEW_UPDATE_MESSAGE_ON_RELOAD;
     public static boolean ENABLE_NETHERITE_CRAFTING;
@@ -91,21 +92,32 @@ public class BetterConfig {
     public static int CUSTOM_MOB_TANK_SPAWNCHANCE;
 
 
-
     public static boolean RESOURCE_PACK_ENABLED;
     public static String RESOURCE_PACK_URL;
     public static boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
     public static boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
     public static boolean RESOURCE_PACK_AUTO_UPDATE;
-
-
-    private final BetterNetherite plugin;
     private static FileConfiguration config;
     private static File configFile;
+    private final BetterNetherite plugin;
+
+    static List<String> supportedLanguages = new ArrayList<>(Arrays.asList("English"));
 
     public BetterConfig(BetterNetherite plugin) {
         this.plugin = plugin;
         loadConfigFile();
+    }
+
+    public static void setString(String path, String value) throws IOException {
+        config.set(path, value);
+
+        config.save(configFile);
+    }
+
+    public static void setBool(String path, boolean value) throws IOException {
+        config.set(path, value);
+
+        config.save(configFile);
     }
 
     private void loadConfigFile() {
@@ -150,6 +162,10 @@ public class BetterConfig {
 
     private void loadConfigs() {
         DEBUG = config.getBoolean("Debug");
+        SELECTED_LANGUAGE = formalizedString(config.getString("Language"));
+        if(!supportedLanguages.contains(SELECTED_LANGUAGE)){
+            throw new WhyNoWorkException("The specified language " + SELECTED_LANGUAGE + " is invalid, or not yet supported!");
+        }
         NEW_UPDATE_MESSAGE_ON_JOIN = config.getBoolean("UpdateCheck.MessageOnJoin");
         NEW_UPDATE_MESSAGE_ON_RELOAD = config.getBoolean("UpdateCheck.MessageOnReload");
         ENABLE_NETHERITE_CRAFTING = config.getBoolean("NetheriteCrafting");
@@ -231,11 +247,5 @@ public class BetterConfig {
 
         IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED = config.getBoolean("ImprovedUpgrading.UpgradeRecipes.DiamondToNetherite.Enabled");
         IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT = config.getInt("ImprovedUpgrading.UpgradeRecipes.DiamondToNetherite.MaterialAmount");
-    }
-
-    public static void setString(String path, String value) throws IOException {
-        config.set(path,value);
-
-        config.save(configFile);
     }
 }

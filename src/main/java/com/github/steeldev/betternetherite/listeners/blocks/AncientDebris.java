@@ -20,9 +20,9 @@ public class AncientDebris implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @EventHandler
-    public void onBreak(BlockBreakEvent e) {
-        Block block = e.getBlock();
-        if (e.isCancelled() ||
+    public void onBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
+        if (event.isCancelled() ||
                 !block.getType().equals(Material.ANCIENT_DEBRIS) ||
                 block.hasMetadata("PlacedByPlayer"))
             return;
@@ -63,15 +63,15 @@ public class AncientDebris implements Listener {
     }
 
     @EventHandler
-    public void onPlace(BlockPlaceEvent e) {
-        Block block = e.getBlock();
+    public void onPlace(BlockPlaceEvent event) {
+        Block block = event.getBlock();
         //We only want to add this metadata value if the placed block is ancient debris
         //So we dont put metedata on EVERY placed block.
         //This is so people cant farm the extra scrap drops by placing and
         //mining debris over and now, aka abuse the system
         //this value of course wont persist through a server restart
         //but the players dont have control over restarts
-        if (e.isCancelled() ||
+        if (event.isCancelled() ||
                 !block.getType().equals(Material.ANCIENT_DEBRIS))
             return;
 

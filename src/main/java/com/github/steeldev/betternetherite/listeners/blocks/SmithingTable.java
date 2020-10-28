@@ -24,25 +24,25 @@ public class SmithingTable implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @EventHandler
-    public void useSmithingTable(PlayerInteractEvent e) {
+    public void useSmithingTable(PlayerInteractEvent event) {
         if (!BetterConfig.ENABLE_NETHERITE_CRAFTING) return;
         if (BetterConfig.IMPROVED_UPGRADING) return;
-        if (!e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
-        Block b = e.getClickedBlock();
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
+        Block b = event.getClickedBlock();
         if (b == null) return;
-        Player p = e.getPlayer();
+        Player p = event.getPlayer();
         if (b.getType().equals(Material.SMITHING_TABLE)) {
-            e.setCancelled(true);
+            event.setCancelled(true);
             p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.NETHERITE_UPGRADING_DISABLE_MSG)));
         }
     }
 
     @EventHandler
-    public void smithingTableClick(InventoryClickEvent e) {
+    public void smithingTableClick(InventoryClickEvent event) {
         //definitely in need of improvements, i cant be fucked right now, so, deal with it :p
         if (!BetterConfig.IMPROVED_UPGRADING) return;
 
-        Player p = (Player) e.getWhoClicked();
+        Player p = (Player) event.getWhoClicked();
         if (p.getOpenInventory().getTitle().contains(colorize("Upgrade Gear"))) {
             Material matNeeded = null;
             ItemStack slot0Item = p.getOpenInventory().getItem(0);
@@ -51,7 +51,7 @@ public class SmithingTable implements Listener {
 
             List<Material> validUpgradableItems = null;
 
-            if (e.getSlot() != 2 ||
+            if (event.getSlot() != 2 ||
                     slot0Item == null ||
                     slot1Item == null ||
                     slot2Item == null ||
@@ -130,7 +130,7 @@ public class SmithingTable implements Listener {
             String upgradeSuccessMsg = Lang.UPGRADE_SUCCESS_MSG.replaceAll("AMOUNT", String.valueOf(matAmount)).replaceAll("ITEM", finalIt).replaceAll("MATNEEDED", formalizedString(matNeeded.toString())).replaceAll("UPGRADEDTO", formalizedString(slot2Item.getType().toString()));
 
             if (slot1Item.getAmount() < matAmount) {
-                e.setCancelled(true);
+                event.setCancelled(true);
                 p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, notEnoughIngotsMsg)));
             } else {
                 slot1Item.setAmount(slot1Item.getAmount() - (matAmount - 1));

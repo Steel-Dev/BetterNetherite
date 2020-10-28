@@ -37,16 +37,16 @@ public class ShrineBase implements Listener {
     }
 
     @EventHandler
-    public void useShrine(PlayerInteractEvent e) {
-        Player p = e.getPlayer();
+    public void useShrine(PlayerInteractEvent event) {
+        Player p = event.getPlayer();
         ItemStack item = p.getInventory().getItemInMainHand();
-        Block clickedBlock = e.getClickedBlock();
+        Block clickedBlock = event.getClickedBlock();
         boolean correct = false;
-        if (e.getAction() != Action.RIGHT_CLICK_BLOCK ||
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK ||
                 clickedBlock == null ||
                 (shrine.requiresValidItems && item.getType() == Material.AIR) ||
-                e.getHand() != EquipmentSlot.HAND ||
-                e.isCancelled())
+                event.getHand() != EquipmentSlot.HAND ||
+                event.isCancelled())
             return;
 
         if (clickedBlock.getType().equals(shrine.core.coreBlock)) {
@@ -54,7 +54,7 @@ public class ShrineBase implements Listener {
             if (crimsonFence.getType().equals(shrine.core.coreSupport)) {
                 Block cryingObsidian = crimsonFence.getRelative(0, -1, 0);
                 if (cryingObsidian.getType().equals(Material.CRYING_OBSIDIAN)) {
-                    e.setCancelled(true);
+                    event.setCancelled(true);
                     if (!shrine.validUseWorlds.contains(p.getWorld().getEnvironment())) {
                         p.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.SHRINE_CANT_USE_IN_WORLD_MSG.replaceAll("SHRINE", shrine.display))));
                         return;

@@ -7,7 +7,6 @@ import com.github.steeldev.betternetherite.misc.BNItem;
 import com.github.steeldev.betternetherite.util.items.*;
 import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
 import org.bukkit.Color;
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;

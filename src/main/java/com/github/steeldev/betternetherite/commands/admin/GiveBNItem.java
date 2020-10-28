@@ -11,6 +11,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,30 +23,30 @@ public class GiveBNItem implements CommandExecutor, TabCompleter {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @Override
-    public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (commandSender instanceof Player) {
-            Player specifiedPlayer = (Player) commandSender;
-            if (strings.length < 1) return false;
-            BNItem specifiedItem = BNItemManager.getBNItem(strings[0]);
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (sender instanceof Player) {
+            Player specifiedPlayer = (Player) sender;
+            if (args.length < 1) return false;
+            BNItem specifiedItem = BNItemManager.getBNItem(args[0]);
             int amount = 1;
-            if (strings.length > 1) {
+            if (args.length > 1) {
                 try {
-                    amount = Integer.parseInt(strings[1]);
+                    amount = Integer.parseInt(args[1]);
                 } catch (NumberFormatException e) {
-                    commandSender.sendMessage(colorize(String.format("%s&cExpected a number.", Lang.PREFIX)));
+                    sender.sendMessage(colorize(String.format("%s&cExpected a number.", Lang.PREFIX)));
                     return true;
                 }
             }
-            if (strings.length > 2) {
-                if (main.getServer().getPlayer(strings[2]) != null) {
-                    specifiedPlayer = main.getServer().getPlayer(strings[2]);
+            if (args.length > 2) {
+                if (main.getServer().getPlayer(args[2]) != null) {
+                    specifiedPlayer = main.getServer().getPlayer(args[2]);
                 } else {
-                    commandSender.sendMessage(colorize(Lang.PREFIX + Lang.INVALID_PLAYER_MSG));
+                    sender.sendMessage(colorize(Lang.PREFIX + Lang.INVALID_PLAYER_MSG));
                     return true;
                 }
             }
             if (specifiedPlayer == null) {
-                commandSender.sendMessage(colorize(Lang.PREFIX + Lang.INVALID_PLAYER_MSG));
+                sender.sendMessage(colorize(Lang.PREFIX + Lang.INVALID_PLAYER_MSG));
                 return true;
             }
             if (specifiedItem != null) {
@@ -54,38 +55,38 @@ public class GiveBNItem implements CommandExecutor, TabCompleter {
                     for (int i = 0; i < amount; i++) {
                         specifiedPlayer.getInventory().addItem(item);
                     }
-                    commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_GIVEN_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount)))));
+                    sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_GIVEN_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount)))));
                 } else
-                    commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount)))));
+                    sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG.replace("ITEMNAME", specifiedItem.displayName).replace("PLAYERNAME", specifiedPlayer.getDisplayName()).replace("ITEMAMOUNT", String.valueOf(amount)))));
             } else {
-                commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_INVALID_MSG.replaceAll("ITEMID", strings[0]))));
+                sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.CUSTOM_ITEM_INVALID_MSG.replaceAll("ITEMID", args[0]))));
             }
         } else {
-            commandSender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
+            sender.sendMessage(colorize(String.format("%s%s", Lang.PREFIX, Lang.PLAYERS_ONLY_MSG)));
         }
         return true;
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (strings.length > 2) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+        if (args.length > 2) {
             List<String> onlinePlayers = new ArrayList<>();
             for (Player player : main.getServer().getOnlinePlayers()) {
                 onlinePlayers.add(player.getName());
             }
 
             final List<String> completions = new ArrayList<>();
-            StringUtil.copyPartialMatches(strings[1], onlinePlayers, completions);
+            StringUtil.copyPartialMatches(args[1], onlinePlayers, completions);
             Collections.sort(completions);
             return completions;
         }
-        if (strings.length > 1)
+        if (args.length > 1)
             return new ArrayList<>();
 
         List<String> items = BNItemManager.getValidItemList();
 
         final List<String> completions = new ArrayList<>();
-        StringUtil.copyPartialMatches(strings[0], items, completions);
+        StringUtil.copyPartialMatches(args[0], items, completions);
         Collections.sort(completions);
         return completions;
     }

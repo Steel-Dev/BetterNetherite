@@ -12,6 +12,9 @@
 #   a development option, put here for ease of development.
 Debug: false
 
+# What language should the plugin use?
+Language: English
+
 # Enable the resource pack?
 #  the resource pack will not replace any existing
 #  textures (except netherite items).

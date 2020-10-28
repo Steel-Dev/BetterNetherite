@@ -132,15 +132,15 @@ public class BNItemListInventory implements Listener {
     }
 
     @EventHandler
-    public void bnItemListInvClick(InventoryClickEvent e) {
-        Player p = (Player) e.getWhoClicked();
+    public void bnItemListInvClick(InventoryClickEvent event) {
+        Player p = (Player) event.getWhoClicked();
         if (p.getOpenInventory().getTitle().contains(colorize(INVENTORY_NAME))) {
-            e.setCancelled(true);
-            if ((e.getCurrentItem() == null) || (e.getCurrentItem().getType().equals(Material.AIR))) {
+            event.setCancelled(true);
+            if ((event.getCurrentItem() == null) || (event.getCurrentItem().getType().equals(Material.AIR))) {
                 return;
             }
 
-            ItemStack clickedItem = e.getCurrentItem();
+            ItemStack clickedItem = event.getCurrentItem();
             NBTItem clickedItemNBT = new NBTItem(clickedItem);
 
             if (clickedItemNBT.hasKey("InventoryAction")) {

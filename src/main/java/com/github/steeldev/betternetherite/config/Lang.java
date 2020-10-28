@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Lang {
+    static BetterNetherite main = BetterNetherite.getInstance();
+
     public static String PREFIX;
     public static String NETHERITE_UPGRADING_DISABLE_MSG;
     public static String NOT_ENOUGH_MATS_UPGRADE_MSG;
@@ -49,11 +51,12 @@ public class Lang {
     }
 
     private void loadLangFile() {
+        main.getLogger().info("&7Loading lang file for " + BetterConfig.SELECTED_LANGUAGE);
         if (langFile == null) {
-            langFile = new File(plugin.getDataFolder(), "Messages.yml");
+            langFile = new File(plugin.getDataFolder(), "Lang.yml");
         }
         if (!langFile.exists()) {
-            plugin.saveResource("Messages.yml", false);
+            plugin.saveResource("Lang.yml", false);
         }
         lang = YamlConfiguration.loadConfiguration(langFile);
         matchLangFile();
@@ -89,35 +92,35 @@ public class Lang {
     }
 
     private void loadLang() {
-        PREFIX = lang.getString("Prefix");
-        NETHERITE_UPGRADING_DISABLE_MSG = lang.getString("NetheriteUpgradingDisabledMsg");
-        NOT_ENOUGH_MATS_UPGRADE_MSG = lang.getString("NotEnoughMatsToUpgradeMsg");
-        UPGRADE_SUCCESS_MSG = lang.getString("UpgradeSuccessMsg");
+        PREFIX = lang.getString(BetterConfig.SELECTED_LANGUAGE+".Prefix");
+        NETHERITE_UPGRADING_DISABLE_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".NetheriteUpgradingDisabledMsg");
+        NOT_ENOUGH_MATS_UPGRADE_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".NotEnoughMatsToUpgradeMsg");
+        UPGRADE_SUCCESS_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".UpgradeSuccessMsg");
 
-        SHRINE_USED_MSG = lang.getString("ShrineUsedMsg");
-        POTION_SHRINE_USED_MSG = lang.getString("PotionShrineUsedMsg");
-        SHRINE_BUILT_INCORRECT_MSG = lang.getString("ShrineBuiltIncorrectlyMsg");
-        SHRINE_CHARGES_MSG = lang.getString("ShrineChargesMsg");
-        SHRINE_CHARGES_LOW_MSG = lang.getString("ShrineLowOnChargeMsg");
-        SHRINE_INVALID_ITEM_MSG = lang.getString("ShrineInvalidItemMsg");
-        SHRINE_ITEM_ALREADY_EFFECTED_MSG = lang.getString("ShrineItemAlreadyEffectedMsg");
-        SHRINE_ITEM_FULL_DUR_MSG = lang.getString("ShrineItemDurabilityFull");
-        SHRINE_NO_CHARGES_MSG = lang.getString("ShrineNoChargesMsg");
-        SHRINE_CANT_USE_IN_WORLD_MSG = lang.getString("ShrineCantBeUsedInWorld");
+        SHRINE_USED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineUsedMsg");
+        POTION_SHRINE_USED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".PotionShrineUsedMsg");
+        SHRINE_BUILT_INCORRECT_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineBuiltIncorrectlyMsg");
+        SHRINE_CHARGES_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineChargesMsg");
+        SHRINE_CHARGES_LOW_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineLowOnChargeMsg");
+        SHRINE_INVALID_ITEM_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineInvalidItemMsg");
+        SHRINE_ITEM_ALREADY_EFFECTED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineItemAlreadyEffectedMsg");
+        SHRINE_ITEM_FULL_DUR_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineItemDurabilityFull");
+        SHRINE_NO_CHARGES_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineNoChargesMsg");
+        SHRINE_CANT_USE_IN_WORLD_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".ShrineCantBeUsedInWorld");
 
-        PLAYERS_ONLY_MSG = lang.getString("PlayersOnlyMsg");
+        PLAYERS_ONLY_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".PlayersOnlyMsg");
 
-        CUSTOM_MOB_INVALID_MSG = lang.getString("InvalidBNMobMsg");
-        CUSTOM_MOB_SPAWNED_MSG = lang.getString("BNMobSpawnedMsg");
-        CUSTOM_MOB_SPAWN_FAILED_MSG = lang.getString("BNMobSpawnFailed");
-        CUSTOM_MOBS_KILLED_MSG = lang.getString("BNMobsKilled");
-        CUSTOM_MOBS_KILL_FAILED_MSG = lang.getString("NoBNMobsSpawned");
-        CUSTOM_MOB_REGISTERED_MSG = lang.getString("BNMobRegistered");
+        CUSTOM_MOB_INVALID_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".InvalidBNMobMsg");
+        CUSTOM_MOB_SPAWNED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNMobSpawnedMsg");
+        CUSTOM_MOB_SPAWN_FAILED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNMobSpawnFailed");
+        CUSTOM_MOBS_KILLED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNMobsKilled");
+        CUSTOM_MOBS_KILL_FAILED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".NoBNMobsSpawned");
+        CUSTOM_MOB_REGISTERED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNMobRegistered");
 
-        CUSTOM_ITEM_GIVEN_MSG = lang.getString("BNItemGivenMsg");
-        CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG = lang.getString("BNInventoryFullMsg");
-        CUSTOM_ITEM_INVALID_MSG = lang.getString("BNItemInvalidMsg");
+        CUSTOM_ITEM_GIVEN_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNItemGivenMsg");
+        CUSTOM_ITEM_PLAYER_INVENTORY_FULL_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNInventoryFullMsg");
+        CUSTOM_ITEM_INVALID_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".BNItemInvalidMsg");
 
-        INVALID_PLAYER_MSG = lang.getString("PlayerNotOnline");
+        INVALID_PLAYER_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE+".PlayerNotOnline");
     }
 }

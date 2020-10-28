@@ -12,8 +12,8 @@ import org.bukkit.persistence.PersistentDataType;
 public class BNWorldListener implements Listener {
 
     @EventHandler
-    public void chunkLoad(ChunkLoadEvent e) {
-        for (Entity entity : e.getChunk().getEntities()) {
+    public void chunkLoad(ChunkLoadEvent event) {
+        for (Entity entity : event.getChunk().getEntities()) {
             if (entity instanceof LivingEntity) {
                 if (entity.getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
                     BNMobManager.addMobToSpawned((LivingEntity) entity);
@@ -22,8 +22,8 @@ public class BNWorldListener implements Listener {
     }
 
     @EventHandler
-    public void chunkUnload(ChunkUnloadEvent e) {
-        for (Entity entity : e.getChunk().getEntities()) {
+    public void chunkUnload(ChunkUnloadEvent event) {
+        for (Entity entity : event.getChunk().getEntities()) {
             if (entity instanceof LivingEntity) {
                 if (entity.getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
                     BNMobManager.removeMobFromSpawned((LivingEntity) entity);

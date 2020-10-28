@@ -22,13 +22,13 @@ public class NetheriteFishing implements Listener {
     final static BetterNetherite main = BetterNetherite.getInstance();
 
     @EventHandler
-    public void playerFishEvent(PlayerFishEvent e) {
+    public void playerFishEvent(PlayerFishEvent event) {
         if (!BetterConfig.NETHERITE_FISH_TREASURE_ENABLED) return;
 
-        if (e.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
+        if (event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
             boolean gotNewItem = false;
-            if (e.getCaught() != null) {
-                ItemStack caught = ((Item) e.getCaught()).getItemStack();
+            if (event.getCaught() != null) {
+                ItemStack caught = ((Item) event.getCaught()).getItemStack();
                 if (!caught.getType().equals(Material.COD) &&
                         !caught.getType().equals(Material.TROPICAL_FISH) &&
                         !caught.getType().equals(Material.SALMON) &&
@@ -58,7 +58,7 @@ public class NetheriteFishing implements Listener {
                                 caught.setItemMeta(lootItem.getItemMeta());
                                 caught.setType(lootItem.getType());
                                 caught.setAmount(lootItem.getAmount());
-                                ((Item) e.getCaught()).setItemStack(caught);
+                                ((Item) event.getCaught()).setItemStack(caught);
                                 gotNewItem = true;
                             }
                         }

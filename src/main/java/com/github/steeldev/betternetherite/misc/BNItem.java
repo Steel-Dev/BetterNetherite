@@ -6,8 +6,10 @@ import com.github.steeldev.betternetherite.util.items.*;
 import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.dbassett.skullcreator.SkullCreator;
-import jdk.nashorn.internal.objects.annotations.Property;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -16,8 +18,6 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.material.Colorable;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -109,21 +109,22 @@ public class BNItem {
         return this;
     }
 
-    public BNItem withSkullOwnerByName(String playerName){
-        if(this.skullInfo == null) this.skullInfo = new SkullInfo();
+    public BNItem withSkullOwnerByName(String playerName) {
+        if (this.skullInfo == null) this.skullInfo = new SkullInfo();
         this.skullInfo.owningPlayer = main.getServer().getOfflinePlayer(playerName);
         return this;
     }
-    public BNItem withSkullOwnerByBase64(String base64){
-        if(this.skullInfo == null) this.skullInfo = new SkullInfo();
+
+    public BNItem withSkullOwnerByBase64(String base64) {
+        if (this.skullInfo == null) this.skullInfo = new SkullInfo();
         this.skullInfo.base64 = base64;
         return this;
     }
 
     public ItemStack getItem(boolean damaged) {
         ItemStack customItem = new ItemStack(baseItem);
-        if(skullInfo != null){
-            if(!skullInfo.base64.equals("")) {
+        if (skullInfo != null) {
+            if (!skullInfo.base64.equals("")) {
                 customItem = SkullCreator.itemFromBase64(skullInfo.base64);
             }
         }
@@ -157,12 +158,12 @@ public class BNItem {
             if (color != null) {
                 if (customItemMeta instanceof LeatherArmorMeta)
                     ((LeatherArmorMeta) customItemMeta).setColor(color);
-                if(customItemMeta instanceof Colorable)
-                    ((Colorable)customItemMeta).setColor(DyeColor.getByColor(color));
+                if (customItemMeta instanceof Colorable)
+                    ((Colorable) customItemMeta).setColor(DyeColor.getByColor(color));
             }
 
-            if(skullInfo != null){
-                if(skullInfo.owningPlayer != null && skullInfo.base64.equals("")) {
+            if (skullInfo != null) {
+                if (skullInfo.owningPlayer != null && skullInfo.base64.equals("")) {
                     if (customItemMeta instanceof SkullMeta)
                         ((SkullMeta) customItemMeta).setOwningPlayer(skullInfo.owningPlayer);
                 }

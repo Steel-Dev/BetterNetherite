@@ -30,69 +30,69 @@ public class CustomMobBase implements Listener {
     }
 
     @EventHandler
-    public void customMobSpawn(EntitySpawnEvent e) {
-        World world = e.getLocation().getWorld();
+    public void customMobSpawn(EntitySpawnEvent event) {
+        World world = event.getLocation().getWorld();
         if (mob == null) return;
         if (world == null) return;
         if (mob.validSpawnWorlds == null || !mob.validSpawnWorlds.contains(world.getEnvironment())) return;
-        if (e.getEntity().getCustomName() != null) return;
+        if (event.getEntity().getCustomName() != null) return;
         if (mob.entityToReplace == null ||
                 mob.entityToReplace.size() < 1 ||
-                !mob.entityToReplace.contains(e.getEntityType())) return;
+                !mob.entityToReplace.contains(event.getEntityType())) return;
 
         if (chanceOf(mob.spawnChance)) {
             int bnMobCount = BNMobManager.getSpawnedMobs().size();
             if (bnMobCount >= BetterConfig.CUSTOM_MOB_CAP) {
-                e.setCancelled(true);
+                event.setCancelled(true);
                 return;
             }
 
-            mob.spawnMob(e.getLocation(), (LivingEntity) e.getEntity());
+            mob.spawnMob(event.getLocation(), (LivingEntity) event.getEntity());
         }
     }
 
     @EventHandler
-    public void customMobDeath(EntityDeathEvent e) {
+    public void customMobDeath(EntityDeathEvent event) {
         if (mob == null) return;
-        if (!e.getEntityType().equals(mob.baseEntity)) return;
-        if (e.getEntity().getCustomName() == null) return;
-        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
+        if (!event.getEntityType().equals(mob.baseEntity)) return;
+        if (event.getEntity().getCustomName() == null) return;
+        if (!event.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
             return;
-        if (!ChatColor.stripColor(e.getEntity().getCustomName()).equals(mob.getUncoloredName())) return;
+        if (!ChatColor.stripColor(event.getEntity().getCustomName()).equals(mob.getUncoloredName())) return;
 
         if (mob.dropsToRemove != null && mob.dropsToRemove.size() > 0)
-            e.getDrops().removeIf(item -> mob.dropsToRemove.contains(item.getType()));
+            event.getDrops().removeIf(item -> mob.dropsToRemove.contains(item.getType()));
 
         if (mob.drops != null && mob.drops.size() > 0) {
             for (ItemChance entry : mob.drops) {
                 if (chanceOf(entry.chance)) {
                     ItemStack dropItem = entry.getItem(entry.damaged);
-                    e.getDrops().add(dropItem);
+                    event.getDrops().add(dropItem);
                 }
             }
         }
-        e.setDroppedExp(rand.nextInt(mob.deathEXP));
+        event.setDroppedExp(rand.nextInt(mob.deathEXP));
 
         if (mob.explosionOnDeathInfo == null) return;
         if (!mob.explosionOnDeathInfo.enabled) return;
         if (chanceOf(mob.explosionOnDeathInfo.chance))
-            e.getEntity().getWorld().createExplosion(e.getEntity().getLocation(), mob.explosionOnDeathInfo.size, mob.explosionOnDeathInfo.createsFire);
-        BNMobManager.removeMobFromSpawned(e.getEntity());
+            event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), mob.explosionOnDeathInfo.size, mob.explosionOnDeathInfo.createsFire);
+        BNMobManager.removeMobFromSpawned(event.getEntity());
     }
 
     @EventHandler
-    public void customMobDamageEntity(EntityDamageByEntityEvent e) {
+    public void customMobDamageEntity(EntityDamageByEntityEvent event) {
         if (mob == null) return;
-        if (!e.getDamager().getType().equals(mob.baseEntity)) return;
-        if (e.getDamager().getCustomName() == null) return;
-        if (!e.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
+        if (!event.getDamager().getType().equals(mob.baseEntity)) return;
+        if (event.getDamager().getCustomName() == null) return;
+        if (!event.getEntity().getPersistentDataContainer().has(BNMobManager.customMobKey, PersistentDataType.STRING))
             return;
-        if (!ChatColor.stripColor(e.getDamager().getCustomName()).equals(mob.getUncoloredName())) return;
+        if (!ChatColor.stripColor(event.getDamager().getCustomName()).equals(mob.getUncoloredName())) return;
 
-        if (e.getEntity() instanceof LivingEntity) {
+        if (event.getEntity() instanceof LivingEntity) {
             if (mob.hitEffects != null && mob.hitEffects.size() > 0) {
                 for (BNPotionEffect entry : mob.hitEffects) {
-                    LivingEntity victim = (LivingEntity) e.getEntity();
+                    LivingEntity victim = (LivingEntity) event.getEntity();
                     if (chanceOf(entry.chance)) {
                         victim.addPotionEffect(entry.getPotionEffect(), false);
                         if (BetterConfig.DEBUG)
@@ -104,11 +104,11 @@ public class CustomMobBase implements Listener {
     }
 
     @EventHandler
-    public void customMobTarget(EntityTargetLivingEntityEvent e) {
+    public void customMobTarget(EntityTargetLivingEntityEvent event) {
         if (mob == null) return;
-        if (!(e.getEntity() instanceof LivingEntity)) return;
-        LivingEntity entity = (LivingEntity) e.getEntity();
-        LivingEntity target = e.getTarget();
+        if (!(event.getEntity() instanceof LivingEntity)) return;
+        LivingEntity entity = (LivingEntity) event.getEntity();
+        LivingEntity target = event.getTarget();
         if (target == null) return;
         if (target.isDead()) return;
         if (!entity.getType().equals(mob.baseEntity)) return;
@@ -119,7 +119,7 @@ public class CustomMobBase implements Listener {
 
         if (mob.targetableEntityTypes != null && mob.targetableEntityTypes.size() > 0) {
             if (!mob.targetableEntityTypes.contains(target.getType())) {
-                e.setCancelled(true);
+                event.setCancelled(true);
                 return;
             }
         }

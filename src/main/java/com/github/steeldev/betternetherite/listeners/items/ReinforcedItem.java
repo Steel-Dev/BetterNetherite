@@ -19,12 +19,12 @@ public class ReinforcedItem implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
 
     @EventHandler
-    public void reinforcedItemDamage(PlayerItemDamageEvent e) {
-        Player player = e.getPlayer();
+    public void reinforcedItemDamage(PlayerItemDamageEvent event) {
+        Player player = event.getPlayer();
         if (player.getGameMode() != GameMode.SURVIVAL &&
                 player.getGameMode() != GameMode.ADVENTURE)
             return;
-        ItemStack tool = e.getItem();
+        ItemStack tool = event.getItem();
         if (tool.getType() == Material.AIR)
             return;
 
@@ -34,17 +34,17 @@ public class ReinforcedItem implements Listener {
             return;
 
         if (!chanceOf(BetterConfig.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
-            e.setCancelled(true);
+            event.setCancelled(true);
     }
 
     @EventHandler
-    public void reinforcedItemAttack(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player && e.getEntity() instanceof LivingEntity) {
-            Player player = (Player) e.getDamager();
+    public void reinforcedItemAttack(EntityDamageByEntityEvent event) {
+        if (event.getDamager() instanceof Player && event.getEntity() instanceof LivingEntity) {
+            Player player = (Player) event.getDamager();
             if (player.getGameMode() != GameMode.SURVIVAL &&
                     player.getGameMode() != GameMode.ADVENTURE)
                 return;
-            LivingEntity entity = (LivingEntity) e.getEntity();
+            LivingEntity entity = (LivingEntity) event.getEntity();
 
             ItemStack tool = player.getInventory().getItemInMainHand();
             if (tool.getType() == Material.AIR)
