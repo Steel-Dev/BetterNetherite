@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class BetterNetherite extends JavaPlugin {
-    public static BetterNetherite instance;
+    private static BetterNetherite instance;
     public BetterConfig config = null;
     public Lang lang = null;
     public boolean outdated;
