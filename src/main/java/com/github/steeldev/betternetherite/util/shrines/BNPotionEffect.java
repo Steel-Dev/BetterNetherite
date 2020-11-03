@@ -1,4 +1,4 @@
-package com.github.steeldev.betternetherite.util.misc;
+package com.github.steeldev.betternetherite.util.shrines;
 
 import org.bukkit.potion.PotionEffectType;
 

@@ -5,7 +5,7 @@ import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.config.Lang;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.misc.BNShrine;
-import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
+import com.github.steeldev.betternetherite.util.shrines.BNPotionEffect;
 import com.github.steeldev.betternetherite.util.shrines.ShrineEffectType;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;

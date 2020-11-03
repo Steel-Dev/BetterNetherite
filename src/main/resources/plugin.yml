@@ -4,6 +4,7 @@ api-version: '1.16'
 main: com.github.steeldev.betternetherite.BetterNetherite
 description: A plugin that brings a few changes and additions to 1.16s new Netherite.
 author: Steel_Dev
+softdepend: [Monstrorvm]
 commands:
   betternetheritereload:
     description: Reload the configuration.

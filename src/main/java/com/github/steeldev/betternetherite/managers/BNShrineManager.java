@@ -4,11 +4,7 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.listeners.baselisteners.ShrineBase;
 import com.github.steeldev.betternetherite.misc.BNShrine;
-import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
-import com.github.steeldev.betternetherite.util.shrines.ShrineCharge;
-import com.github.steeldev.betternetherite.util.shrines.ShrineCore;
-import com.github.steeldev.betternetherite.util.shrines.ShrineEffect;
-import com.github.steeldev.betternetherite.util.shrines.ShrineEffectType;
+import com.github.steeldev.betternetherite.util.shrines.*;
 import org.bukkit.*;
 import org.bukkit.potion.PotionEffectType;
 

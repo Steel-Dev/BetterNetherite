@@ -2,7 +2,8 @@ package com.github.steeldev.betternetherite.managers;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
-import com.github.steeldev.betternetherite.util.misc.SmeltType;
+import com.github.steeldev.betternetherite.util.SmeltType;
+import com.github.steeldev.monstrorvm.managers.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -25,13 +26,14 @@ public class RecipeManager {
         if (BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
             registerBetterNetheriteScrapSmelting();
 
-        registerCustomItemRecipes();
+        if(main.monstrorvmPlugin != null)
+            registerCustomItemRecipes();
     }
 
     static void registerCustomItemRecipes() {
         if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
-            addSmeltingRecipe("furnace_hound_meat", SmeltType.FURNACE, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("hound_meat").getItem(false)), 2, 130);
-            addSmeltingRecipe("smoker_hound_meat", SmeltType.SMOKER, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(BNItemManager.getBNItem("hound_meat").getItem(false)), 4, 100);
+            addSmeltingRecipe("furnace_hound_meat", SmeltType.FURNACE, new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)), 2, 130);
+            addSmeltingRecipe("smoker_hound_meat", SmeltType.SMOKER, new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)), 4, 100);
         }
     }
 

@@ -219,20 +219,3 @@ AncientDebris:
     Enabled: true
     # If so, what chance?
     Chance: 5
-
-
-# IN DEVELOPMENT FEATURE
-#  EXPERIMENTAL, NOT FUNTIONAL YET.
-# Define which custom aspects of the plugin should be enabled
-#  Note: this is for USER MADE custom aspects, NOT ONES
-#   IN THE PLUGIN BY DEFAULT!
-CustomAspects:
-  # Should the user be able to create custom items?
-  Items:
-    Enabled: true
-  # Should the user be able to create custom mobs?
-  Mobs:
-    Enabled: true
-  # Should the user be able to create custom shrines?
-  Shrines:
-    Enabled: true

@@ -10,6 +10,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/../Monstrorvm/pom.xml" />
+        <option value="$PROJECT_DIR$/../Monstrorvm/dependency-reduced-pom.xml" />
       </list>
     </option>
   </component>

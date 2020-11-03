@@ -7,18 +7,17 @@ import com.github.steeldev.betternetherite.listeners.blocks.AncientDebris;
 import com.github.steeldev.betternetherite.listeners.blocks.SmithingTable;
 import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
-import com.github.steeldev.betternetherite.listeners.inventory.BNItemListInventory;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
-import com.github.steeldev.betternetherite.listeners.world.BNWorldListener;
 import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
-import de.tr7zw.changeme.nbtapi.NBTContainer;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,6 +30,8 @@ public class BetterNetherite extends JavaPlugin {
     public Lang lang = null;
     public boolean outdated;
     public String newVersion;
+
+    public Plugin monstrorvmPlugin;
 
     public Logger logger;
 
@@ -49,7 +50,7 @@ public class BetterNetherite extends JavaPlugin {
         long start = System.currentTimeMillis();
         instance = this;
 
-        MinecraftVersion.logger = getLogger();
+        MinecraftVersion.replaceLogger(getLogger());
 
         loadNBTAPI();
 
@@ -59,22 +60,41 @@ public class BetterNetherite extends JavaPlugin {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BNMobManager.init();
+
+
         registerEventListeners();
         registerBlockListeners();
         registerItemListeners();
         BNShrineManager.registerShrines();
-        BNItemManager.registerCustomItems();
-        BNMobManager.registerCustomMobs();
+        if(loadMonstrorvm() != null) {
+            monstrorvmPlugin = loadMonstrorvm();
+            if(monstrorvmPlugin.isEnabled()) {
+                getLogger().info("&aFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + "&a! Custom mobs and items enabled!");
+
+                BNItemManager.registerCustomItems();
+                BNMobManager.registerCustomMobs();
+            }
+            else
+                getLogger().info("&cFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + ", but its disabled! Custom mobs and items disabled.");
+        }
+        else{
+            getLogger().info("&cCould not find &2Monstrorvm &con the server! Custom mobs and items disabled!");
+        }
+
         registerCommands();
         RecipeManager.RegisterRecipes();
-        registerInventoryListeners();
 
         enableMetrics();
+
+
 
         getLogger().info(String.format("&aSuccessfully enabled &2%s &ain &e%s Seconds&a.", getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000));
 
         checkForNewVersion();
+    }
+
+    public Plugin loadMonstrorvm(){
+        return Bukkit.getServer().getPluginManager().getPlugin("Monstrorvm");
     }
 
     @Override
@@ -107,7 +127,8 @@ public class BetterNetherite extends JavaPlugin {
     public void loadNBTAPI() {
         getLogger().info("&aLoading NBT-API...");
         NBTItem loadingItem = new NBTItem(new ItemStack(Material.STONE));
-        loadingItem.mergeCompound(new NBTContainer("{}"));
+        loadingItem.addCompound("Glob");
+        loadingItem.setString("Glob", "yes");
         getLogger().info("&aSuccessfully loaded NBT-API!");
     }
 
@@ -126,24 +147,9 @@ public class BetterNetherite extends JavaPlugin {
     public void registerCommands() {
         this.getCommand("betternetheritereload").setExecutor(new BetterNetheriteReload());
 
-        if (BNMobManager.getValidMobList().size() > 0) {
-            this.getCommand("spawnbetternetheritemob").setExecutor(new SpawnBNMob());
-            this.getCommand("killallbetternetheritemobs").setExecutor(new KillAllBNMobs());
-        }
-        if (BNItemManager.getValidItemList().size() > 0) {
-            this.getCommand("listbetternetheriteitems").setExecutor(new ListBNItems());
-            this.getCommand("givebetternetheriteitem").setExecutor(new GiveBNItem());
-        }
-    }
-
-    public void registerInventoryListeners() {
-        if (BNItemManager.getValidItemList().size() > 0) {
-            getServer().getPluginManager().registerEvents(new BNItemListInventory(), this);
-        }
     }
 
     public void registerEventListeners() {
-        getServer().getPluginManager().registerEvents(new BNWorldListener(), this);
         getServer().getPluginManager().registerEvents(new NetheriteFishing(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
     }

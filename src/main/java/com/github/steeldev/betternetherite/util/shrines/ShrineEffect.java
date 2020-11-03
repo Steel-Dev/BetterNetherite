@@ -1,6 +1,5 @@
 package com.github.steeldev.betternetherite.util.shrines;
 
-import com.github.steeldev.betternetherite.util.misc.BNPotionEffect;
 import org.bukkit.Effect;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
