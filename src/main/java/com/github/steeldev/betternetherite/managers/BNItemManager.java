@@ -12,7 +12,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class BNItemManager {
     static BetterNetherite main = BetterNetherite.getInstance();

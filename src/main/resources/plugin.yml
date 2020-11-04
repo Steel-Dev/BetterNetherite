@@ -11,26 +11,6 @@ commands:
     aliases: bnreload
     permission: betternetherite.admin
     permission-message: You dont have permission to use this command.
-  spawnbetternetheritemob:
-    description: Spawn the specified custom mob.
-    aliases: spawnbnmob
-    permission: betternetherite.admin
-    permission-message: You dont have permission to use this command.
-  killallbetternetheritemobs:
-    description: Kills all spawned custom mobs.
-    aliases: killallbnmobs
-    permission: betternetherite.admin
-    permission-message: You dont have permission to use this command.
-  givebetternetheriteitem:
-    description: Give yourself the specified custom item.
-    aliases: givebnitem
-    permission: betternetherite.admin
-    permission-message: You dont have permission to use this command.
-  listbetternetheriteitems:
-    description: Open a GUI that displays all registered custom items. Clicking one will give it to you.
-    aliases: listbnitems
-    permission: betternetherite.admin
-    permission-message: You dont have permission to use this command.
 permissions:
   betternetherite.admin:
     description: Allows the user administrator permissions for Better Netherite.

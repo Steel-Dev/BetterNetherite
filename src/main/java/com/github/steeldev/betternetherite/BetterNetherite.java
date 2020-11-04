@@ -1,6 +1,6 @@
 package com.github.steeldev.betternetherite;
 
-import com.github.steeldev.betternetherite.commands.admin.*;
+import com.github.steeldev.betternetherite.commands.admin.BetterNetheriteReload;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.config.Lang;
 import com.github.steeldev.betternetherite.listeners.blocks.AncientDebris;
@@ -61,23 +61,20 @@ public class BetterNetherite extends JavaPlugin {
             e.printStackTrace();
         }
 
-
         registerEventListeners();
         registerBlockListeners();
         registerItemListeners();
         BNShrineManager.registerShrines();
-        if(loadMonstrorvm() != null) {
+        if (loadMonstrorvm() != null) {
             monstrorvmPlugin = loadMonstrorvm();
-            if(monstrorvmPlugin.isEnabled()) {
+            if (monstrorvmPlugin.isEnabled()) {
                 getLogger().info("&aFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + "&a! Custom mobs and items enabled!");
 
                 BNItemManager.registerCustomItems();
                 BNMobManager.registerCustomMobs();
-            }
-            else
-                getLogger().info("&cFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + ", but its disabled! Custom mobs and items disabled.");
-        }
-        else{
+            } else
+                getLogger().info("&cFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + ", but its disabled! Custom mobs and items disabled!");
+        } else {
             getLogger().info("&cCould not find &2Monstrorvm &con the server! Custom mobs and items disabled!");
         }
 
@@ -87,13 +84,12 @@ public class BetterNetherite extends JavaPlugin {
         enableMetrics();
 
 
-
         getLogger().info(String.format("&aSuccessfully enabled &2%s &ain &e%s Seconds&a.", getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000));
 
         checkForNewVersion();
     }
 
-    public Plugin loadMonstrorvm(){
+    public Plugin loadMonstrorvm() {
         return Bukkit.getServer().getPluginManager().getPlugin("Monstrorvm");
     }
 

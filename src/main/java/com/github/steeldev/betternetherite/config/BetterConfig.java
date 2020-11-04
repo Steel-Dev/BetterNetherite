@@ -97,11 +97,10 @@ public class BetterConfig {
     public static boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
     public static boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
     public static boolean RESOURCE_PACK_AUTO_UPDATE;
+    static List<String> supportedLanguages = new ArrayList<>(Arrays.asList("English"));
     private static FileConfiguration config;
     private static File configFile;
     private final BetterNetherite plugin;
-
-    static List<String> supportedLanguages = new ArrayList<>(Arrays.asList("English"));
 
     public BetterConfig(BetterNetherite plugin) {
         this.plugin = plugin;
@@ -163,7 +162,7 @@ public class BetterConfig {
     private void loadConfigs() {
         DEBUG = config.getBoolean("Debug");
         SELECTED_LANGUAGE = formalizedString(config.getString("Language"));
-        if(!supportedLanguages.contains(SELECTED_LANGUAGE)){
+        if (!supportedLanguages.contains(SELECTED_LANGUAGE)) {
             throw new WhyNoWorkException("The specified language " + SELECTED_LANGUAGE + " is invalid, or not yet supported!");
         }
         NEW_UPDATE_MESSAGE_ON_JOIN = config.getBoolean("UpdateCheck.MessageOnJoin");

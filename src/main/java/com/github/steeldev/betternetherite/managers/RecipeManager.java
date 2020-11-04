@@ -26,7 +26,7 @@ public class RecipeManager {
         if (BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
             registerBetterNetheriteScrapSmelting();
 
-        if(main.monstrorvmPlugin != null)
+        if (main.monstrorvmPlugin != null && main.monstrorvmPlugin.isEnabled())
             registerCustomItemRecipes();
     }
 

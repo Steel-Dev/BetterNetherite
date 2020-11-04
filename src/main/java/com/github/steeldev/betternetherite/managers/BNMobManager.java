@@ -10,10 +10,9 @@ import com.github.steeldev.monstrorvm.util.misc.MVSound;
 import com.github.steeldev.monstrorvm.util.mobs.*;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class BNMobManager {
     static BetterNetherite main = BetterNetherite.getInstance();
