@@ -22,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 public class BetterNetherite extends JavaPlugin {
@@ -136,8 +137,20 @@ public class BetterNetherite extends JavaPlugin {
     public void enableMetrics() {
         Metrics metrics = new Metrics(this, 9202);
 
-        if (metrics.isEnabled())
+        if (metrics.isEnabled()) {
             getLogger().info("&7Starting Metrics. Opt-out using the global bStats config.");
+            metrics.addCustomChart(new Metrics.SimplePie("using_monstrorvm", new Callable<String>(){
+                @Override
+                public String call() throws Exception {
+                    if(monstrorvmPlugin != null){
+                        if(monstrorvmPlugin.isEnabled()){
+                            return monstrorvmPlugin.getDescription().getVersion();
+                        }
+                    }
+                    return "No Monstrorvm";
+                }
+            }));
+        }
     }
 
     public void registerCommands() {

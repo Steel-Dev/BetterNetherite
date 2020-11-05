@@ -68,8 +68,6 @@ public class BetterConfig {
     public static List<String> NETHERITE_FISH_TREASURE_LOOT;
 
     //Mobs
-    public static int CUSTOM_MOB_CAP;
-
     public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
     public static int CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE;
 
@@ -194,8 +192,6 @@ public class BetterConfig {
 
         NETHERITE_FISH_TREASURE_ENABLED = config.getBoolean("NetheriteFishing.Enabled");
         NETHERITE_FISH_TREASURE_LOOT = config.getStringList("NetheriteFishing.Loot");
-
-        CUSTOM_MOB_CAP = config.getInt("CustomMobs.MobCap");
 
         CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauder.Enabled");
         CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteMarauder.SpawnChance");

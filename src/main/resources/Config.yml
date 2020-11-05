@@ -131,12 +131,6 @@ NetheriteFishing:
     - NETHERITE_HOE;1;1
 
 CustomMobs:
-  # The max amount of mobs total that can be spawned in
-  #  It accounts for LOADED mobs, so mobs in loaded chunks
-  #  so, for instance, if a chunk is unloaded with 5 mobs in it,
-  #   those 5 will not account towards the mob cap
-  #    unless that chunk is loaded again.
-  MobCap: 100
   # Should the Netherite Marauder custom mob be enabled?
   #  this mob only spawns in the nether, its slow, but does a big
   #   amount of damage, and has a lot of HP.
