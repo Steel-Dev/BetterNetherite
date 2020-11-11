@@ -24,7 +24,7 @@ ResourcePack:
   # The URL of the resource pack
   #  this is here so you can download it and customize it, add more
   #  or combine it with your own resource pack.
-  URL: 'https://www.dropbox.com/s/h6iuhk16bg8c8xf/BetterNetherite-ResourcePack-v1.zip?dl=1'
+  URL: 'https://www.dropbox.com/s/27b7eaufqh3rxg2/BetterNetherite-ResourcePack-v2.zip?dl=1'
   # Should the player be told the server uses a resource pack when they join?
   JoinMsgEnabled: true
   # Should the download status of the resource pack be sent to the player?
@@ -47,6 +47,11 @@ UpdateCheck:
 #   Instead, it makes it to where they must craft the items in the traditional way;
 #   eg how you'd craft a diamond item, but with netherite ingots
 NetheriteCrafting: false
+
+# This is an in-inventory upgrade system
+#  For servers that may not have the Smithing Table, and don't want to use the
+#  Netherite Crafting option.
+UpgradePackEnabled: true
 
 NetheriteShrines:
   # Item types that can be used on the Shrines.
@@ -92,7 +97,7 @@ ImprovedUpgrading:
   # Wanna keep the upgrade system but don't like how it works?
   #   This will make the upgrade system better and improve it
   #   And make it more customizable
-  Enabled: true
+  Enabled: false
   UpgradeRecipes:
     WoodToStone:
       # Should upgrading from Wood > Stone be enabled?

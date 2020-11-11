@@ -4,6 +4,10 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.monstrorvm.managers.ItemManager;
 import com.github.steeldev.monstrorvm.util.items.*;
+import com.github.steeldev.monstrorvm.util.items.recipe.ItemCraftingRecipe;
+import com.github.steeldev.monstrorvm.util.items.recipe.ItemSmeltingRecipe;
+import com.github.steeldev.monstrorvm.util.items.recipe.types.CraftType;
+import com.github.steeldev.monstrorvm.util.items.recipe.types.SmeltType;
 import com.github.steeldev.monstrorvm.util.misc.MVPotionEffect;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -12,13 +16,30 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 public class BNItemManager {
     static BetterNetherite main = BetterNetherite.getInstance();
 
     public static void registerCustomItems() {
+        if(BetterConfig.UPGRADE_PACK_ENABLED){
+            Map<Character,Material> ingredients = new HashMap<>();
+            ingredients.put('N', Material.NETHERITE_INGOT);
+            ingredients.put('I', Material.IRON_INGOT);
+            ingredients.put('S', Material.STICK);
+            ingredients.put('D', Material.DIAMOND);
+            List<String> rows = Arrays.asList("NIN","DSD","NIN");
+            ItemManager.registerNewItem(new MVItem("upgrade_pack", Material.SHEARS)
+                    .withDisplayName("&6Upgrade Pack")
+                    .withLore("&7Upgrade Diamond items to Netherite")
+                    .withLore("&7within your inventory.")
+                    .withCustomModelData(1)
+                    .withRecipe(new ItemCraftingRecipe(CraftType.SHAPED,
+                            rows,
+                            ingredients,
+                            1,
+                            "upgrade_pack_crafting")), main);
+        }
         if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED || BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
             ItemManager.registerNewItem(new MVItem("marauder_bone", Material.BONE)
                     .withDisplayName("<#3c1a4c>Marauder Bone")
@@ -66,16 +87,28 @@ public class BNItemManager {
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "netherite_marauder_brute")), main);
         }
         if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
-            ItemManager.registerNewItem(new MVItem("hound_meat", Material.PORKCHOP)
-                    .withCustomModelData(1)
-                    .withDisplayName("<#915103>Raw Hound Meat"), main);
-
             ItemManager.registerNewItem(new MVItem("cooked_hound_meat", Material.COOKED_PORKCHOP)
                     .withDisplayName("<#915103>Cooked Hound Meat")
                     .withCustomModelData(1)
                     .withConsumeEffect(new ItemConsumeEffect("&bHounds Grace",
                             Arrays.asList(new MVPotionEffect(PotionEffectType.ABSORPTION, 12, 2, 2000),
                                     new MVPotionEffect(PotionEffectType.REGENERATION, 25, 2, 2000)), 7)), main);
+
+            ItemManager.registerNewItem(new MVItem("hound_meat", Material.PORKCHOP)
+                    .withCustomModelData(1)
+                    .withDisplayName("<#915103>Raw Hound Meat")
+                    .withRecipe(new ItemSmeltingRecipe(SmeltType.FURNACE,
+                            "monstrorvm:cooked_hound_meat",
+                            130,
+                            2,
+                            1,
+                            "hound_meat_smelting"))
+                    .withRecipe(new ItemSmeltingRecipe(SmeltType.SMOKER,
+                            "monstrorvm:cooked_hound_meat",
+                            100,
+                            4,
+                            1,
+                            "hound_meat_smoking")), main);
 
             ItemManager.registerNewItem(new MVItem("rotten_hound_meat", Material.ROTTEN_FLESH)
                     .withDisplayName("<#2d2501>Rotted Hound Meat")

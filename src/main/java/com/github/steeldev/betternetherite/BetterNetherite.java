@@ -8,6 +8,7 @@ import com.github.steeldev.betternetherite.listeners.blocks.SmithingTable;
 import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
+import com.github.steeldev.betternetherite.listeners.items.UpgradePack;
 import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
@@ -161,6 +162,8 @@ public class BetterNetherite extends JavaPlugin {
     public void registerEventListeners() {
         getServer().getPluginManager().registerEvents(new NetheriteFishing(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        if(BetterConfig.UPGRADE_PACK_ENABLED)
+            getServer().getPluginManager().registerEvents(new UpgradePack(), this);
     }
 
     public void registerBlockListeners() {

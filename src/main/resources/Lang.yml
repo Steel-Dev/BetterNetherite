@@ -19,6 +19,7 @@ English:
   NetheriteUpgradingDisabledMsg: '&cSmithing Table upgrading is disabled.'
   NotEnoughMatsToUpgradeMsg: '&cYou do not have enough &eMATNEEDED&c in the second slot to upgrade your &6ITEM&c. You need &6AMOUNT&c!'
   UpgradeSuccessMsg: '&aYou have successfully upgraded your &6ITEM &ato &eUPGRADEDTO&a for &6AMOUNT &eMATNEEDED&a!'
+  PackUpgradeSuccess: '&aYou have successfully upgraded your &6ITEM &ato &eUPGRADEDTO&a using an Upgrade Pack!'
   ShrineUsedMsg: '&aYou have used a &6SHRINE &aand activated &eEFFECT&a. Your current held item is now &bEFFRES&a.'
   PotionShrineUsedMsg: '&aYou have used a &6SHRINE &aand activated &eEFFECT&a. You are now &bEFFRES&a.'
   ShrineInvalidItemMsg: '&cYour current held item cannot be used in this &6SHRINE&c.'

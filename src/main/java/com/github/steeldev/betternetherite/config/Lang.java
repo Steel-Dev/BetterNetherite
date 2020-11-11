@@ -13,6 +13,7 @@ public class Lang {
     public static String NETHERITE_UPGRADING_DISABLE_MSG;
     public static String NOT_ENOUGH_MATS_UPGRADE_MSG;
     public static String UPGRADE_SUCCESS_MSG;
+    public static String PACK_UPGRADE_SUCCESS_MSG;
     public static String SHRINE_USED_MSG;
     public static String POTION_SHRINE_USED_MSG;
     public static String SHRINE_BUILT_INCORRECT_MSG;
@@ -103,6 +104,8 @@ public class Lang {
         SHRINE_CANT_USE_IN_WORLD_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE + ".ShrineCantBeUsedInWorld");
 
         PLAYERS_ONLY_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE + ".PlayersOnlyMsg");
+
+        PACK_UPGRADE_SUCCESS_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE + ".PackUpgradeSuccess");
 
         CUSTOM_MOB_INVALID_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE + ".InvalidBNMobMsg");
         CUSTOM_MOB_SPAWNED_MSG = lang.getString(BetterConfig.SELECTED_LANGUAGE + ".BNMobSpawnedMsg");

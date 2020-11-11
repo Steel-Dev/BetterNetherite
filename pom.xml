@@ -121,6 +121,12 @@
             <artifactId>Monstrorvm</artifactId>
             <version>1.0.1</version>
             <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github.SkriptLang</groupId>
+                    <artifactId>Skript</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

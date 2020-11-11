@@ -22,6 +22,7 @@ public class BetterConfig {
     public static boolean NEW_UPDATE_MESSAGE_ON_RELOAD;
     public static boolean ENABLE_NETHERITE_CRAFTING;
     public static boolean IMPROVED_UPGRADING;
+    public static boolean UPGRADE_PACK_ENABLED;
     // Upgrade Recipes
     public static boolean IMPROVED_UPGRADING_WOOD_TO_STONE_ENABLED;
     public static int IMPROVED_UPGRADING_WOOD_TO_STONE_AMOUNT;
@@ -167,8 +168,15 @@ public class BetterConfig {
         NEW_UPDATE_MESSAGE_ON_RELOAD = config.getBoolean("UpdateCheck.MessageOnReload");
         ENABLE_NETHERITE_CRAFTING = config.getBoolean("NetheriteCrafting");
         IMPROVED_UPGRADING = config.getBoolean("ImprovedUpgrading.Enabled");
+        UPGRADE_PACK_ENABLED = config.getBoolean("UpgradePackEnabled");
         if (ENABLE_NETHERITE_CRAFTING && IMPROVED_UPGRADING) {
             throw new WhyNoWorkException("Netherite Crafting and Improved Upgrading cannot both be true.");
+        }
+        if (UPGRADE_PACK_ENABLED && IMPROVED_UPGRADING) {
+            throw new WhyNoWorkException("Upgrade Pack and Improved Upgrading cannot both be true.");
+        }
+        if (UPGRADE_PACK_ENABLED && ENABLE_NETHERITE_CRAFTING) {
+            throw new WhyNoWorkException("Upgrade Pack and Netherite Crafting cannot both be true.");
         }
         ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED = config.getBoolean("AncientDebris.BetterSmelting.Enabled");
         ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT = config.getInt("AncientDebris.BetterSmelting.Amount");
@@ -213,7 +221,6 @@ public class BetterConfig {
 
         CUSTOM_MOB_TANK_ENABLED = config.getBoolean("CustomMobs.Tank.Enabled");
         CUSTOM_MOB_TANK_SPAWNCHANCE = config.getInt("CustomMobs.Tank.SpawnChance");
-
 
         RESOURCE_PACK_ENABLED = config.getBoolean("ResourcePack.Enabled");
         RESOURCE_PACK_URL = config.getString("ResourcePack.URL");

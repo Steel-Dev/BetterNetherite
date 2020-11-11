@@ -4,6 +4,7 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.util.SmeltType;
 import com.github.steeldev.monstrorvm.managers.ItemManager;
+import com.github.steeldev.monstrorvm.util.items.recipe.types.CraftType;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -25,15 +26,38 @@ public class RecipeManager {
             registerImprovedUpgradingSmithingTableItems();
         if (BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
             registerBetterNetheriteScrapSmelting();
-
-        if (main.monstrorvmPlugin != null && main.monstrorvmPlugin.isEnabled())
-            registerCustomItemRecipes();
     }
 
     static void registerCustomItemRecipes() {
         if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
-            addSmeltingRecipe("furnace_hound_meat", SmeltType.FURNACE, new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)), 2, 130);
-            addSmeltingRecipe("smoker_hound_meat", SmeltType.SMOKER, new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)), 1, new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)), 4, 100);
+            com.github.steeldev.monstrorvm.managers.RecipeManager.addSmeltingRecipe("furnace_hound_meat",
+                    com.github.steeldev.monstrorvm.util.items.recipe.types.SmeltType.FURNACE,
+                    new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)),
+                    1,
+                    new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)),
+                    2,
+                    130);
+            com.github.steeldev.monstrorvm.managers.RecipeManager.addSmeltingRecipe("smoker_hound_meat",
+                    com.github.steeldev.monstrorvm.util.items.recipe.types.SmeltType.SMOKER,
+                    new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)),
+                    1,
+                    new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)),
+                    4,
+                    100);
+        }
+
+        if(BetterConfig.UPGRADE_PACK_ENABLED){
+            Map<Character,Material> ingredients = new HashMap<>();
+            ingredients.put('N', Material.NETHERITE_INGOT);
+            ingredients.put('I', Material.IRON_INGOT);
+            ingredients.put('S', Material.STICK);
+            ingredients.put('D', Material.DIAMOND);
+            com.github.steeldev.monstrorvm.managers.RecipeManager.addCraftingRecipe("upgrade_pack",
+                    CraftType.SHAPED,
+                    new RecipeChoice.ExactChoice(ItemManager.getItem("upgrade_pack").getItem(false)),
+                    1,
+                    Arrays.asList("NIN","DSD","NIN"),
+                    ingredients);
         }
     }
 
