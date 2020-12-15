@@ -7,11 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BetterNetherite" />
-        <module name="Monstrorvm (1)" />
-        <module name="Monstrorvm" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Monstrorvm" target="7" />
+      <module name="Monstrorvm (1)" target="8" />
       <module name="Monstrorvm (2)" target="1.6" />
     </bytecodeTargetLevel>
   </component>

@@ -3,6 +3,7 @@ package com.github.steeldev.betternetherite.managers;
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.monstrorvm.managers.ItemManager;
+import com.github.steeldev.monstrorvm.managers.RecipeManager;
 import com.github.steeldev.monstrorvm.util.items.*;
 import com.github.steeldev.monstrorvm.util.items.recipe.ItemCraftingRecipe;
 import com.github.steeldev.monstrorvm.util.items.recipe.ItemSmeltingRecipe;
@@ -14,29 +15,31 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.RecipeChoice;
 import org.bukkit.potion.PotionEffectType;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 
 public class BNItemManager {
     static BetterNetherite main = BetterNetherite.getInstance();
 
     public static void registerCustomItems() {
-        if(BetterConfig.UPGRADE_PACK_ENABLED){
-            Map<Character,Material> ingredients = new HashMap<>();
-            ingredients.put('N', Material.NETHERITE_INGOT);
-            ingredients.put('I', Material.IRON_INGOT);
-            ingredients.put('S', Material.STICK);
-            ingredients.put('D', Material.DIAMOND);
-            List<String> rows = Arrays.asList("NIN","DSD","NIN");
+        if (BetterConfig.UPGRADE_PACK_ENABLED) {
             ItemManager.registerNewItem(new MVItem("upgrade_pack", Material.SHEARS)
                     .withDisplayName("&6Upgrade Pack")
                     .withLore("&7Upgrade Diamond items to Netherite")
                     .withLore("&7within your inventory.")
                     .withCustomModelData(1)
                     .withRecipe(new ItemCraftingRecipe(CraftType.SHAPED,
-                            rows,
-                            ingredients,
+                            Arrays.asList("NIN", "DSD", "NIN"),
+                            new HashMap<Character, RecipeChoice>() {{
+                                put('N', new RecipeChoice.MaterialChoice(Material.NETHERITE_INGOT));
+                                put('I', new RecipeChoice.MaterialChoice(Material.IRON_INGOT));
+                                put('S', new RecipeChoice.MaterialChoice(Material.STICK));
+                                put('D', new RecipeChoice.MaterialChoice(Material.DIAMOND));
+                            }},
                             1,
                             "upgrade_pack_crafting")), main);
         }

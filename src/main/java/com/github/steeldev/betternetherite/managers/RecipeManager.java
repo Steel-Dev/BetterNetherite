@@ -46,8 +46,8 @@ public class RecipeManager {
                     100);
         }
 
-        if(BetterConfig.UPGRADE_PACK_ENABLED){
-            Map<Character,Material> ingredients = new HashMap<>();
+        if (BetterConfig.UPGRADE_PACK_ENABLED) {
+            Map<Character, Material> ingredients = new HashMap<>();
             ingredients.put('N', Material.NETHERITE_INGOT);
             ingredients.put('I', Material.IRON_INGOT);
             ingredients.put('S', Material.STICK);
@@ -56,7 +56,7 @@ public class RecipeManager {
                     CraftType.SHAPED,
                     new RecipeChoice.ExactChoice(ItemManager.getItem("upgrade_pack").getItem(false)),
                     1,
-                    Arrays.asList("NIN","DSD","NIN"),
+                    Arrays.asList("NIN", "DSD", "NIN"),
                     ingredients);
         }
     }

@@ -140,11 +140,11 @@ public class BetterNetherite extends JavaPlugin {
 
         if (metrics.isEnabled()) {
             getLogger().info("&7Starting Metrics. Opt-out using the global bStats config.");
-            metrics.addCustomChart(new Metrics.SimplePie("using_monstrorvm", new Callable<String>(){
+            metrics.addCustomChart(new Metrics.SimplePie("using_monstrorvm", new Callable<String>() {
                 @Override
                 public String call() throws Exception {
-                    if(monstrorvmPlugin != null){
-                        if(monstrorvmPlugin.isEnabled()){
+                    if (monstrorvmPlugin != null) {
+                        if (monstrorvmPlugin.isEnabled()) {
                             return monstrorvmPlugin.getDescription().getVersion();
                         }
                     }
@@ -162,7 +162,7 @@ public class BetterNetherite extends JavaPlugin {
     public void registerEventListeners() {
         getServer().getPluginManager().registerEvents(new NetheriteFishing(), this);
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-        if(BetterConfig.UPGRADE_PACK_ENABLED)
+        if (BetterConfig.UPGRADE_PACK_ENABLED)
             getServer().getPluginManager().registerEvents(new UpgradePack(), this);
     }
 
