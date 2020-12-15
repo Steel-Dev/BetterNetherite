@@ -3,6 +3,7 @@ package com.github.steeldev.betternetherite.config;
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.util.WhyNoWorkException;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -96,6 +97,9 @@ public class BetterConfig {
     public static boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
     public static boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
     public static boolean RESOURCE_PACK_AUTO_UPDATE;
+
+    public static Map<String, Integer> ITEM_MODEL_DATAS;
+
     static List<String> supportedLanguages = new ArrayList<>(Arrays.asList("English"));
     private static FileConfiguration config;
     private static File configFile;
@@ -249,5 +253,12 @@ public class BetterConfig {
 
         IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED = config.getBoolean("ImprovedUpgrading.UpgradeRecipes.DiamondToNetherite.Enabled");
         IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT = config.getInt("ImprovedUpgrading.UpgradeRecipes.DiamondToNetherite.MaterialAmount");
+
+
+        ITEM_MODEL_DATAS = new HashMap<>();
+        ConfigurationSection itemModelDatasSection = config.getConfigurationSection("ItemModelDatas");
+        for (String key: itemModelDatasSection.getKeys(false)) {
+            ITEM_MODEL_DATAS.put(key,itemModelDatasSection.getInt(key));
+        }
     }
 }

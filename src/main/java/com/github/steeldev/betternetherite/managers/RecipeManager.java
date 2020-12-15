@@ -28,39 +28,6 @@ public class RecipeManager {
             registerBetterNetheriteScrapSmelting();
     }
 
-    static void registerCustomItemRecipes() {
-        if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
-            com.github.steeldev.monstrorvm.managers.RecipeManager.addSmeltingRecipe("furnace_hound_meat",
-                    com.github.steeldev.monstrorvm.util.items.recipe.types.SmeltType.FURNACE,
-                    new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)),
-                    1,
-                    new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)),
-                    2,
-                    130);
-            com.github.steeldev.monstrorvm.managers.RecipeManager.addSmeltingRecipe("smoker_hound_meat",
-                    com.github.steeldev.monstrorvm.util.items.recipe.types.SmeltType.SMOKER,
-                    new RecipeChoice.ExactChoice(ItemManager.getItem("cooked_hound_meat").getItem(false)),
-                    1,
-                    new RecipeChoice.ExactChoice(ItemManager.getItem("hound_meat").getItem(false)),
-                    4,
-                    100);
-        }
-
-        if (BetterConfig.UPGRADE_PACK_ENABLED) {
-            Map<Character, Material> ingredients = new HashMap<>();
-            ingredients.put('N', Material.NETHERITE_INGOT);
-            ingredients.put('I', Material.IRON_INGOT);
-            ingredients.put('S', Material.STICK);
-            ingredients.put('D', Material.DIAMOND);
-            com.github.steeldev.monstrorvm.managers.RecipeManager.addCraftingRecipe("upgrade_pack",
-                    CraftType.SHAPED,
-                    new RecipeChoice.ExactChoice(ItemManager.getItem("upgrade_pack").getItem(false)),
-                    1,
-                    Arrays.asList("NIN", "DSD", "NIN"),
-                    ingredients);
-        }
-    }
-
     static void registerImprovedUpgradingSmithingTableItems() {
         // Wood to Stone
         addSmithingRecipe("wood_to_stone_sword_smithing",

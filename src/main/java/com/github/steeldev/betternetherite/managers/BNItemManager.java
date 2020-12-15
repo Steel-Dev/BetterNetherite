@@ -31,7 +31,7 @@ public class BNItemManager {
                     .withDisplayName("&6Upgrade Pack")
                     .withLore("&7Upgrade Diamond items to Netherite")
                     .withLore("&7within your inventory.")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("UpgradePack"))
                     .withRecipe(new ItemCraftingRecipe(CraftType.SHAPED,
                             Arrays.asList("NIN", "DSD", "NIN"),
                             new HashMap<Character, RecipeChoice>() {{
@@ -46,14 +46,14 @@ public class BNItemManager {
         if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED || BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
             ItemManager.registerNewItem(new MVItem("marauder_bone", Material.BONE)
                     .withDisplayName("<#3c1a4c>Marauder Bone")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("MarauderBone"))
                     .withLore("&7A Netherite Marauder's bone."), main);
 
             ItemManager.registerNewItem(new MVItem("marauder_sword", Material.NETHERITE_SWORD)
                     .withDisplayName("<#3c1a4c>Marauder Sword")
                     .withNBT(new ItemNBTCompound("netherite_reinforced", true))
                     .withLore(BNShrineManager.getBNShrine("crimson_shrine").effect.effectLoreDisplay)
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("MarauderSword"))
                     .withLore("&7A Netherite Marauder's sword.")
                     .withAttribute(new ItemAttributeInfo("generic.attack_damage", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_DAMAGE, 9))
                     .withAttribute(new ItemAttributeInfo("generic.attack_speed", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_SPEED, 1.7)), main);
@@ -70,7 +70,7 @@ public class BNItemManager {
             if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED) {
                 ItemManager.registerNewItem(new MVItem("netherite_marauder_spawn_egg", Material.GHAST_SPAWN_EGG)
                         .withDisplayName("<#3c1a4c>Spawn Netherite Marauder")
-                        .withCustomModelData(1)
+                        .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("MarauderSpawnEgg"))
                         .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "netherite_marauder")), main);
             }
         }
@@ -79,26 +79,26 @@ public class BNItemManager {
                     .withDisplayName("<#3c1a4c>Marauder Axe")
                     .withNBT(new ItemNBTCompound("netherite_reinforced", true))
                     .withLore(BNShrineManager.getBNShrine("crimson_shrine").effect.effectLoreDisplay)
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("MarauderAxe"))
                     .withLore("&7A Netherite Marauder's axe.")
                     .withAttribute(new ItemAttributeInfo("generic.attack_damage", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_DAMAGE, 11))
                     .withAttribute(new ItemAttributeInfo("generic.attack_speed", EquipmentSlot.HAND, Attribute.GENERIC_ATTACK_SPEED, 1.8)), main);
 
             ItemManager.registerNewItem(new MVItem("netherite_marauder_brute_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#3c1a4c>Spawn Netherite Marauder Brute")
-                    .withCustomModelData(2)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("MarauderBruteSpawnEgg"))
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "netherite_marauder_brute")), main);
         }
         if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED || BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
             ItemManager.registerNewItem(new MVItem("cooked_hound_meat", Material.COOKED_PORKCHOP)
                     .withDisplayName("<#915103>Cooked Hound Meat")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("CookedHoundMeat"))
                     .withConsumeEffect(new ItemConsumeEffect("&bHounds Grace",
                             Arrays.asList(new MVPotionEffect(PotionEffectType.ABSORPTION, 12, 2, 2000),
                                     new MVPotionEffect(PotionEffectType.REGENERATION, 25, 2, 2000)), 7)), main);
 
             ItemManager.registerNewItem(new MVItem("hound_meat", Material.PORKCHOP)
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("HoundMeat"))
                     .withDisplayName("<#915103>Raw Hound Meat")
                     .withRecipe(new ItemSmeltingRecipe(SmeltType.FURNACE,
                             "monstrorvm:cooked_hound_meat",
@@ -115,7 +115,7 @@ public class BNItemManager {
 
             ItemManager.registerNewItem(new MVItem("rotten_hound_meat", Material.ROTTEN_FLESH)
                     .withDisplayName("<#2d2501>Rotted Hound Meat")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("RottenHoundMeat"))
                     .withConsumeEffect(new ItemConsumeEffect("&cFood Poisoning",
                             Arrays.asList(new MVPotionEffect(PotionEffectType.POISON, 50, 1, 2000),
                                     new MVPotionEffect(PotionEffectType.CONFUSION, 50, 1, 2000)), 2)), main);
@@ -123,40 +123,40 @@ public class BNItemManager {
             if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED) {
                 ItemManager.registerNewItem(new MVItem("hellhound_spawn_egg", Material.GHAST_SPAWN_EGG)
                         .withDisplayName("<#571664>Spawn Hellhound")
-                        .withCustomModelData(3)
+                        .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("HellhoundSpawnEgg"))
                         .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "hellhound")), main);
             }
 
             if (BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
                 ItemManager.registerNewItem(new MVItem("alpha_hellhound_spawn_egg", Material.GHAST_SPAWN_EGG)
                         .withDisplayName("<#571664>Spawn Alpha Hellhound")
-                        .withCustomModelData(4)
+                        .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("AlphaHellhoundSpawnEgg"))
                         .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "alpha_hellhound")), main);
             }
         }
         if (BetterConfig.CUSTOM_MOB_LOST_SOUL_ENABLED) {
             ItemManager.registerNewItem(new MVItem("soul", Material.GHAST_TEAR)
                     .withDisplayName("<#1152a6>Soul")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("Soul"))
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.EFFECT_HOLDER,
                             Collections.singletonList(new MVPotionEffect(PotionEffectType.REGENERATION, 90, 2, 2000)), true)), main);
 
             ItemManager.registerNewItem(new MVItem("lost_soul_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#1152a6>Spawn Lost Soul")
-                    .withCustomModelData(5)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("LostSoulSpawnEgg"))
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "lost_soul")), main);
         }
         if (BetterConfig.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
             ItemManager.registerNewItem(new MVItem("rotten_demon_flesh", Material.ROTTEN_FLESH)
                     .withDisplayName("<#2d2501>Rotten Demon Flesh")
-                    .withCustomModelData(2)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("RottenDemonFlesh"))
                     .withConsumeEffect(new ItemConsumeEffect("&cFood Poisoning",
                             Arrays.asList(new MVPotionEffect(PotionEffectType.POISON, 50, 1, 2000),
                                     new MVPotionEffect(PotionEffectType.CONFUSION, 50, 1, 2000)), 1)), main);
 
             ItemManager.registerNewItem(new MVItem("zombified_demon_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#2d2501>Spawn Zombified Demon")
-                    .withCustomModelData(6)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("ZombifiedDemonSpawnEgg"))
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "zombified_demon")), main);
 
             ItemManager.registerNewItem(new MVItem("demon_head", Material.PLAYER_HEAD)
@@ -184,7 +184,7 @@ public class BNItemManager {
         if (BetterConfig.CUSTOM_MOB_TANK_ENABLED) {
             ItemManager.registerNewItem(new MVItem("tank_sword", Material.STONE_SWORD)
                     .withDisplayName("<#f1e46a>Tenonus")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("TankSword"))
                     .withEnchant(new ItemEnchantInfo(Enchantment.DAMAGE_ALL, 1)), main);
 
             ItemManager.registerNewItem(new MVItem("tank_head", Material.PLAYER_HEAD)
@@ -218,12 +218,12 @@ public class BNItemManager {
 
             ItemManager.registerNewItem(new MVItem("demon_tank_spawn_egg", Material.GHAST_SPAWN_EGG)
                     .withDisplayName("<#f1e46a>Spawn Demon Tank")
-                    .withCustomModelData(7)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("DemonTankSpawnEgg"))
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.SPAWN_CUSTOM_MOB, "demon_tank")), main);
 
             ItemManager.registerNewItem(new MVItem("demon_tank_totem", Material.TOTEM_OF_UNDYING)
                     .withDisplayName("&6Tank Totem")
-                    .withCustomModelData(1)
+                    .withCustomModelData(BetterConfig.ITEM_MODEL_DATAS.get("DemonTankTotem"))
                     .withLore("&7A special rare totem that can be used as a revival token")
                     .withLore("&7or for limited special effects.")
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.EFFECT_HOLDER, Arrays.asList(new MVPotionEffect(PotionEffectType.ABSORPTION, 12, 2, 3000),

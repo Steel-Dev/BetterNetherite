@@ -108,14 +108,8 @@
     <dependency>
       <groupId>com.github.Steel-Dev</groupId>
       <artifactId>Monstrorvm</artifactId>
-      <version>1.0.3</version>
+      <version>1.0.4</version>
       <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>Skript</artifactId>
-          <groupId>com.github.SkriptLang</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
   </dependencies>
   <properties>

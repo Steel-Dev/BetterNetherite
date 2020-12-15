@@ -53,6 +53,37 @@ NetheriteCrafting: false
 #  Netherite Crafting option.
 UpgradePackEnabled: true
 
+ItemModelDatas:
+  # Shears
+  UpgradePack: 1
+  # Bone
+  MarauderBone: 1
+  # Netherite Sword
+  MarauderSword: 1
+  # Netherite Axe
+  MarauderAxe: 1
+  # Cooked Pork
+  CookedHoundMeat: 1
+  # Raw Pork
+  HoundMeat: 1
+  # Rotten Flesh
+  RottenHoundMeat: 1
+  RottenDemonFlesh: 2
+  # Ghast Tear
+  Soul: 1
+  # Stone Sword
+  TankSword: 1
+  # Totem of Undying
+  DemonTankTotem: 1
+  # Ghast Spawn Egg
+  MarauderSpawnEgg: 1
+  MarauderBruteSpawnEgg: 2
+  HellhoundSpawnEgg: 3
+  AlphaHellhoundSpawnEgg: 4
+  LostSoulSpawnEgg: 5
+  ZombifiedDemonSpawnEgg: 6
+  DemonTankSpawnEgg: 7
+
 NetheriteShrines:
   # Item types that can be used on the Shrines.
   # Note: MUST be in all caps like below, and it must be a valid Material.
