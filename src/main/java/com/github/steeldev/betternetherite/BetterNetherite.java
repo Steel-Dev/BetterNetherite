@@ -72,6 +72,11 @@ public class BetterNetherite extends JavaPlugin {
             if (monstrorvmPlugin.isEnabled()) {
                 getLogger().info("&aFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + "&a! Custom mobs and items enabled!");
 
+                // Register your mobs and items here
+                //  it is recommended you create separate classes- manager classes- for your mobs and items, and in them
+                //  just make a static register function, and within that, you will register all of your items or mobs.
+
+                // Example:
                 BNItemManager.registerCustomItems();
                 BNMobManager.registerCustomMobs();
             } else
