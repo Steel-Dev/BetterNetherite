@@ -51,6 +51,8 @@ public class ShrineBase implements Listener {
 
 
         //This is very very yucky, fix later.
+        //
+        //find a better method.
         if (clickedBlock.getType().equals(shrine.core.coreBlock)) {
             Block crimsonFence = clickedBlock.getRelative(0, -1, 0);
             if (crimsonFence.getType().equals(shrine.core.coreSupport)) {
