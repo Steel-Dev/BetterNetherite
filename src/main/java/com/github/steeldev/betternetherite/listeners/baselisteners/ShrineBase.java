@@ -49,17 +49,8 @@ public class ShrineBase implements Listener {
                 event.isCancelled())
             return;
 
-        ////////////////////////////// IMPORTANT NOTE YO /////////////////////////////////
-        //This is very very yucky, I know, dont get your panties in a twist.            //
-        // Yes, its bad, yes its terrible.                                              //
-        // and yes, of course im reworking it and rewriting it in the future.           //
-        // calm yo tittehs! :D                                                          //
-        // I wrote this mess at 5am and rushed it so I didnt forget what I wanted to do //
-        // and never got back to it, and never got around to actually fixing it.        //
-        // I also never found a better way to do it, so hey, maybe instead of being     //
-        // an ass, you actually help me improve this?? :D                               //
-        // Oh boi, its 6am as im writing this, whats with me and doing stuff so late??  //
-        //////////////////////////////////////////////////////////////////////////////////
+
+        //This is very very yucky, fix later.
         if (clickedBlock.getType().equals(shrine.core.coreBlock)) {
             Block crimsonFence = clickedBlock.getRelative(0, -1, 0);
             if (crimsonFence.getType().equals(shrine.core.coreSupport)) {
