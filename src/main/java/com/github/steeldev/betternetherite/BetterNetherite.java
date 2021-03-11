@@ -1,8 +1,7 @@
 package com.github.steeldev.betternetherite;
 
 import com.github.steeldev.betternetherite.commands.admin.BetterNetheriteReload;
-import com.github.steeldev.betternetherite.config.BetterConfig;
-import com.github.steeldev.betternetherite.config.Lang;
+import com.github.steeldev.betternetherite.config.Config;
 import com.github.steeldev.betternetherite.listeners.blocks.AncientDebris;
 import com.github.steeldev.betternetherite.listeners.blocks.SmithingTable;
 import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
@@ -11,7 +10,9 @@ import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
 import com.github.steeldev.betternetherite.listeners.items.UpgradePack;
 import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
+import com.github.steeldev.betternetherite.util.Message;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
+import com.github.steeldev.betternetherite.util.Util;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import org.bstats.bukkit.Metrics;
@@ -23,15 +24,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 public class BetterNetherite extends JavaPlugin {
     private static BetterNetherite instance;
-    public BetterConfig config = null;
-    public Lang lang = null;
-    public boolean outdated;
-    public String newVersion;
+    public Config config = null;
+    public UpdateChecker versionManager;
 
     public Plugin monstrorvmPlugin;
 
@@ -56,33 +54,25 @@ public class BetterNetherite extends JavaPlugin {
 
         loadNBTAPI();
 
-        loadCustomConfigs();
+        loadConfigurations();
         try {
             BNResourcePackManager.checkResourcePack();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        registerEventListeners();
-        registerBlockListeners();
-        registerItemListeners();
+        registerEvents();
         BNShrineManager.registerShrines();
         if (loadMonstrorvm() != null) {
             monstrorvmPlugin = loadMonstrorvm();
             if (monstrorvmPlugin.isEnabled()) {
-                getLogger().info("&aFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + "&a! Custom mobs and items enabled!");
-
-                // Register your mobs and items here
-                //  it is recommended you create separate classes- manager classes- for your mobs and items, and in them
-                //  just make a static register function, and within that, you will register all of your items or mobs.
-
-                // Example:
+                Message.MONSTRORVM_FOUND.log(monstrorvmPlugin.getDescription().getVersion());
                 BNItemManager.registerCustomItems();
                 BNMobManager.registerCustomMobs();
             } else
-                getLogger().info("&cFound &2Monstrorvm " + monstrorvmPlugin.getDescription().getVersion() + ", but its disabled! Custom mobs and items disabled!");
+                Message.MONSTRORVM_FOUND_DISABLED.log(monstrorvmPlugin.getDescription().getVersion());
         } else {
-            getLogger().info("&cCould not find &2Monstrorvm &con the server! Custom mobs and items disabled!");
+            Message.MONSTRORVM_NOT_FOUND.log();
         }
 
         registerCommands();
@@ -90,10 +80,10 @@ public class BetterNetherite extends JavaPlugin {
 
         enableMetrics();
 
+        Message.PLUGIN_ENABLED.log(getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000);
 
-        getLogger().info(String.format("&aSuccessfully enabled &2%s &ain &e%s Seconds&a.", getDescription().getVersion(), (float) (System.currentTimeMillis() - start) / 1000));
-
-        checkForNewVersion();
+        versionManager = new UpdateChecker(this, 84526);
+        versionManager.checkForNewVersion();
     }
 
     public Plugin loadMonstrorvm() {
@@ -102,82 +92,47 @@ public class BetterNetherite extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("&cSuccessfully disabled!");
+        Message.PLUGIN_DISABLED.log();
         instance = null;
     }
 
-    public void checkForNewVersion() {
-        getLogger().info("&e&oChecking for a new version...");
-        new UpdateChecker(this, 84526).getVersion(version -> {
-            int latestVersion = Integer.parseInt(version.replaceAll("\\.", ""));
-            int currentVersion = Integer.parseInt(this.getDescription().getVersion().replaceAll("\\.", ""));
-
-            if (currentVersion == latestVersion) {
-                outdated = false;
-                getLogger().info(String.format("&2&oYou are on the latest version! &7&o(%s)", version));
-            } else if (currentVersion > latestVersion) {
-                outdated = false;
-                getLogger().info(String.format("&e&oYou are on an in-dev preview version! &7&o(%s)", this.getDescription().getVersion()));
-            } else {
-                outdated = true;
-                newVersion = version;
-                getLogger().info(String.format("&a&oA new version is available! &7&o(Current: %s, Latest: %s)", this.getDescription().getVersion(), version));
-                getLogger().info("&e&ohttps://www.spigotmc.org/resources/better-netherite.84526/");
-            }
-        });
-    }
-
     public void loadNBTAPI() {
-        getLogger().info("&aLoading NBT-API...");
+        Message.LOADING_NBT_API.log();
         NBTItem loadingItem = new NBTItem(new ItemStack(Material.STONE));
         loadingItem.addCompound("Glob");
         loadingItem.setString("Glob", "yes");
-        getLogger().info("&aSuccessfully loaded NBT-API!");
+        Message.NBT_API_LOADED.log();
     }
 
-    public void loadCustomConfigs() {
-        this.config = new BetterConfig(this);
-        this.lang = new Lang(this);
+    public void loadConfigurations() {
+        config = new Config(this);
     }
 
     public void enableMetrics() {
         Metrics metrics = new Metrics(this, 9202);
 
         if (metrics.isEnabled()) {
-            getLogger().info("&7Starting Metrics. Opt-out using the global bStats config.");
-            metrics.addCustomChart(new Metrics.SimplePie("using_monstrorvm", new Callable<String>() {
-                @Override
-                public String call() throws Exception {
-                    if (monstrorvmPlugin != null) {
-                        if (monstrorvmPlugin.isEnabled()) {
-                            return monstrorvmPlugin.getDescription().getVersion();
-                        }
-                    }
-                    return "No Monstrorvm";
+            Message.STARTING_METRICS.log();
+            metrics.addCustomChart(new Metrics.SimplePie("using_monstrorvm", () -> {
+                if (monstrorvmPlugin != null) {
+                    if (monstrorvmPlugin.isEnabled())
+                        return monstrorvmPlugin.getDescription().getVersion();
                 }
+                return "No Monstrorvm";
             }));
         }
     }
 
     public void registerCommands() {
-        this.getCommand("betternetheritereload").setExecutor(new BetterNetheriteReload());
-
+        Util.registerCommand("betternetheritereload", new BetterNetheriteReload());
     }
 
-    public void registerEventListeners() {
-        getServer().getPluginManager().registerEvents(new NetheriteFishing(), this);
-        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
-        if (BetterConfig.UPGRADE_PACK_ENABLED)
-            getServer().getPluginManager().registerEvents(new UpgradePack(), this);
-    }
-
-    public void registerBlockListeners() {
-        getServer().getPluginManager().registerEvents(new SmithingTable(), this);
-        getServer().getPluginManager().registerEvents(new AncientDebris(), this);
-    }
-
-    public void registerItemListeners() {
-        if (BetterConfig.CRIMSON_NETHERITE_SHRINE_ENABLED)
-            getServer().getPluginManager().registerEvents(new ReinforcedItem(), this);
+    public void registerEvents() {
+        Util.registerEvent(new PlayerJoin());
+        Util.registerEvent(new NetheriteFishing());
+        Util.registerEvent(new UpgradePack());
+        Util.registerEvent(new SmithingTable());
+        Util.registerEvent(new AncientDebris());
+        Util.registerEvent(new ReinforcedItem());
     }
 }

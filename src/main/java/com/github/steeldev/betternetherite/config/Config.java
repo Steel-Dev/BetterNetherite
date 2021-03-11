@@ -11,112 +11,97 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import static com.github.steeldev.betternetherite.util.Util.formalizedString;
-
-public class BetterConfig {
-    // Config stuff
-    public static boolean DEBUG;
-    public static String SELECTED_LANGUAGE;
-    public static boolean NEW_UPDATE_MESSAGE_ON_JOIN;
-    public static boolean NEW_UPDATE_MESSAGE_ON_RELOAD;
-    public static boolean ENABLE_NETHERITE_CRAFTING;
-    public static boolean IMPROVED_UPGRADING;
-    public static boolean UPGRADE_PACK_ENABLED;
-    // Upgrade Recipes
-    public static boolean IMPROVED_UPGRADING_WOOD_TO_STONE_ENABLED;
-    public static int IMPROVED_UPGRADING_WOOD_TO_STONE_AMOUNT;
-
-    public static boolean IMPROVED_UPGRADING_STONE_TO_IRON_ENABLED;
-    public static int IMPROVED_UPGRADING_STONE_TO_IRON_AMOUNT;
-
-    public static boolean IMPROVED_UPGRADING_IRON_TO_DIAMOND_ENABLED;
-    public static int IMPROVED_UPGRADING_IRON_TO_DIAMOND_AMOUNT;
-
-    public static boolean IMPROVED_UPGRADING_IRON_TO_GOLD_ENABLED;
-    public static int IMPROVED_UPGRADING_IRON_TO_GOLD_AMOUNT;
-
-    public static boolean IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED;
-    public static int IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT;
-    // Ancient Debris Better Smelting
-    public static boolean ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED;
-    public static int ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT;
-    public static int ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP;
-    public static int ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME;
-    public static int ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP;
-    public static int ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME;
-    // Ancient Debris Scrap Drop
-    public static boolean ANCIENT_DEBRIS_SCRAP_DROP_ENABLED;
-    public static int ANCIENT_DEBRIS_SCRAP_DROP_MAX;
-    public static int ANCIENT_DEBRIS_SCRAP_DROP_CHANCE;
-    // Ancient Debris Ingot Drop
-    public static boolean ANCIENT_DEBRIS_INGOT_DROP_ENABLED;
-    public static int ANCIENT_DEBRIS_INGOT_DROP_CHANCE;
-    // Shrines
-    public static Map<String, Material> USABLE_SHRINE_ITEMS;
-
-    public static boolean CRIMSON_NETHERITE_SHRINE_ENABLED;
-    public static boolean WARPED_NETHERITE_SHRINE_ENABLED;
-    public static boolean PRISMARINE_NETHERITE_SHRINE_ENABLED;
-
-    //Reinforced items
-    public static int REINFORCED_ITEM_DURABILITY_LOSS_CHANCE;
-    public static int REINFORCED_ITEM_EXTRA_DMG_CHANCE;
-    public static int REINFORCED_ITEM_DAMAGE_INCREASE;
-
-    //Netherite Fish Treasure
-    public static boolean NETHERITE_FISH_TREASURE_ENABLED;
-    public static List<String> NETHERITE_FISH_TREASURE_LOOT;
-
-    //Mobs
-    public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
-    public static int CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE;
-
-    public static boolean CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED;
-    public static int CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE;
-
-    public static boolean CUSTOM_MOB_HELLHOUND_ENABLED;
-    public static int CUSTOM_MOB_HELLHOUND_SPAWNCHANCE;
-
-    public static boolean CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED;
-    public static int CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE;
-
-    public static boolean CUSTOM_MOB_LOST_SOUL_ENABLED;
-    public static int CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE;
-
-    public static boolean CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED;
-    public static int CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE;
-
-    public static boolean CUSTOM_MOB_TANK_ENABLED;
-    public static int CUSTOM_MOB_TANK_SPAWNCHANCE;
-
-
-    public static boolean RESOURCE_PACK_ENABLED;
-    public static String RESOURCE_PACK_URL;
-    public static boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
-    public static boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
-    public static boolean RESOURCE_PACK_AUTO_UPDATE;
-
-    public static Map<String, Integer> ITEM_MODEL_DATAS;
-
-    static List<String> supportedLanguages = new ArrayList<>(Arrays.asList("English"));
-    private static FileConfiguration config;
-    private static File configFile;
+public class Config {
     private final BetterNetherite plugin;
+    // Config stuff
+    public String PREFIX;
+    public boolean DEBUG;
+    public boolean NEW_UPDATE_MESSAGE_ON_JOIN;
+    public boolean NEW_UPDATE_MESSAGE_ON_RELOAD;
+    public boolean ENABLE_NETHERITE_CRAFTING;
+    public boolean IMPROVED_UPGRADING;
+    public boolean UPGRADE_PACK_ENABLED;
+    // Upgrade Recipes
+    public boolean IMPROVED_UPGRADING_WOOD_TO_STONE_ENABLED;
+    public int IMPROVED_UPGRADING_WOOD_TO_STONE_AMOUNT;
+    public boolean IMPROVED_UPGRADING_STONE_TO_IRON_ENABLED;
+    public int IMPROVED_UPGRADING_STONE_TO_IRON_AMOUNT;
+    public boolean IMPROVED_UPGRADING_IRON_TO_DIAMOND_ENABLED;
+    public int IMPROVED_UPGRADING_IRON_TO_DIAMOND_AMOUNT;
+    public boolean IMPROVED_UPGRADING_IRON_TO_GOLD_ENABLED;
+    public int IMPROVED_UPGRADING_IRON_TO_GOLD_AMOUNT;
+    public boolean IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_ENABLED;
+    public int IMPROVED_UPGRADING_DIAMOND_TO_NETHERITE_AMOUNT;
+    // Ancient Debris Better Smelting
+    public boolean ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED;
+    public int ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT;
+    public int ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP;
+    public int ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME;
+    public int ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP;
+    public int ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME;
+    // Ancient Debris Scrap Drop
+    public boolean ANCIENT_DEBRIS_SCRAP_DROP_ENABLED;
+    public int ANCIENT_DEBRIS_SCRAP_DROP_MAX;
+    public int ANCIENT_DEBRIS_SCRAP_DROP_CHANCE;
+    // Ancient Debris Ingot Drop
+    public boolean ANCIENT_DEBRIS_INGOT_DROP_ENABLED;
+    public int ANCIENT_DEBRIS_INGOT_DROP_CHANCE;
+    // Shrines
+    public Map<String, Material> USABLE_SHRINE_ITEMS;
+    public boolean CRIMSON_NETHERITE_SHRINE_ENABLED;
+    public List<String> CRIMSON_NETHERITE_SHRINE_USABLE_IN;
+    public boolean WARPED_NETHERITE_SHRINE_ENABLED;
+    public List<String> WARPED_NETHERITE_SHRINE_USABLE_IN;
+    public boolean PRISMARINE_NETHERITE_SHRINE_ENABLED;
+    public List<String> PRISMARINE_NETHERITE_SHRINE_USABLE_IN;
+    //Reinforced items
+    public int REINFORCED_ITEM_DURABILITY_LOSS_CHANCE;
+    public int REINFORCED_ITEM_EXTRA_DMG_CHANCE;
+    public int REINFORCED_ITEM_DAMAGE_INCREASE;
+    //Netherite Fish Treasure
+    public boolean NETHERITE_FISH_TREASURE_ENABLED;
+    public List<String> NETHERITE_FISH_TREASURE_LOOT;
+    //Mobs
+    public boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
+    public int CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE;
+    public boolean CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED;
+    public int CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE;
+    public boolean CUSTOM_MOB_HELLHOUND_ENABLED;
+    public int CUSTOM_MOB_HELLHOUND_SPAWNCHANCE;
+    public boolean CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED;
+    public int CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE;
+    public boolean CUSTOM_MOB_LOST_SOUL_ENABLED;
+    public int CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE;
+    public boolean CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED;
+    public int CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE;
+    public boolean CUSTOM_MOB_TANK_ENABLED;
+    public int CUSTOM_MOB_TANK_SPAWNCHANCE;
+    public boolean RESOURCE_PACK_ENABLED;
+    public String RESOURCE_PACK_URL;
+    public boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
+    public boolean RESOURCE_PACK_STATUS_MSGS_ENABLED;
+    public boolean RESOURCE_PACK_AUTO_UPDATE;
+    public boolean FORCE_RESOURCE_PACK;
+    public Map<String, Integer> ITEM_MODEL_DATAS;
+    private FileConfiguration config;
+    private File configFile;
 
-    public BetterConfig(BetterNetherite plugin) {
+    public Config(BetterNetherite plugin) {
         this.plugin = plugin;
         loadConfigFile();
     }
 
-    public static void setString(String path, String value) throws IOException {
+    public void setString(String path, String value) throws IOException {
         config.set(path, value);
 
         config.save(configFile);
     }
 
-    public static void setBool(String path, boolean value) throws IOException {
+    public void setBool(String path, boolean value) throws IOException {
         config.set(path, value);
 
         config.save(configFile);
@@ -163,11 +148,8 @@ public class BetterConfig {
     }
 
     private void loadConfigs() {
+        PREFIX = config.getString("Prefix");
         DEBUG = config.getBoolean("Debug");
-        SELECTED_LANGUAGE = formalizedString(config.getString("Language"));
-        if (!supportedLanguages.contains(SELECTED_LANGUAGE)) {
-            throw new WhyNoWorkException("The specified language " + SELECTED_LANGUAGE + " is invalid, or not yet supported!");
-        }
         NEW_UPDATE_MESSAGE_ON_JOIN = config.getBoolean("UpdateCheck.MessageOnJoin");
         NEW_UPDATE_MESSAGE_ON_RELOAD = config.getBoolean("UpdateCheck.MessageOnReload");
         ENABLE_NETHERITE_CRAFTING = config.getBoolean("NetheriteCrafting");
@@ -195,8 +177,11 @@ public class BetterConfig {
         ANCIENT_DEBRIS_INGOT_DROP_CHANCE = config.getInt("AncientDebris.IngotDrop.Chance");
 
         WARPED_NETHERITE_SHRINE_ENABLED = config.getBoolean("NetheriteShrines.WarpedShrine.Enabled");
+        WARPED_NETHERITE_SHRINE_USABLE_IN = config.getStringList("NetheriteShrines.WarpedShrine.UsableIn");
         CRIMSON_NETHERITE_SHRINE_ENABLED = config.getBoolean("NetheriteShrines.CrimsonShrine.Enabled");
+        CRIMSON_NETHERITE_SHRINE_USABLE_IN = config.getStringList("NetheriteShrines.CrimsonShrine.UsableIn");
         PRISMARINE_NETHERITE_SHRINE_ENABLED = config.getBoolean("NetheriteShrines.PrismarineShrine.Enabled");
+        PRISMARINE_NETHERITE_SHRINE_USABLE_IN = config.getStringList("NetheriteShrines.PrismarineShrine.UsableIn");
 
         REINFORCED_ITEM_DURABILITY_LOSS_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.DurabilityLossChance");
         REINFORCED_ITEM_EXTRA_DMG_CHANCE = config.getInt("NetheriteShrines.CrimsonShrine.ReinforcedItems.ExtraDamageChance");
@@ -231,6 +216,7 @@ public class BetterConfig {
         RESOURCE_PACK_JOIN_MSG_ENABLED = config.getBoolean("ResourcePack.JoinMsgEnabled");
         RESOURCE_PACK_STATUS_MSGS_ENABLED = config.getBoolean("ResourcePack.StatusMsgsEnabled");
         RESOURCE_PACK_AUTO_UPDATE = config.getBoolean("ResourcePack.AutoUpdate");
+        FORCE_RESOURCE_PACK = config.getBoolean("ResourcePack.Force");
 
         USABLE_SHRINE_ITEMS = new HashMap<>();
         List<String> shrineItemSection = config.getStringList("NetheriteShrines.UsableItems");
@@ -257,8 +243,8 @@ public class BetterConfig {
 
         ITEM_MODEL_DATAS = new HashMap<>();
         ConfigurationSection itemModelDatasSection = config.getConfigurationSection("ItemModelDatas");
-        for (String key: itemModelDatasSection.getKeys(false)) {
-            ITEM_MODEL_DATAS.put(key,itemModelDatasSection.getInt(key));
+        for (String key : itemModelDatasSection.getKeys(false)) {
+            ITEM_MODEL_DATAS.put(key, itemModelDatasSection.getInt(key));
         }
     }
 }

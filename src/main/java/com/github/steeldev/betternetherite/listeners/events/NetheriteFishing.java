@@ -1,7 +1,6 @@
 package com.github.steeldev.betternetherite.listeners.events;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.config.BetterConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
@@ -23,7 +22,7 @@ public class NetheriteFishing implements Listener {
 
     @EventHandler
     public void playerFishEvent(PlayerFishEvent event) {
-        if (!BetterConfig.NETHERITE_FISH_TREASURE_ENABLED) return;
+        if (!main.config.NETHERITE_FISH_TREASURE_ENABLED) return;
 
         if (event.getState().equals(PlayerFishEvent.State.CAUGHT_FISH)) {
             boolean gotNewItem = false;
@@ -33,7 +32,7 @@ public class NetheriteFishing implements Listener {
                         !caught.getType().equals(Material.TROPICAL_FISH) &&
                         !caught.getType().equals(Material.SALMON) &&
                         !caught.getType().equals(Material.PUFFERFISH)) {
-                    for (String lootEntry : BetterConfig.NETHERITE_FISH_TREASURE_LOOT) {
+                    for (String lootEntry : main.config.NETHERITE_FISH_TREASURE_LOOT) {
                         List<String> lootEntrySplit = Arrays.asList(lootEntry.split(";"));
 
                         int maxAm = Integer.parseInt(lootEntrySplit.get(1));

@@ -1,10 +1,7 @@
 package com.github.steeldev.betternetherite.managers;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.betternetherite.util.SmeltType;
-import com.github.steeldev.monstrorvm.managers.ItemManager;
-import com.github.steeldev.monstrorvm.util.items.recipe.types.CraftType;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
 import org.bukkit.Material;
@@ -18,13 +15,13 @@ public class RecipeManager {
     final static BetterNetherite main = BetterNetherite.getInstance();
 
     public static void RegisterRecipes() {
-        if (BetterConfig.ENABLE_NETHERITE_CRAFTING &&
-                !BetterConfig.IMPROVED_UPGRADING)
+        if (main.config.ENABLE_NETHERITE_CRAFTING &&
+                !main.config.IMPROVED_UPGRADING)
             registerNetheriteItems();
-        if (BetterConfig.IMPROVED_UPGRADING &&
-                !BetterConfig.ENABLE_NETHERITE_CRAFTING)
+        if (main.config.IMPROVED_UPGRADING &&
+                !main.config.ENABLE_NETHERITE_CRAFTING)
             registerImprovedUpgradingSmithingTableItems();
-        if (BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
+        if (main.config.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
             registerBetterNetheriteScrapSmelting();
     }
 
@@ -272,17 +269,17 @@ public class RecipeManager {
         addSmeltingRecipe("netherite_scrap",
                 SmeltType.FURNACE,
                 Material.NETHERITE_SCRAP,
-                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
+                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
                 Material.ANCIENT_DEBRIS,
-                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP,
-                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME);
+                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP,
+                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME);
         addSmeltingRecipe("netherite_scrap_from_blasting",
                 SmeltType.BLASTING,
                 Material.NETHERITE_SCRAP,
-                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
+                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
                 Material.ANCIENT_DEBRIS,
-                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP,
-                BetterConfig.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME);
+                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP,
+                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME);
     }
 
     static void addSmithingRecipe(String key, ItemStack result, Material baseMat, ItemStack itemNeeded) {
@@ -371,7 +368,7 @@ public class RecipeManager {
 
     public static void addRecipe(Recipe recipe) {
         Bukkit.addRecipe(recipe);
-        if (BetterConfig.DEBUG)
+        if (main.config.DEBUG)
             main.getLogger().info(String.format("&aRecipe &e%s&a has been &2added.", ((Keyed) recipe).getKey()));
     }
 
@@ -381,7 +378,7 @@ public class RecipeManager {
             Recipe rec = it.next();
             if (rec != null) {
                 if (((Keyed) rec).getKey().toString().equals(key)) {
-                    if (BetterConfig.DEBUG)
+                    if (main.config.DEBUG)
                         main.getLogger().info(String.format("&aRecipe &e%s&a has been &cremoved.", key));
                     it.remove();
                 }

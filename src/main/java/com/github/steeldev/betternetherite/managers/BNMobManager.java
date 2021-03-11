@@ -1,14 +1,16 @@
 package com.github.steeldev.betternetherite.managers;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.config.BetterConfig;
 import com.github.steeldev.monstrorvm.managers.ItemManager;
 import com.github.steeldev.monstrorvm.managers.MobManager;
 import com.github.steeldev.monstrorvm.util.misc.MVParticle;
 import com.github.steeldev.monstrorvm.util.misc.MVPotionEffect;
 import com.github.steeldev.monstrorvm.util.misc.MVSound;
 import com.github.steeldev.monstrorvm.util.mobs.*;
-import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
@@ -18,11 +20,11 @@ public class BNMobManager {
     static BetterNetherite main = BetterNetherite.getInstance();
 
     public static void registerCustomMobs() {
-        if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED) {
+        if (main.config.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_marauder",
                     EntityType.WITHER_SKELETON,
                     "<#571664>Netherite <#3c1a4c>Marauder",
-                    BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.WITHER_SKELETON)
                     .withMount(new MountInfo(EntityType.SKELETON_HORSE, 40, Arrays.asList(Material.IRON_HORSE_ARMOR, Material.GOLDEN_HORSE_ARMOR), 20))
                     .withCustomDeathEXP(20)
@@ -42,11 +44,11 @@ public class BNMobManager {
                             Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)),
                             Arrays.asList(new MVPotionEffect(PotionEffectType.BLINDNESS, 15, 2, 60)))), main);
         }
-        if (BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
+        if (main.config.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_marauder_brute",
                     EntityType.WITHER_SKELETON,
                     "<#571664>Netherite <#3c1a4c>Marauder Brute",
-                    BetterConfig.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.WITHER_SKELETON)
                     .withMount(new MountInfo(EntityType.ZOMBIE_HORSE, 40, Arrays.asList(Material.DIAMOND_HORSE_ARMOR, Material.IRON_HORSE_ARMOR), 20))
                     .withCustomDeathEXP(20)
@@ -65,11 +67,11 @@ public class BNMobManager {
                             Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 20, 2, 20)),
                             Arrays.asList(new MVPotionEffect(PotionEffectType.BLINDNESS, 20, 2, 60)))), main);
         }
-        if (BetterConfig.CUSTOM_MOB_HELLHOUND_ENABLED) {
+        if (main.config.CUSTOM_MOB_HELLHOUND_ENABLED) {
             MobManager.registerNewMob(new MVMob("hellhound",
                     EntityType.WOLF,
                     "<#571664>Hellhound",
-                    BetterConfig.CUSTOM_MOB_HELLHOUND_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_HELLHOUND_SPAWNCHANCE)
                     .withAnger(true)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
                     .withCustomDeathEXP(10)
@@ -89,11 +91,11 @@ public class BNMobManager {
                     .withPossibleTarget(EntityType.SHEEP)
                     .withPossibleTarget(EntityType.COW), main);
         }
-        if (BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
+        if (main.config.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
             MobManager.registerNewMob(new MVMob("alpha_hellhound",
                     EntityType.WOLF,
                     "<#571664>Alpha Hellhound",
-                    BetterConfig.CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE)
                     .withAnger(true)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
                     .withCustomDeathEXP(20)
@@ -112,11 +114,11 @@ public class BNMobManager {
                     .withPossibleTarget(EntityType.SHEEP)
                     .withPossibleTarget(EntityType.COW), main);
         }
-        if (BetterConfig.CUSTOM_MOB_LOST_SOUL_ENABLED) {
+        if (main.config.CUSTOM_MOB_LOST_SOUL_ENABLED) {
             MobManager.registerNewMob(new MVMob("lost_soul",
                     EntityType.VEX,
                     "<#1152a6>Lost Soul",
-                    BetterConfig.CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
                     .withCustomDeathEXP(30)
                     .withCustomMaxHP(5)
@@ -131,11 +133,11 @@ public class BNMobManager {
                             new MVSound(Sound.ENTITY_VEX_CHARGE, SoundCategory.HOSTILE, 1, 0.6f),
                             Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null)), main);
         }
-        if (BetterConfig.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
+        if (main.config.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
             MobManager.registerNewMob(new MVMob("zombified_demon",
                     EntityType.ZOMBIE,
                     "<#0f853c>Zombified Demon",
-                    BetterConfig.CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
                     .withEntityToReplace(EntityType.ZOMBIE)
                     .withCustomDeathEXP(30)
@@ -157,11 +159,11 @@ public class BNMobManager {
                             Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
                     .setBaby(new BabyInfo(false, 0)), main);
         }
-        if (BetterConfig.CUSTOM_MOB_TANK_ENABLED) {
+        if (main.config.CUSTOM_MOB_TANK_ENABLED) {
             MobManager.registerNewMob(new MVMob("demon_tank",
                     EntityType.HUSK,
                     "<#f1e46a>Demon Tank",
-                    BetterConfig.CUSTOM_MOB_TANK_SPAWNCHANCE)
+                    main.config.CUSTOM_MOB_TANK_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.HUSK)
                     .withEntityToReplace(EntityType.PIGLIN_BRUTE)
                     .withEntityToReplace(EntityType.ENDERMAN)

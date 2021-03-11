@@ -7,13 +7,13 @@
 # Traditional color codes supported for string values, and Hex.
 #  EG: &cHi! <#5C040F>Hey!
 
+# Set a custom prefix
+Prefix: '&6Better&cNetherite &7» '
+
 # Enable debug messages?
 #  WARNING: WILL cause spam in console! this is
 #   a development option, put here for ease of development.
 Debug: false
-
-# What language should the plugin use?
-Language: English
 
 # Enable the resource pack?
 #  the resource pack will not replace any existing
@@ -34,6 +34,8 @@ ResourcePack:
   #  Note: this WILL override any custom packs you input, only enable this if you
   #  want to use the default pack provided.
   AutoUpdate: true
+  # Should players be kicked when they dont accept the resource pack?
+  Force: false
 
 UpdateCheck:
   # Should the plugin notify OPs/Players with the plugins admin perm
@@ -113,16 +115,24 @@ NetheriteShrines:
       ExtraDamageChance: 60
       # The amount of bonus damage
       DamageIncrease: 3
+    UsableIn:
+      - world
+      - world_nether
   WarpedShrine:
     # Should the Warped Netherite Shrine be enabled?
     #  This shrine will replenish durability of
     #  Netherite items.
     Enabled: true
+    UsableIn:
+      - world
+      - world_nether
   PrismarineShrine:
     # Should the Prismarine Netherite Shrine be enabled?
     #  This shrine will grant 5 potion effects.
     #  each effect has a chance of not applying.
     Enabled: true
+    UsableIn:
+      - world
 
 ImprovedUpgrading:
   # Wanna keep the upgrade system but don't like how it works?

@@ -3,8 +3,8 @@ package com.github.steeldev.betternetherite.misc;
 import com.github.steeldev.betternetherite.util.shrines.ShrineCharge;
 import com.github.steeldev.betternetherite.util.shrines.ShrineCore;
 import com.github.steeldev.betternetherite.util.shrines.ShrineEffect;
-import org.bukkit.World;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BNShrine {
@@ -14,25 +14,38 @@ public class BNShrine {
     public ShrineCore core;
     public ShrineCharge charge;
     public ShrineEffect effect;
-    public List<World.Environment> validUseWorlds;
+    public List<String> validUseWorlds;
     public int explodeChance;
     public boolean requiresValidItems;
 
     public BNShrine(String key,
                     String display,
                     ShrineCore core,
-                    ShrineCharge charge,
-                    ShrineEffect effect,
-                    List<World.Environment> validUseWorlds,
-                    int explodeChance,
-                    boolean requiresValidItems) {
+                    ShrineCharge charge) {
         this.key = key;
         this.display = display;
         this.core = core;
         this.charge = charge;
+    }
+
+    public BNShrine withCustomEffect(ShrineEffect effect) {
         this.effect = effect;
-        this.validUseWorlds = validUseWorlds;
-        this.explodeChance = explodeChance;
-        this.requiresValidItems = requiresValidItems;
+        return this;
+    }
+
+    public BNShrine withValidWorld(String world) {
+        if (this.validUseWorlds == null) this.validUseWorlds = new ArrayList<>();
+        this.validUseWorlds.add(world);
+        return this;
+    }
+
+    public BNShrine withExplodeChance(int chance) {
+        this.explodeChance = chance;
+        return this;
+    }
+
+    public BNShrine withItemRequirement(boolean requiresItem) {
+        this.requiresValidItems = requiresItem;
+        return this;
     }
 }

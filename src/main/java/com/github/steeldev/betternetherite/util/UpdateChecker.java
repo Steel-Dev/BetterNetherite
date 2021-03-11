@@ -1,7 +1,6 @@
 package com.github.steeldev.betternetherite.util;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.config.Lang;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -14,29 +13,49 @@ import java.net.URL;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
-import static com.github.steeldev.betternetherite.util.Util.colorize;
-
 //https://www.spigotmc.org/resources/better-netherite.84526
 //https://api.spigotmc.org/legacy/update.php?resource=84526
 public class UpdateChecker {
     static BetterNetherite main = BetterNetherite.getInstance();
+    public final String resourceLink = "https://www.spigotmc.org/resources/better-netherite.84526/";
+    public boolean outdated;
+    public String newVersion;
     JavaPlugin plugin;
     int resourceID;
 
-    public UpdateChecker(JavaPlugin plugin,
-                         int resourceID) {
+    public UpdateChecker(JavaPlugin plugin, int resourceID) {
         this.plugin = plugin;
         this.resourceID = resourceID;
     }
 
-    public static void sendNewUpdateMessageToPlayer(Player player) {
+    public void checkForNewVersion() {
+        Message.PLUGIN_CHECKING_FOR_UPDATE.log();
+        getVersion(version -> {
+            int latestVersion = Integer.parseInt(version.replaceAll("\\.", ""));
+            int currentVersion = Integer.parseInt(main.getDescription().getVersion().replaceAll("\\.", ""));
+
+            if (currentVersion == latestVersion) {
+                outdated = false;
+                Message.PLUGIN_ON_LATEST.log(version);
+            } else if (currentVersion > latestVersion) {
+                outdated = false;
+                Message.PLUGIN_ON_IN_DEV_PREVIEW.log(main.getDescription().getVersion());
+            } else {
+                outdated = true;
+                newVersion = version;
+                Message.PLUGIN_NEW_VERSION_AVAILABLE_CONSOLE.log(main.getDescription().getVersion(), version, resourceLink);
+            }
+        });
+    }
+
+    public void sendNewUpdateMessageToPlayer(Player player) {
         if (!player.isOp() && !player.hasPermission("betternetherite.admin")) return;
 
-        if (!main.outdated) return;
+        if (!outdated) return;
 
-        player.sendMessage(colorize(String.format("%s&a&oA new version is available! &7&o(Current: %s, Latest: %s)", Lang.PREFIX, main.getDescription().getVersion(), main.newVersion)));
-        TextComponent link = new TextComponent(colorize("&6&lClick here to update"));
-        link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://www.spigotmc.org/resources/better-netherite.84526"));
+        Message.PLUGIN_NEW_VERSION_AVAILABLE_CHAT.send(player, true, main.getDescription().getVersion(), newVersion);
+        TextComponent link = new TextComponent(Message.PLUGIN_NEW_VERSION_AVAILABLE_CHAT_CLICK.toString());
+        link.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, resourceLink));
         player.spigot().sendMessage(link);
     }
 
@@ -47,7 +66,7 @@ public class UpdateChecker {
                     consumer.accept(scanner.next());
                 }
             } catch (IOException exception) {
-                this.plugin.getLogger().info(String.format("&cCannot look for updates: %s", exception.getMessage()));
+                Message.PLUGIN_UPDATE_CHECK_FAILED.log(exception.getMessage());
             }
         });
     }

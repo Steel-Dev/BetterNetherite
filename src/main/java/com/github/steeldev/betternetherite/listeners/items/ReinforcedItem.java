@@ -1,7 +1,6 @@
 package com.github.steeldev.betternetherite.listeners.items;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.config.BetterConfig;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -33,7 +32,7 @@ public class ReinforcedItem implements Listener {
         if (!toolNBT.hasKey("netherite_reinforced"))
             return;
 
-        if (!chanceOf(BetterConfig.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
+        if (!chanceOf(main.config.REINFORCED_ITEM_DURABILITY_LOSS_CHANCE))
             event.setCancelled(true);
     }
 
@@ -55,8 +54,8 @@ public class ReinforcedItem implements Listener {
             if (!toolNBT.hasKey("netherite_reinforced"))
                 return;
 
-            if (chanceOf(BetterConfig.REINFORCED_ITEM_EXTRA_DMG_CHANCE))
-                entity.damage(BetterConfig.REINFORCED_ITEM_DAMAGE_INCREASE);
+            if (chanceOf(main.config.REINFORCED_ITEM_EXTRA_DMG_CHANCE))
+                entity.damage(main.config.REINFORCED_ITEM_DAMAGE_INCREASE);
         }
     }
 }
