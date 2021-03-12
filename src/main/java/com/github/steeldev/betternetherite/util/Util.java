@@ -10,6 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
@@ -102,6 +103,11 @@ public class Util {
 
     public static void broadcast(String format, Object... params) {
         Bukkit.getServer().broadcastMessage(colorize(String.format(format, params)));
+    }
+
+    public static void unregisterEvents(Listener listener){
+        if (main == null) main = BetterNetherite.getInstance();
+        HandlerList.unregisterAll(listener);
     }
 
     public static void registerEvent(Listener listener) {

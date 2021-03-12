@@ -32,6 +32,8 @@ public class ShrineBase implements Listener {
 
     BNShrine shrine;
 
+    public ShrineBase(){}
+
     public ShrineBase(String shrineID) {
         shrine = BNShrineManager.getBNShrine(shrineID);
     }
