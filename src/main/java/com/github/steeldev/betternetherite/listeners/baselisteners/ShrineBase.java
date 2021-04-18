@@ -4,6 +4,7 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.misc.BNShrine;
 import com.github.steeldev.betternetherite.util.Message;
+import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.betternetherite.util.shrines.BNPotionEffect;
 import com.github.steeldev.betternetherite.util.shrines.ShrineEffectType;
 import de.tr7zw.changeme.nbtapi.NBTItem;
@@ -44,7 +45,8 @@ public class ShrineBase implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block clickedBlock = event.getClickedBlock();
-        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+        if(event.getHand() == null) return;
+        if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
                 || !event.getHand().equals(EquipmentSlot.HAND)
                 || clickedBlock == null) return;
 
@@ -56,7 +58,6 @@ public class ShrineBase implements Listener {
                     if (isRingValid(1, cryingObsidian, Material.MAGMA_BLOCK, Material.POLISHED_BLACKSTONE)) {
                         if (isRingValid(2, cryingObsidian, Material.BLACKSTONE, Material.NETHERITE_BLOCK)) {
                             event.setCancelled(true);
-
                             if (shrine.requiresValidItems && !main.config.USABLE_SHRINE_ITEMS.containsKey(item.getType().toString())) {
                                 player.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_BEEHIVE_SHEAR, 1.6f, 1.6f);
                                 Message.SHRINE_INVALID_ITEM.send(player, true, shrine.display);
@@ -93,46 +94,48 @@ public class ShrineBase implements Listener {
                             }
 
                             if (chargesLeft > 0) {
-                                if (shrine.effect.shrineEffectType == ShrineEffectType.REINFORCE_ITEM) {
-                                    NBTItem nbtItem = new NBTItem(item);
-                                    if (nbtItem.hasKey("netherite_reinforced")) {
-                                        if (nbtItem.getBoolean("netherite_reinforced")) {
+                                switch(shrine.effect.shrineEffectType){
+                                    case REINFORCE_ITEM:
+                                        NBTItem nbtItem = new NBTItem(item);
+                                        if (nbtItem.hasKey("netherite_reinforced")) {
                                             player.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.6f, 1.6f);
                                             Message.SHRINE_ITEM_ALREADY_EFFECTED.send(player, true, shrine.effect.effectDisplay);
                                             return;
                                         }
-                                    }
-                                    nbtItem.addCompound("netherite_reinforced");
-                                    nbtItem.setBoolean("netherite_reinforced", true);
-                                    item = nbtItem.getItem();
-                                    ItemMeta meta = (item.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(item.getType()) : item.getItemMeta();
-                                    List<String> curLore = (meta.getLore() == null) ? new ArrayList<>() : meta.getLore();
-                                    curLore.add(colorize(shrine.effect.effectLoreDisplay));
-                                    meta.setLore(curLore);
-                                    item.setItemMeta(meta);
-                                    player.getInventory().setItemInMainHand(item);
-                                } else if (shrine.effect.shrineEffectType == ShrineEffectType.HEAL_ITEM) {
-                                    Damageable damMeta = (item.getItemMeta() != null) ? (Damageable) item.getItemMeta() : (Damageable) Bukkit.getItemFactory().getItemMeta(item.getType());
-                                    if (damMeta.getDamage() <= 0) {
-                                        player.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.6f, 1.6f);
-                                        Message.SHRINE_CANT_USE_ITEM_NOT_DAMAGED.send(player, true, shrine.effect.effectDisplay);
-                                        return;
-                                    }
-                                    damMeta.setDamage(0);
-                                    item.setItemMeta((ItemMeta) damMeta);
-                                    player.getInventory().setItemInMainHand(item);
-                                } else if (shrine.effect.shrineEffectType == ShrineEffectType.APPLY_POTION_EFFECT) {
-                                    if (shrine.effect.potionEffects != null) {
-                                        if (shrine.effect.potionEffects.size() > 0) {
-                                            for (BNPotionEffect effect : shrine.effect.potionEffects) {
-                                                if (chanceOf(effect.chance)) {
-                                                    player.addPotionEffect(effect.getPotionEffect(), false);
-                                                    if (main.config.DEBUG)
-                                                        Message.X_INFLICTED_X_WITH_X.log(shrine.display, player.getName(), effect.effect.toString());
+                                        nbtItem.addCompound("netherite_reinforced");
+                                        nbtItem.setBoolean("netherite_reinforced", true);
+                                        item = nbtItem.getItem();
+                                        ItemMeta meta = (item.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(item.getType()) : item.getItemMeta();
+                                        List<String> curLore = (meta.getLore() == null) ? new ArrayList<>() : meta.getLore();
+                                        curLore.add(colorize(shrine.effect.effectLoreDisplay));
+                                        meta.setLore(curLore);
+                                        item.setItemMeta(meta);
+                                        player.getInventory().setItemInMainHand(item);
+                                        break;
+                                    case HEAL_ITEM:
+                                        Damageable damMeta = (item.getItemMeta() != null) ? (Damageable) item.getItemMeta() : (Damageable) Bukkit.getItemFactory().getItemMeta(item.getType());
+                                        if (damMeta.getDamage() <= 0) {
+                                            player.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1.6f, 1.6f);
+                                            Message.SHRINE_CANT_USE_ITEM_NOT_DAMAGED.send(player, true, shrine.effect.effectDisplay);
+                                            return;
+                                        }
+                                        damMeta.setDamage(0);
+                                        item.setItemMeta((ItemMeta) damMeta);
+                                        player.getInventory().setItemInMainHand(item);
+                                        break;
+                                    case APPLY_POTION_EFFECT:
+                                        if (shrine.effect.potionEffects != null) {
+                                            if (shrine.effect.potionEffects.size() > 0) {
+                                                for (BNPotionEffect effect : shrine.effect.potionEffects) {
+                                                    if (chanceOf(effect.chance)) {
+                                                        player.addPotionEffect(effect.getPotionEffect(), false);
+                                                        if (main.config.DEBUG)
+                                                            Message.X_INFLICTED_X_WITH_X.log(shrine.display, player.getName(), effect.effect.toString());
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
+                                        break;
                                 }
 
                                 chargesLeft--;
