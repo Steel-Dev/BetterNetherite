@@ -105,7 +105,7 @@ public class Util {
         Bukkit.getServer().broadcastMessage(colorize(String.format(format, params)));
     }
 
-    public static void unregisterEvents(Listener listener){
+    public static void unregisterEvents(Listener listener) {
         if (main == null) main = BetterNetherite.getInstance();
         HandlerList.unregisterAll(listener);
     }

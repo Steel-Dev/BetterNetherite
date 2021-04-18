@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 public class BNMobManager {
     static BetterNetherite main = BetterNetherite.getInstance();
@@ -27,8 +28,8 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.WITHER_SKELETON)
                     .withMount(new MountInfo(EntityType.SKELETON_HORSE, 40, Arrays.asList(Material.IRON_HORSE_ARMOR, Material.GOLDEN_HORSE_ARMOR), 20))
-                    .withCustomDeathEXP(20)
-                    .withCustomMaxHP(20)
+                    .withCustomDeathEXP(Arrays.asList(5, 10, 15, 20))
+                    .withCustomMaxHP(Arrays.asList(10.0, 15.0, 20.0, 25.0))
                     .withCustomMoveSpeed(0.2f)
                     .withValidSpawnWorld("world_nether")
                     .withHitEffect(new MVPotionEffect(PotionEffectType.BLINDNESS, 30, 1, 60))
@@ -41,8 +42,8 @@ public class BNMobManager {
                     .withChestplate(new ItemChance(ItemManager.getItem("marauder_chestplate"), 0.05f, true))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.VILLAGER_ANGRY, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.4f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.BLINDNESS, 15, 2, 60)))), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)),
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 15, 2, 60)))), main);
         }
         if (main.config.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_marauder_brute",
@@ -51,8 +52,8 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.WITHER_SKELETON)
                     .withMount(new MountInfo(EntityType.ZOMBIE_HORSE, 40, Arrays.asList(Material.DIAMOND_HORSE_ARMOR, Material.IRON_HORSE_ARMOR), 20))
-                    .withCustomDeathEXP(20)
-                    .withCustomMaxHP(25)
+                    .withCustomDeathEXP(Arrays.asList(10, 15, 20, 25))
+                    .withCustomMaxHP(Arrays.asList(15.0, 20.0, 25.0, 30.0))
                     .withCustomMoveSpeed(0.2f)
                     .withValidSpawnWorld("world_nether")
                     .withHitEffect(new MVPotionEffect(PotionEffectType.BLINDNESS, 30, 1, 60)).withDropToRemove(Material.BONE)
@@ -64,8 +65,8 @@ public class BNMobManager {
                     .withChestplate(new ItemChance(ItemManager.getItem("marauder_chestplate"), 0.05f, true))
                     .withTargetEffect(new MobTargetEffect(56, new MVParticle(Particle.VILLAGER_ANGRY, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.3f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 20, 2, 20)),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.BLINDNESS, 20, 2, 60)))), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 20, 2, 20)),
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 20, 2, 60)))), main);
         }
         if (main.config.CUSTOM_MOB_HELLHOUND_ENABLED) {
             MobManager.registerNewMob(new MVMob("hellhound",
@@ -74,8 +75,8 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_HELLHOUND_SPAWNCHANCE)
                     .withAnger(true)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withCustomDeathEXP(10)
-                    .withCustomMaxHP(10)
+                    .withCustomDeathEXP(Arrays.asList(2, 5, 7, 10))
+                    .withCustomMaxHP(Arrays.asList(2.0, 5.0, 7.0, 10.0))
                     .withCustomMoveSpeed(0.4f)
                     .withValidSpawnWorld("world_nether")
                     .withHitEffect(new MVPotionEffect(PotionEffectType.WITHER, 30, 1, 60))
@@ -85,7 +86,7 @@ public class BNMobManager {
                     .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.FLAME, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.6f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null))
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null))
                     .setBaby(new BabyInfo(true, 30))
                     .withPossibleTarget(EntityType.PLAYER)
                     .withPossibleTarget(EntityType.SHEEP)
@@ -98,8 +99,8 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE)
                     .withAnger(true)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withCustomDeathEXP(20)
-                    .withCustomMaxHP(15)
+                    .withCustomDeathEXP(Arrays.asList(4, 6, 9, 15))
+                    .withCustomMaxHP(Arrays.asList(5.0, 8.0, 10.0, 15.0))
                     .withCustomMoveSpeed(0.5f)
                     .withValidSpawnWorld("world_nether")
                     .withHitEffect(new MVPotionEffect(PotionEffectType.WITHER, 30, 1, 60))
@@ -109,10 +110,11 @@ public class BNMobManager {
                     .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.FLAME, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.6f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
                     .withPossibleTarget(EntityType.PLAYER)
                     .withPossibleTarget(EntityType.SHEEP)
-                    .withPossibleTarget(EntityType.COW), main);
+                    .withPossibleTarget(EntityType.COW)
+                    .withPack(new PackInfo(3,20, "monstrorvm:hellhound")), main);
         }
         if (main.config.CUSTOM_MOB_LOST_SOUL_ENABLED) {
             MobManager.registerNewMob(new MVMob("lost_soul",
@@ -120,8 +122,8 @@ public class BNMobManager {
                     "<#1152a6>Lost Soul",
                     main.config.CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withCustomDeathEXP(30)
-                    .withCustomMaxHP(5)
+                    .withCustomDeathEXP(Arrays.asList(2, 5, 7, 8))
+                    .withCustomMaxHP(Arrays.asList(2.0, 5.0, 7.0, 9.0))
                     .withCustomMoveSpeed(0.5f)
                     .withValidSpawnWorld("world_nether")
                     .withHitEffect(new MVPotionEffect(PotionEffectType.WITHER, 30, 1, 60))
@@ -131,7 +133,7 @@ public class BNMobManager {
                     .withDrop(new ItemChance(ItemManager.getItem("soul"), 2, 5))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.SOUL_FIRE_FLAME, 6),
                             new MVSound(Sound.ENTITY_VEX_CHARGE, SoundCategory.HOSTILE, 1, 0.6f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null)), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null)), main);
         }
         if (main.config.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
             MobManager.registerNewMob(new MVMob("zombified_demon",
@@ -140,8 +142,8 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
                     .withEntityToReplace(EntityType.ZOMBIE)
-                    .withCustomDeathEXP(30)
-                    .withCustomMaxHP(8)
+                    .withCustomDeathEXP(Arrays.asList(4, 6, 10, 20))
+                    .withCustomMaxHP(Arrays.asList(2.0, 5.0, 8.0, 10.0))
                     .withCustomMoveSpeed(0.4f)
                     .withValidSpawnWorld("world")
                     .withValidSpawnWorld("world_nether")
@@ -156,7 +158,7 @@ public class BNMobManager {
                     .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.CRIMSON_SPORE, 6),
                             new MVSound(Sound.ENTITY_ZOMBIE_AMBIENT, SoundCategory.HOSTILE, 1, 0.6f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
                     .setBaby(new BabyInfo(false, 0)), main);
         }
         if (main.config.CUSTOM_MOB_TANK_ENABLED) {
@@ -167,8 +169,8 @@ public class BNMobManager {
                     .withEntityToReplace(EntityType.HUSK)
                     .withEntityToReplace(EntityType.PIGLIN_BRUTE)
                     .withEntityToReplace(EntityType.ENDERMAN)
-                    .withCustomDeathEXP(40)
-                    .withCustomMaxHP(25)
+                    .withCustomDeathEXP(Arrays.asList(5, 8, 10, 20))
+                    .withCustomMaxHP(Arrays.asList(10.0, 12.0, 17.0, 25.0))
                     .withCustomMoveSpeed(0.2f)
                     .withValidSpawnWorld("world")
                     .withValidSpawnWorld("world_nether")
@@ -183,8 +185,8 @@ public class BNMobManager {
                     .setBaby(new BabyInfo(false, 0))
                     .withTargetEffect(new MobTargetEffect(30, new MVParticle(Particle.SOUL, 6),
                             new MVSound(Sound.PARTICLE_SOUL_ESCAPE, SoundCategory.HOSTILE, 1, 0.3f),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.SPEED, 20, 1, 7)),
-                            Arrays.asList(new MVPotionEffect(PotionEffectType.BLINDNESS, 40, 1, 60)))), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 20, 1, 7)),
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 40, 1, 60)))), main);
         }
     }
 }
