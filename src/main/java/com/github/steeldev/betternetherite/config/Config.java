@@ -68,18 +68,32 @@ public class Config {
     //Mobs
     public boolean CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED;
     public int CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_NETHERITE_MARAUDER_SPAWN_WORLDS;
+
     public boolean CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED;
     public int CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWN_WORLDS;
+
     public boolean CUSTOM_MOB_HELLHOUND_ENABLED;
     public int CUSTOM_MOB_HELLHOUND_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_HELLHOUND_SPAWN_WORLDS;
+
     public boolean CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED;
     public int CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_ALPHA_HELLHOUND_SPAWN_WORLDS;
+
     public boolean CUSTOM_MOB_LOST_SOUL_ENABLED;
     public int CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_LOST_SOUL_SPAWN_WORLDS;
+
     public boolean CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED;
     public int CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWN_WORLDS;
+
     public boolean CUSTOM_MOB_TANK_ENABLED;
     public int CUSTOM_MOB_TANK_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_TANK_SPAWN_WORLDS;
+
     public boolean RESOURCE_PACK_ENABLED;
     public String RESOURCE_PACK_URL;
     public boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
@@ -192,24 +206,31 @@ public class Config {
 
         CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauder.Enabled");
         CUSTOM_MOB_NETHERITE_MARAUDER_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteMarauder.SpawnChance");
+        CUSTOM_MOB_NETHERITE_MARAUDER_SPAWN_WORLDS = config.getStringList("CustomMobs.NetheriteMarauder.ValidSpawnWorlds");
 
         CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED = config.getBoolean("CustomMobs.NetheriteMarauderBrute.Enabled");
         CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteMarauderBrute.SpawnChance");
+        CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWN_WORLDS = config.getStringList("CustomMobs.NetheriteMarauderBrute.ValidSpawnWorlds");
 
         CUSTOM_MOB_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.Hellhound.Enabled");
         CUSTOM_MOB_HELLHOUND_SPAWNCHANCE = config.getInt("CustomMobs.Hellhound.SpawnChance");
+        CUSTOM_MOB_HELLHOUND_SPAWN_WORLDS = config.getStringList("CustomMobs.Hellhound.ValidSpawnWorlds");
 
         CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED = config.getBoolean("CustomMobs.AlphaHellhound.Enabled");
         CUSTOM_MOB_ALPHA_HELLHOUND_SPAWNCHANCE = config.getInt("CustomMobs.AlphaHellhound.SpawnChance");
+        CUSTOM_MOB_ALPHA_HELLHOUND_SPAWN_WORLDS = config.getStringList("CustomMobs.AlphaHellhound.ValidSpawnWorlds");
 
         CUSTOM_MOB_LOST_SOUL_ENABLED = config.getBoolean("CustomMobs.LostSoul.Enabled");
         CUSTOM_MOB_LOST_SOUL_SPAWNCHANCE = config.getInt("CustomMobs.LostSoul.SpawnChance");
+        CUSTOM_MOB_LOST_SOUL_SPAWN_WORLDS = config.getStringList("CustomMobs.LostSoul.ValidSpawnWorlds");
 
         CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED = config.getBoolean("CustomMobs.ZombifiedDemon.Enabled");
         CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWNCHANCE = config.getInt("CustomMobs.ZombifiedDemon.SpawnChance");
+        CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWN_WORLDS = config.getStringList("CustomMobs.ZombifiedDemon.ValidSpawnWorlds");
 
         CUSTOM_MOB_TANK_ENABLED = config.getBoolean("CustomMobs.Tank.Enabled");
         CUSTOM_MOB_TANK_SPAWNCHANCE = config.getInt("CustomMobs.Tank.SpawnChance");
+        CUSTOM_MOB_TANK_SPAWN_WORLDS = config.getStringList("CustomMobs.Tank.ValidSpawnWorlds");
 
         RESOURCE_PACK_ENABLED = config.getBoolean("ResourcePack.Enabled");
         RESOURCE_PACK_URL = config.getString("ResourcePack.URL");

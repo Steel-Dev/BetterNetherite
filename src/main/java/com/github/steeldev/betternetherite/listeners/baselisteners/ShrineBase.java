@@ -4,9 +4,7 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.misc.BNShrine;
 import com.github.steeldev.betternetherite.util.Message;
-import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.betternetherite.util.shrines.BNPotionEffect;
-import com.github.steeldev.betternetherite.util.shrines.ShrineEffectType;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -45,8 +43,8 @@ public class ShrineBase implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block clickedBlock = event.getClickedBlock();
-        if(event.getHand() == null) return;
-        if(!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
+        if (event.getHand() == null) return;
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
                 || !event.getHand().equals(EquipmentSlot.HAND)
                 || clickedBlock == null) return;
 
@@ -94,7 +92,7 @@ public class ShrineBase implements Listener {
                             }
 
                             if (chargesLeft > 0) {
-                                switch(shrine.effect.shrineEffectType){
+                                switch (shrine.effect.shrineEffectType) {
                                     case REINFORCE_ITEM:
                                         NBTItem nbtItem = new NBTItem(item);
                                         if (nbtItem.hasKey("netherite_reinforced")) {

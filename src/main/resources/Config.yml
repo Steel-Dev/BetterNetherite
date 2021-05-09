@@ -184,6 +184,8 @@ CustomMobs:
   NetheriteMarauder:
     Enabled: true
     SpawnChance: 5
+    ValidSpawnWorlds:
+      - world_nether
   # Should the Netherite Marauder Brute custom mob be enabled?
   #  this mob only spawns in the nether, its a tad faster than its brother, but does a big
   #   amount of damage, and has a tad more HP than its brother.
@@ -192,6 +194,8 @@ CustomMobs:
   NetheriteMarauderBrute:
     Enabled: true
     SpawnChance: 3
+    ValidSpawnWorlds:
+      - world_nether
   # Should the Hellhound be enabled?
   #  this mob only spawns in the nether, its slower than a normal wolf, and does
   #   around the same damage, but it's always angry and has more HP.
@@ -199,6 +203,8 @@ CustomMobs:
   Hellhound:
     Enabled: true
     SpawnChance: 3
+    ValidSpawnWorlds:
+      - world_nether
   # Should the Alpha Hellhound be enabled?
   #  this mob only spawns in the nether, its a tad faster than its brother, and does
   #   around the same damage, but it's always angry and has a bit more HP.
@@ -206,6 +212,8 @@ CustomMobs:
   AlphaHellhound:
     Enabled: true
     SpawnChance: 2
+    ValidSpawnWorlds:
+      - world_nether
   # Should the Lost Soul be enabled?
   #  this mob only spawns in the nether, it can fly, and is fast.
   #  it can do a lot of damage, and pass through walls. It has a small amount
@@ -214,6 +222,8 @@ CustomMobs:
   LostSoul:
     Enabled: true
     SpawnChance: 2
+    ValidSpawnWorlds:
+      - world_nether
   # Should the Zombified Demon be enabled?
   #  this mob can spawn in the Overworld, it's slow, but can do a lot of
   #   damage.
@@ -221,12 +231,19 @@ CustomMobs:
   ZombifiedDemon:
     Enabled: true
     SpawnChance: 2
+    ValidSpawnWorlds:
+      - world
+      - world_nether
   # Should the Tank be enabled?
   #  this mob can spawn in any dimension, it is very slow but deadly.
   #  it's blade laced with poison.
   Tank:
     Enabled: true
     SpawnChance: 1
+    ValidSpawnWorlds:
+      - world
+      - world_nether
+      - world_the_end
 
 # To better balance it, and make getting netherite scrap easier and better, to make up for the new difficulty if the above is true
 AncientDebris:
