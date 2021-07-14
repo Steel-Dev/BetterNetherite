@@ -1,6 +1,5 @@
 package com.github.steeldev.betternetherite.managers;
 
-import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.util.SmeltType;
 import org.bukkit.Bukkit;
 import org.bukkit.Keyed;
@@ -10,10 +9,9 @@ import org.bukkit.inventory.*;
 
 import java.util.*;
 
+import static com.github.steeldev.betternetherite.util.Util.main;
+
 public class RecipeManager {
-
-    final static BetterNetherite main = BetterNetherite.getInstance();
-
     public static void RegisterRecipes() {
         if (main.config.ENABLE_NETHERITE_CRAFTING &&
                 !main.config.IMPROVED_UPGRADING)

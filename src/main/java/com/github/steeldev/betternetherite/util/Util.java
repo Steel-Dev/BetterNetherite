@@ -25,7 +25,7 @@ public class Util {
     private static final String PREFIX = "&7[&6Better&cNetherite&7] ";
     private static final String NBTAPI_PREFIX = "&7[&6NBT&cAPI&7]";
     public static Random rand = new Random();
-    static BetterNetherite main;
+    public static BetterNetherite main = BetterNetherite.getInstance();
 
     public static String colorize(String string) {
         Matcher matcher = HEX_PATTERN.matcher(string);
@@ -72,6 +72,7 @@ public class Util {
     }
 
     public static void log(String log) {
+        if (main == null) main = BetterNetherite.getInstance();
         Bukkit.getConsoleSender().sendMessage(colorize(PREFIX + log));
     }
 
@@ -80,6 +81,7 @@ public class Util {
     }
 
     public static void log(String format, Object... objects) {
+        if (main == null) main = BetterNetherite.getInstance();
         Bukkit.getConsoleSender().sendMessage(colorize(PREFIX + String.format(format, objects)));
     }
 
@@ -106,17 +108,14 @@ public class Util {
     }
 
     public static void unregisterEvents(Listener listener) {
-        if (main == null) main = BetterNetherite.getInstance();
         HandlerList.unregisterAll(listener);
     }
 
     public static void registerEvent(Listener listener) {
-        if (main == null) main = BetterNetherite.getInstance();
         main.getServer().getPluginManager().registerEvents(listener, main);
     }
 
     public static void registerCommand(String command, CommandExecutor commandExecutor) {
-        if (main == null) main = BetterNetherite.getInstance();
         main.getCommand(command).setExecutor(commandExecutor);
     }
 

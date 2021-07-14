@@ -1,25 +1,24 @@
 package com.github.steeldev.betternetherite.managers;
 
-import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.monstrorvm.managers.ItemManager;
-import com.github.steeldev.monstrorvm.managers.MobManager;
-import com.github.steeldev.monstrorvm.util.misc.MVParticle;
-import com.github.steeldev.monstrorvm.util.misc.MVPotionEffect;
-import com.github.steeldev.monstrorvm.util.misc.MVSound;
-import com.github.steeldev.monstrorvm.util.mobs.*;
+import com.github.steeldev.monstrorvm.api.items.ItemManager;
+import com.github.steeldev.monstrorvm.api.misc.MVParticle;
+import com.github.steeldev.monstrorvm.api.misc.MVPotionEffect;
+import com.github.steeldev.monstrorvm.api.misc.MVSound;
+import com.github.steeldev.monstrorvm.api.mobs.*;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
 import java.util.Collections;
 
-public class BNMobManager {
-    static BetterNetherite main = BetterNetherite.getInstance();
+import static com.github.steeldev.betternetherite.util.Util.main;
 
+public class BNMobManager {
     public static void registerCustomMobs() {
         if (main.config.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_marauder",
@@ -35,15 +34,16 @@ public class BNMobManager {
                     .withHitEffect(new MVPotionEffect(PotionEffectType.BLINDNESS, 30, 1, 60))
                     .withDropToRemove(Material.BONE)
                     .withDropToRemove(Material.COAL)
-                    .withDrop(new ItemChance(Material.NETHERITE_SCRAP, 2, 20))
-                    .withDrop(new ItemChance(Material.NETHERITE_INGOT, 3, 5))
-                    .withDrop(new ItemChance(ItemManager.getItem("marauder_bone"), 2, 60))
-                    .withMainHandItem(new ItemChance(ItemManager.getItem("marauder_sword"), 0.1f, true))
-                    .withChestplate(new ItemChance(ItemManager.getItem("marauder_chestplate"), 0.05f, true))
+                    .withDrop(new ItemChance(new ItemStack(Material.NETHERITE_SCRAP), 2, 20))
+                    .withDrop(new ItemChance(new ItemStack(Material.NETHERITE_INGOT), 3, 5))
+                    .withDrop(new ItemChance(ItemManager.getItem("marauder_bone").getItemStack(), 2, 60))
+                    .withMainHandItem(new ItemChance(ItemManager.getItem("marauder_sword").getItemStack(), 0.1f, true))
+                    .withChestplate(new ItemChance(ItemManager.getItem("marauder_chestplate").getItemStack(), 0.05f, true))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.VILLAGER_ANGRY, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.4f),
                             Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)),
-                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 15, 2, 60)))), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 15, 2, 60))))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("MarauderSpawnEgg")), main);
         }
         if (main.config.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_marauder_brute",
@@ -58,15 +58,16 @@ public class BNMobManager {
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_NETHERITE_MARAUDER_BRUTE_SPAWN_WORLDS)
                     .withHitEffect(new MVPotionEffect(PotionEffectType.BLINDNESS, 30, 1, 60)).withDropToRemove(Material.BONE)
                     .withDropToRemove(Material.COAL)
-                    .withDrop(new ItemChance(Material.NETHERITE_SCRAP, 2, 20))
-                    .withDrop(new ItemChance(Material.NETHERITE_INGOT, 3, 5))
-                    .withDrop(new ItemChance(ItemManager.getItem("marauder_bone"), 2, 60))
-                    .withMainHandItem(new ItemChance(ItemManager.getItem("marauder_axe"), 0.1f, true))
-                    .withChestplate(new ItemChance(ItemManager.getItem("marauder_chestplate"), 0.05f, true))
+                    .withDrop(new ItemChance(new ItemStack(Material.NETHERITE_SCRAP), 2, 20))
+                    .withDrop(new ItemChance(new ItemStack(Material.NETHERITE_INGOT), 3, 5))
+                    .withDrop(new ItemChance(ItemManager.getItem("marauder_bone").getItemStack(), 2, 60))
+                    .withMainHandItem(new ItemChance(ItemManager.getItem("marauder_axe").getItemStack(), 0.1f, true))
+                    .withChestplate(new ItemChance(ItemManager.getItem("marauder_chestplate").getItemStack(), 0.05f, true))
                     .withTargetEffect(new MobTargetEffect(56, new MVParticle(Particle.VILLAGER_ANGRY, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.3f),
                             Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 20, 2, 20)),
-                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 20, 2, 60)))), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 20, 2, 60))))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("MarauderBruteSpawnEgg")), main);
         }
         if (main.config.CUSTOM_MOB_HELLHOUND_ENABLED) {
             MobManager.registerNewMob(new MVMob("hellhound",
@@ -80,9 +81,9 @@ public class BNMobManager {
                     .withCustomMoveSpeed(0.4f)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_ALPHA_HELLHOUND_SPAWN_WORLDS)
                     .withHitEffect(new MVPotionEffect(PotionEffectType.WITHER, 30, 1, 60))
-                    .withDrop(new ItemChance(ItemManager.getItem("rotten_hound_meat"), 3, 30))
-                    .withDrop(new ItemChance(ItemManager.getItem("hound_meat"), 3, 40))
-                    .withBurningEffect(new BurningInfo(true, Integer.MAX_VALUE))
+                    .withDrop(new ItemChance(ItemManager.getItem("rotten_hound_meat").getItemStack(), 3, 30))
+                    .withDrop(new ItemChance(ItemManager.getItem("hound_meat").getItemStack(), 3, 40))
+                    .withBurningEffect(Integer.MAX_VALUE)
                     .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.FLAME, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.6f),
@@ -90,7 +91,8 @@ public class BNMobManager {
                     .setBaby(new BabyInfo(true, 30))
                     .withPossibleTarget(EntityType.PLAYER)
                     .withPossibleTarget(EntityType.SHEEP)
-                    .withPossibleTarget(EntityType.COW), main);
+                    .withPossibleTarget(EntityType.COW)
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("HellhoundSpawnEgg")), main);
         }
         if (main.config.CUSTOM_MOB_ALPHA_HELLHOUND_ENABLED) {
             MobManager.registerNewMob(new MVMob("alpha_hellhound",
@@ -104,9 +106,9 @@ public class BNMobManager {
                     .withCustomMoveSpeed(0.5f)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_ALPHA_HELLHOUND_SPAWN_WORLDS)
                     .withHitEffect(new MVPotionEffect(PotionEffectType.WITHER, 30, 1, 60))
-                    .withDrop(new ItemChance(ItemManager.getItem("rotten_hound_meat"), 4, 30))
-                    .withDrop(new ItemChance(ItemManager.getItem("hound_meat"), 4, 40))
-                    .withBurningEffect(new BurningInfo(true, Integer.MAX_VALUE))
+                    .withDrop(new ItemChance(ItemManager.getItem("rotten_hound_meat").getItemStack(), 4, 30))
+                    .withDrop(new ItemChance(ItemManager.getItem("hound_meat").getItemStack(), 4, 40))
+                    .withBurningEffect(Integer.MAX_VALUE)
                     .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.FLAME, 6),
                             new MVSound(Sound.ENTITY_WOLF_GROWL, SoundCategory.HOSTILE, 1, 0.6f),
@@ -114,7 +116,8 @@ public class BNMobManager {
                     .withPossibleTarget(EntityType.PLAYER)
                     .withPossibleTarget(EntityType.SHEEP)
                     .withPossibleTarget(EntityType.COW)
-                    .withPack(new PackInfo(3, 20, "monstrorvm:hellhound")), main);
+                    .withPack(new PackInfo(3, 20, "monstrorvm:hellhound"))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("AlphaHellhoundSpawnEgg")), main);
         }
         if (main.config.CUSTOM_MOB_LOST_SOUL_ENABLED) {
             MobManager.registerNewMob(new MVMob("lost_soul",
@@ -129,11 +132,12 @@ public class BNMobManager {
                     .withHitEffect(new MVPotionEffect(PotionEffectType.WITHER, 30, 1, 60))
                     .withHitEffect(new MVPotionEffect(PotionEffectType.POISON, 70, 1, 60))
                     .withHitEffect(new MVPotionEffect(PotionEffectType.BLINDNESS, 50, 1, 60))
-                    .withDeathExplosion(true, 90, 2, true)
-                    .withDrop(new ItemChance(ItemManager.getItem("soul"), 2, 5))
+                    .withDeathExplosion(90, 2, true)
+                    .withDrop(new ItemChance(ItemManager.getItem("soul").getItemStack(), 2, 5))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.SOUL_FIRE_FLAME, 6),
                             new MVSound(Sound.ENTITY_VEX_CHARGE, SoundCategory.HOSTILE, 1, 0.6f),
-                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null)), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 10, 2, 20)), null))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("LostSoulSpawnEgg")), main);
         }
         if (main.config.CUSTOM_MOB_ZOMBIFIED_DEMON_ENABLED) {
             MobManager.registerNewMob(new MVMob("zombified_demon",
@@ -148,17 +152,18 @@ public class BNMobManager {
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_ZOMBIFIED_DEMON_SPAWN_WORLDS)
                     .withHitEffect(new MVPotionEffect(PotionEffectType.HUNGER, 30, 1, 60))
                     .withHitEffect(new MVPotionEffect(PotionEffectType.POISON, 70, 1, 60))
-                    .withDrop(new ItemChance(ItemManager.getItem("rotten_demon_flesh"), 2, 5))
-                    .withHelmet(new ItemChance(ItemManager.getItem("demon_head"), 0.05f, false))
-                    .withChestplate(new ItemChance(ItemManager.getItem("demon_chestplate"), 0.03f, true))
-                    .withLeggings(new ItemChance(ItemManager.getItem("demon_leggings"), 0.03f, true))
-                    .withBoots(new ItemChance(ItemManager.getItem("demon_boots"), 0.03f, true))
-                    .withBurningEffect(new BurningInfo(true, Integer.MAX_VALUE))
+                    .withDrop(new ItemChance(ItemManager.getItem("rotten_demon_flesh").getItemStack(), 2, 5))
+                    .withHelmet(new ItemChance(ItemManager.getItem("demon_head").getItemStack(), 0.05f, false))
+                    .withChestplate(new ItemChance(ItemManager.getItem("demon_chestplate").getItemStack(), 0.03f, true))
+                    .withLeggings(new ItemChance(ItemManager.getItem("demon_leggings").getItemStack(), 0.03f, true))
+                    .withBoots(new ItemChance(ItemManager.getItem("demon_boots").getItemStack(), 0.03f, true))
+                    .withBurningEffect(Integer.MAX_VALUE)
                     .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE, 100, 1, Integer.MAX_VALUE))
                     .withTargetEffect(new MobTargetEffect(50, new MVParticle(Particle.CRIMSON_SPORE, 6),
                             new MVSound(Sound.ENTITY_ZOMBIE_AMBIENT, SoundCategory.HOSTILE, 1, 0.6f),
                             Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 15, 2, 20)), null))
-                    .setBaby(new BabyInfo(false, 0)), main);
+                    .setBaby(new BabyInfo(false, 0))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("ZombifiedDemonSpawnEgg")), main);
         }
         if (main.config.CUSTOM_MOB_TANK_ENABLED) {
             MobManager.registerNewMob(new MVMob("demon_tank",
@@ -173,17 +178,49 @@ public class BNMobManager {
                     .withCustomMoveSpeed(0.2f)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_TANK_SPAWN_WORLDS)
                     .withHitEffect(new MVPotionEffect(PotionEffectType.POISON, 80, 1, 90))
-                    .withMainHandItem(new ItemChance(ItemManager.getItem("tank_sword"), 0.1f, true))
-                    .withHelmet(new ItemChance(ItemManager.getItem("tank_head"), 0.1f, false))
-                    .withChestplate(new ItemChance(ItemManager.getItem("tank_chestplate"), 0.1f, true))
-                    .withLeggings(new ItemChance(ItemManager.getItem("tank_leggings"), 0.1f, true))
-                    .withBoots(new ItemChance(ItemManager.getItem("tank_boots"), 0.1f, true))
-                    .withDrop(new ItemChance(ItemManager.getItem("demon_tank_totem"), 10))
+                    .withMainHandItem(new ItemChance(ItemManager.getItem("tank_sword").getItemStack(), 0.1f, true))
+                    .withHelmet(new ItemChance(ItemManager.getItem("tank_head").getItemStack(), 0.1f, false))
+                    .withChestplate(new ItemChance(ItemManager.getItem("tank_chestplate").getItemStack(), 0.1f, true))
+                    .withLeggings(new ItemChance(ItemManager.getItem("tank_leggings").getItemStack(), 0.1f, true))
+                    .withBoots(new ItemChance(ItemManager.getItem("tank_boots").getItemStack(), 0.1f, true))
+                    .withDrop(new ItemChance(ItemManager.getItem("demon_tank_totem").getItemStack(), 10))
                     .setBaby(new BabyInfo(false, 0))
                     .withTargetEffect(new MobTargetEffect(30, new MVParticle(Particle.SOUL, 6),
                             new MVSound(Sound.PARTICLE_SOUL_ESCAPE, SoundCategory.HOSTILE, 1, 0.3f),
                             Collections.singletonList(new MVPotionEffect(PotionEffectType.SPEED, 20, 1, 7)),
-                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 40, 1, 60)))), main);
+                            Collections.singletonList(new MVPotionEffect(PotionEffectType.BLINDNESS, 40, 1, 60))))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("DemonTankSpawnEgg")), main);
+        }
+        if (main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_ENABLED) {
+            MobManager.registerNewMob(new MVMob("ancient_protector",
+                    EntityType.PIGLIN_BRUTE,
+                    "<#D6668D>Ancient Protector",
+                    main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWNCHANCE)
+                    .withValidSpawnWorlds(main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWN_WORLDS)
+                    .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
+                    .withCustomMaxHP(Arrays.asList(40.0,50.0,60.0,70.0))
+                    .withCustomDeathEXP(Arrays.asList(5, 10, 20, 30))
+                    .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("AncientProtectorSpawnEgg"))
+                    .withHelmet(new ItemChance(new ItemStack(Material.NETHERITE_HELMET),0.3f))
+                    .withChestplate(new ItemChance(new ItemStack(Material.NETHERITE_CHESTPLATE),0.1f))
+                    .withLeggings(new ItemChance(new ItemStack(Material.NETHERITE_LEGGINGS),0.2f))
+                    .withBoots(new ItemChance(new ItemStack(Material.NETHERITE_BOOTS),0.4f))
+                    .withMainHandItem(new ItemChance(new ItemStack(Material.NETHERITE_SWORD),0.1f)), main);
+        }
+        if (main.config.CUSTOM_MOB_NETHERITE_GOLEM_ENABLED) {
+            MobManager.registerNewMob(new MVMob("netherite_golem",
+                    EntityType.IRON_GOLEM,
+                    "<#1C0D1B>Netherite Golem",
+                    main.config.CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE)
+                    .withValidSpawnWorlds(main.config.CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS)
+                    .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
+                    .withCustomMaxHP(Arrays.asList(100.0, 120.0, 130.0, 140.0))
+                    .withCustomDeathEXP(Arrays.asList(5, 20, 30, 40))
+                    .withDropToRemove(Material.IRON_INGOT)
+                    .withDropToRemove(Material.POPPY)
+                    .withPossibleTargets(Arrays.asList(EntityType.PLAYER, EntityType.VILLAGER))
+                    .withDrop(new ItemChance(new ItemStack(Material.NETHERITE_SCRAP), 2))
+                    .withDrop(new ItemChance(new ItemStack(Material.WITHER_ROSE), 6)), main);
         }
     }
 }

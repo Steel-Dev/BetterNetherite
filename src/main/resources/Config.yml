@@ -24,7 +24,7 @@ ResourcePack:
   # The URL of the resource pack
   #  this is here so you can download it and customize it, add more
   #  or combine it with your own resource pack.
-  URL: 'https://www.dropbox.com/s/27b7eaufqh3rxg2/BetterNetherite-ResourcePack-v2.zip?dl=1'
+  URL: 'https://www.dropbox.com/s/ap168gz1v6tagc2/BetterNetherite-ResourcePack-v3.zip?dl=1'
   # Should the player be told the server uses a resource pack when they join?
   JoinMsgEnabled: true
   # Should the download status of the resource pack be sent to the player?
@@ -85,6 +85,7 @@ ItemModelDatas:
   LostSoulSpawnEgg: 5
   ZombifiedDemonSpawnEgg: 6
   DemonTankSpawnEgg: 7
+  AncientProtectorSpawnEgg: 8
 
 NetheriteShrines:
   # Item types that can be used on the Shrines.
@@ -244,6 +245,20 @@ CustomMobs:
       - world
       - world_nether
       - world_the_end
+  # Should the Ancient Protector be enabled?
+  #  This mob only spawns on the Nether Roof.
+  AncientProtector:
+    Enabled: true
+    SpawnChance: 16
+    ValidSpawnWorlds:
+      - world_nether_roof
+  # Should the Netherite Golem be enabled?
+  #  This mob is like a normal golem, but far more powerful
+  NetheriteGolem:
+    Enabled: true
+    SpawnChance: 10
+    ValidSpawnWorlds:
+      - world_nether
 
 # To better balance it, and make getting netherite scrap easier and better, to make up for the new difficulty if the above is true
 AncientDebris:

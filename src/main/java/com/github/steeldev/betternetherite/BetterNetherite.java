@@ -8,11 +8,13 @@ import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
 import com.github.steeldev.betternetherite.listeners.items.UpgradePack;
+import com.github.steeldev.betternetherite.listeners.mob.NetheriteGolemBuild;
 import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.Message;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
 import com.github.steeldev.betternetherite.util.Util;
+import com.github.steeldev.monstrorvm.Monstrorvm;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import org.bstats.bukkit.Metrics;
@@ -20,11 +22,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginBase;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.java.JavaPluginLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.logging.Logger;
+
+import static org.bukkit.Bukkit.getPluginManager;
 
 public class BetterNetherite extends JavaPlugin {
     private static BetterNetherite instance;
@@ -49,6 +55,7 @@ public class BetterNetherite extends JavaPlugin {
     public void onEnable() {
         long start = System.currentTimeMillis();
         instance = this;
+        Util.main = instance;
 
         MinecraftVersion.replaceLogger(getLogger());
 
@@ -63,6 +70,10 @@ public class BetterNetherite extends JavaPlugin {
 
         registerEvents();
         BNShrineManager.registerShrines();
+
+        registerCommands();
+        RecipeManager.RegisterRecipes();
+
         if (loadMonstrorvm() != null) {
             monstrorvmPlugin = loadMonstrorvm();
             if (monstrorvmPlugin.isEnabled()) {
@@ -71,12 +82,8 @@ public class BetterNetherite extends JavaPlugin {
                 BNMobManager.registerCustomMobs();
             } else
                 Message.MONSTRORVM_FOUND_DISABLED.log(monstrorvmPlugin.getDescription().getVersion());
-        } else {
+        } else
             Message.MONSTRORVM_NOT_FOUND.log();
-        }
-
-        registerCommands();
-        RecipeManager.RegisterRecipes();
 
         enableMetrics();
 
@@ -87,7 +94,7 @@ public class BetterNetherite extends JavaPlugin {
     }
 
     public Plugin loadMonstrorvm() {
-        return Bukkit.getServer().getPluginManager().getPlugin("Monstrorvm");
+        return getPluginManager().getPlugin("Monstrorvm");
     }
 
     @Override
@@ -134,5 +141,6 @@ public class BetterNetherite extends JavaPlugin {
         Util.registerEvent(new SmithingTable());
         Util.registerEvent(new AncientDebris());
         Util.registerEvent(new ReinforcedItem());
+        Util.registerEvent(new NetheriteGolemBuild());
     }
 }

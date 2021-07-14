@@ -94,6 +94,14 @@ public class Config {
     public int CUSTOM_MOB_TANK_SPAWNCHANCE;
     public List<String> CUSTOM_MOB_TANK_SPAWN_WORLDS;
 
+    public boolean CUSTOM_MOB_ANCIENT_PROTECTOR_ENABLED;
+    public int CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWN_WORLDS;
+
+    public boolean CUSTOM_MOB_NETHERITE_GOLEM_ENABLED;
+    public int CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE;
+    public List<String> CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS;
+
     public boolean RESOURCE_PACK_ENABLED;
     public String RESOURCE_PACK_URL;
     public boolean RESOURCE_PACK_JOIN_MSG_ENABLED;
@@ -231,6 +239,14 @@ public class Config {
         CUSTOM_MOB_TANK_ENABLED = config.getBoolean("CustomMobs.Tank.Enabled");
         CUSTOM_MOB_TANK_SPAWNCHANCE = config.getInt("CustomMobs.Tank.SpawnChance");
         CUSTOM_MOB_TANK_SPAWN_WORLDS = config.getStringList("CustomMobs.Tank.ValidSpawnWorlds");
+
+        CUSTOM_MOB_ANCIENT_PROTECTOR_ENABLED = config.getBoolean("CustomMobs.AncientProtector.Enabled");
+        CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWNCHANCE = config.getInt("CustomMobs.AncientProtector.SpawnChance");
+        CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWN_WORLDS = config.getStringList("CustomMobs.AncientProtector.ValidSpawnWorlds");
+
+        CUSTOM_MOB_NETHERITE_GOLEM_ENABLED = config.getBoolean("CustomMobs.NetheriteGolem.Enabled");
+        CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteGolem.SpawnChance");
+        CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS = config.getStringList("CustomMobs.NetheriteGolem.ValidSpawnWorlds");
 
         RESOURCE_PACK_ENABLED = config.getBoolean("ResourcePack.Enabled");
         RESOURCE_PACK_URL = config.getString("ResourcePack.URL");

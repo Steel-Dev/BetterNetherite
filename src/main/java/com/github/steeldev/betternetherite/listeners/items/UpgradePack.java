@@ -2,6 +2,7 @@ package com.github.steeldev.betternetherite.listeners.items;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.util.Message;
+import com.github.steeldev.monstrorvm.api.items.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -20,7 +21,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.github.steeldev.betternetherite.util.Util.formalizedString;
-import static com.github.steeldev.monstrorvm.util.Util.isMVItem;
 
 public class UpgradePack implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
@@ -48,7 +48,7 @@ public class UpgradePack implements Listener {
         Player player = (Player) e.getWhoClicked();
         ItemStack cursor = e.getCursor();
         Damageable cursDam = (Damageable) cursor.getItemMeta();
-        if (isMVItem(cursor, "upgrade_pack")) {
+        if (ItemManager.isMVItem(cursor, "upgrade_pack")) {
             ItemStack clickedItem = e.getCurrentItem();
             if (validItems.contains(clickedItem.getType())) {
                 e.setCancelled(true);
@@ -79,7 +79,7 @@ public class UpgradePack implements Listener {
         if (slot2 == null || slot2.getType().equals(Material.AIR)) return;
 
         if (validItems.contains(slot1.getType())) {
-            if (isMVItem(slot2, "upgrade_pack")) {
+            if (ItemManager.isMVItem(slot2, "upgrade_pack")) {
                 Material replacement = Material.valueOf(slot1.getType().toString().replace("DIAMOND", "NETHERITE"));
                 ItemStack resultItem = new ItemStack(replacement);
                 resultItem.setItemMeta(slot1.getItemMeta());
@@ -104,7 +104,7 @@ public class UpgradePack implements Listener {
 
         if (event.getSlot() == 2) {
             if (validItems.contains(slot1.getType())) {
-                if (isMVItem(slot2, "upgrade_pack")) {
+                if (ItemManager.isMVItem(slot2, "upgrade_pack")) {
                     player.setItemOnCursor(event.getCurrentItem());
                     slot1.setType(Material.AIR);
                     evInv.setItem(0, slot1);
@@ -139,7 +139,7 @@ public class UpgradePack implements Listener {
         if (mainHand.getType().equals(Material.AIR) || offHand.getType().equals(Material.AIR)) return;
 
         if (player.isSneaking()) {
-            if (isMVItem(offHand, "upgrade_pack") && validItems.contains(mainHand.getType())) {
+            if (ItemManager.isMVItem(offHand, "upgrade_pack") && validItems.contains(mainHand.getType())) {
                 Damageable upgradePack = (Damageable) offHand.getItemMeta();
                 upgradePack.setDamage(upgradePack.getDamage() + 79);
                 offHand.setItemMeta((ItemMeta) upgradePack);

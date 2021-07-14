@@ -1,13 +1,13 @@
 package com.github.steeldev.betternetherite.managers;
 
-import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.util.Message;
 
 import java.io.IOException;
 
+import static com.github.steeldev.betternetherite.util.Util.main;
+
 public class BNResourcePackManager {
-    static final String latestResourcePackURL = "https://www.dropbox.com/s/27b7eaufqh3rxg2/BetterNetherite-ResourcePack-v2.zip?dl=1";
-    static BetterNetherite main = BetterNetherite.getInstance();
+    static final String latestResourcePackURL = "https://www.dropbox.com/s/ap168gz1v6tagc2/BetterNetherite-ResourcePack-v3.zip?dl=1";
 
     public static void checkResourcePack() throws IOException {
         if (main.config.RESOURCE_PACK_ENABLED &&

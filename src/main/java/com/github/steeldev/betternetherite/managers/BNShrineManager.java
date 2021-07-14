@@ -1,6 +1,5 @@
 package com.github.steeldev.betternetherite.managers;
 
-import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.listeners.baselisteners.ShrineBase;
 import com.github.steeldev.betternetherite.misc.BNShrine;
 import com.github.steeldev.betternetherite.util.shrines.*;
@@ -12,8 +11,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
+import static com.github.steeldev.betternetherite.util.Util.main;
+
 public class BNShrineManager {
-    static BetterNetherite main = BetterNetherite.getInstance();
     static Map<String, BNShrine> bnShrineMap;
 
     public static void registerNewShrine(BNShrine shrine) {
