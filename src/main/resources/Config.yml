@@ -24,7 +24,7 @@ ResourcePack:
   # The URL of the resource pack
   #  this is here so you can download it and customize it, add more
   #  or combine it with your own resource pack.
-  URL: 'https://www.dropbox.com/s/ap168gz1v6tagc2/BetterNetherite-ResourcePack-v3.zip?dl=1'
+  URL: 'https://www.dropbox.com/s/hty7va5p8ghqt1b/BetterNetherite-ResourcePack-v3.zip?dl=1'
   # Should the player be told the server uses a resource pack when they join?
   JoinMsgEnabled: true
   # Should the download status of the resource pack be sent to the player?
@@ -62,6 +62,11 @@ ItemModelDatas:
   MarauderBone: 1
   # Netherite Sword
   MarauderSword: 1
+  AncientBlade: 2
+  # Stick
+  CrimsonStick: 1
+  # Emerald
+  AncientGem: 1
   # Netherite Axe
   MarauderAxe: 1
   # Cooked Pork

@@ -198,14 +198,16 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWNCHANCE)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWN_WORLDS)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withCustomMaxHP(Arrays.asList(40.0,50.0,60.0,70.0))
+                    .withCustomMaxHP(Arrays.asList(10.0, 20.0, 30.0, 40.0))
                     .withCustomDeathEXP(Arrays.asList(5, 10, 20, 30))
                     .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("AncientProtectorSpawnEgg"))
-                    .withHelmet(new ItemChance(new ItemStack(Material.NETHERITE_HELMET),0.3f))
-                    .withChestplate(new ItemChance(new ItemStack(Material.NETHERITE_CHESTPLATE),0.1f))
-                    .withLeggings(new ItemChance(new ItemStack(Material.NETHERITE_LEGGINGS),0.2f))
-                    .withBoots(new ItemChance(new ItemStack(Material.NETHERITE_BOOTS),0.4f))
-                    .withMainHandItem(new ItemChance(new ItemStack(Material.NETHERITE_SWORD),0.1f)), main);
+                    .withHelmet(new ItemChance(new ItemStack(Material.NETHERITE_HELMET), 0.1f))
+                    .withChestplate(new ItemChance(new ItemStack(Material.NETHERITE_CHESTPLATE), 0.1f))
+                    .withLeggings(new ItemChance(new ItemStack(Material.NETHERITE_LEGGINGS), 0.1f))
+                    .withBoots(new ItemChance(new ItemStack(Material.NETHERITE_BOOTS), 0.2f))
+                    .withMainHandItem(new ItemChance(ItemManager.getItem("ancient_blade").getItemStack(), 0.0f))
+                    .withDrop(new ItemChance(ItemManager.getItem("ancient_gem").getItemStack(), 3))
+                    .withDrop(new ItemChance(ItemManager.getItem("crimson_stick").getItemStack(), 2)), main);
         }
         if (main.config.CUSTOM_MOB_NETHERITE_GOLEM_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_golem",
@@ -214,7 +216,7 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withCustomMaxHP(Arrays.asList(100.0, 120.0, 130.0, 140.0))
+                    .withCustomMaxHP(Arrays.asList(80.0, 100.0, 120.0, 130.0))
                     .withCustomDeathEXP(Arrays.asList(5, 20, 30, 40))
                     .withDropToRemove(Material.IRON_INGOT)
                     .withDropToRemove(Material.POPPY)

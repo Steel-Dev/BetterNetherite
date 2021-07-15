@@ -14,17 +14,13 @@ import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.Message;
 import com.github.steeldev.betternetherite.util.UpdateChecker;
 import com.github.steeldev.betternetherite.util.Util;
-import com.github.steeldev.monstrorvm.Monstrorvm;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import de.tr7zw.changeme.nbtapi.utils.MinecraftVersion;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginBase;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.plugin.java.JavaPluginLoader;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

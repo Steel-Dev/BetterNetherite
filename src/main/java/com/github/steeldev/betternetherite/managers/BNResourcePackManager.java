@@ -7,7 +7,7 @@ import java.io.IOException;
 import static com.github.steeldev.betternetherite.util.Util.main;
 
 public class BNResourcePackManager {
-    static final String latestResourcePackURL = "https://www.dropbox.com/s/ap168gz1v6tagc2/BetterNetherite-ResourcePack-v3.zip?dl=1";
+    static final String latestResourcePackURL = "https://www.dropbox.com/s/hty7va5p8ghqt1b/BetterNetherite-ResourcePack-v3.zip?dl=1";
 
     public static void checkResourcePack() throws IOException {
         if (main.config.RESOURCE_PACK_ENABLED &&

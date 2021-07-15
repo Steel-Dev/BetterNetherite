@@ -6,7 +6,6 @@ import com.github.steeldev.betternetherite.managers.BNMobManager;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.util.Message;
 import com.github.steeldev.betternetherite.util.Util;
-import com.github.steeldev.monstrorvm.Monstrorvm;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

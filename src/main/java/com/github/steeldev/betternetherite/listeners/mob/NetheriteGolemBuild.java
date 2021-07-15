@@ -51,7 +51,7 @@ public class NetheriteGolemBuild implements Listener {
             }
 
             MVMob golem = MobManager.getMob("netherite_golem");
-            golem.spawnMob(block.getRelative(0, -2, 0).getLocation().add(0.5,0.5,0.5));
+            golem.spawnMob(block.getRelative(0, -2, 0).getLocation().add(0.5, 0.5, 0.5));
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.github.steeldev.betternetherite.managers;
 
-import com.github.steeldev.monstrorvm.Monstrorvm;
 import com.github.steeldev.monstrorvm.api.items.*;
 import com.github.steeldev.monstrorvm.api.items.types.ItemUseEffectType;
 import com.github.steeldev.monstrorvm.api.misc.MVPotionEffect;
@@ -196,6 +195,39 @@ public class BNItemManager {
                     .withUseEffect(new ItemUseEffect(ItemUseEffectType.EFFECT_HOLDER, Arrays.asList(new MVPotionEffect(PotionEffectType.ABSORPTION, 12, 2, 3000),
                             new MVPotionEffect(PotionEffectType.REGENERATION, 25, 2, 3000),
                             new MVPotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 25, 2, 3000)), true)), main);
+        }
+
+        if (main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_ENABLED) {
+            MVItem ancientGem = new MVItem("ancient_gem", Material.EMERALD)
+                    .withDisplayName("&6Ancient Gem")
+                    .withCustomModelData(main.config.ITEM_MODEL_DATAS.get("AncientGem"))
+                    .withLore("&7An ancient gem from the Nether.");
+            MVItem crimsonStick = new MVItem("crimson_stick", Material.STICK)
+                    .withDisplayName("&cCrimson Stick")
+                    .withCustomModelData(main.config.ITEM_MODEL_DATAS.get("CrimsonStick"));
+            MVItem ancientBlade = new MVItem("ancient_blade", Material.NETHERITE_SWORD)
+                    .withDisplayName("&6Ancient Blade")
+                    .withLore("&7An ancient blade from the Nether.")
+                    .withCustomModelData(main.config.ITEM_MODEL_DATAS.get("AncientBlade"));
+            ItemManager.registerNewItem(ancientGem, main);
+            ItemManager.registerNewItem(crimsonStick, main);
+            ItemManager.registerNewItem(ancientBlade, main);
+            RecipeManager.registerNewRecipe(new ItemCraftingRecipe(CraftType.SHAPED, Arrays.asList(" G ", " G ", " C "),
+                    new HashMap<Character, RecipeChoice>() {{
+                        put('G', new RecipeChoice.ExactChoice(ancientGem.getItemStack()));
+                        put('C', new RecipeChoice.ExactChoice(crimsonStick.getItemStack()));
+                    }},
+                    ancientBlade.getItemStack(),
+                    1,
+                    "ancient_blade_crafting"), main);
+            RecipeManager.registerNewRecipe(new ItemCraftingRecipe(CraftType.SHAPELESS,
+                    new HashMap<Character, RecipeChoice>() {{
+                        put('P', new RecipeChoice.MaterialChoice(Material.CRIMSON_PLANKS));
+                        put('C', new RecipeChoice.MaterialChoice(Material.CRIMSON_PLANKS));
+                    }},
+                    crimsonStick.getItemStack(),
+                    4,
+                    "crimson_stick_crafting"), main);
         }
     }
 }
