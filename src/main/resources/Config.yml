@@ -217,7 +217,7 @@ CustomMobs:
   #   they have a chance of inflicting Wither and Poison when they damage you.
   AlphaHellhound:
     Enabled: true
-    SpawnChance: 2
+    SpawnChance: 4
     ValidSpawnWorlds:
       - world_nether
   # Should the Lost Soul be enabled?
@@ -236,7 +236,7 @@ CustomMobs:
   #  it has a chance of inflicting Hunger and Poison when they damage you.
   ZombifiedDemon:
     Enabled: true
-    SpawnChance: 2
+    SpawnChance: 5
     ValidSpawnWorlds:
       - world
       - world_nether
@@ -245,7 +245,7 @@ CustomMobs:
   #  it's blade laced with poison.
   Tank:
     Enabled: true
-    SpawnChance: 1
+    SpawnChance: 10
     ValidSpawnWorlds:
       - world
       - world_nether
@@ -254,14 +254,14 @@ CustomMobs:
   #  This mob only spawns on the Nether Roof.
   AncientProtector:
     Enabled: true
-    SpawnChance: 16
+    SpawnChance: 20
     ValidSpawnWorlds:
       - world_nether_roof
   # Should the Netherite Golem be enabled?
   #  This mob is like a normal golem, but far more powerful
   NetheriteGolem:
     Enabled: true
-    SpawnChance: 10
+    SpawnChance: 12
     ValidSpawnWorlds:
       - world_nether
 

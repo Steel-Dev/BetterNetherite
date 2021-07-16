@@ -198,6 +198,7 @@ public class BNMobManager {
                     main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWNCHANCE)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWN_WORLDS)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
+                    .withEntityToReplace(EntityType.PIGLIN)
                     .withCustomMaxHP(Arrays.asList(10.0, 20.0, 30.0, 40.0))
                     .withCustomDeathEXP(Arrays.asList(5, 10, 20, 30))
                     .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("AncientProtectorSpawnEgg"))
