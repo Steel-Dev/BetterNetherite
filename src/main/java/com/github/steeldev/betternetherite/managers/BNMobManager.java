@@ -193,12 +193,12 @@ public class BNMobManager {
         }
         if (main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_ENABLED) {
             MobManager.registerNewMob(new MVMob("ancient_protector",
-                    EntityType.PIGLIN_BRUTE,
+                    EntityType.PIGLIN,
                     "<#D6668D>Ancient Protector",
                     main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWNCHANCE)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_ANCIENT_PROTECTOR_SPAWN_WORLDS)
                     .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withEntityToReplace(EntityType.PIGLIN)
+                    .withEntityToReplace(EntityType.GHAST)
                     .withCustomMaxHP(Arrays.asList(10.0, 20.0, 30.0, 40.0))
                     .withCustomDeathEXP(Arrays.asList(5, 10, 20, 30))
                     .withSpawnEgg(main.config.ITEM_MODEL_DATAS.get("AncientProtectorSpawnEgg"))
@@ -206,7 +206,7 @@ public class BNMobManager {
                     .withChestplate(new ItemChance(new ItemStack(Material.NETHERITE_CHESTPLATE), 0.1f))
                     .withLeggings(new ItemChance(new ItemStack(Material.NETHERITE_LEGGINGS), 0.1f))
                     .withBoots(new ItemChance(new ItemStack(Material.NETHERITE_BOOTS), 0.2f))
-                    .withMainHandItem(new ItemChance(ItemManager.getItem("ancient_blade").getItemStack(), 0.0f))
+                    .withMainHandItem(new ItemChance(ItemManager.getItem("ancient_blade").getItemStack(), 0.01f))
                     .withDrop(new ItemChance(ItemManager.getItem("ancient_gem").getItemStack(), 3))
                     .withDrop(new ItemChance(ItemManager.getItem("crimson_stick").getItemStack(), 2)), main);
         }
@@ -216,14 +216,17 @@ public class BNMobManager {
                     "<#1C0D1B>Netherite Golem",
                     main.config.CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE)
                     .withValidSpawnWorlds(main.config.CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS)
-                    .withEntityToReplace(EntityType.ZOMBIFIED_PIGLIN)
-                    .withCustomMaxHP(Arrays.asList(80.0, 100.0, 120.0, 130.0))
+                    .withCustomMaxHP(Arrays.asList(120.0, 130.0, 140.0, 150.0))
                     .withCustomDeathEXP(Arrays.asList(5, 20, 30, 40))
+                    .withCustomAttackDamage(Arrays.asList(0.0,12.0,22.0,33.0))
                     .withDropToRemove(Material.IRON_INGOT)
                     .withDropToRemove(Material.POPPY)
-                    .withPossibleTargets(Arrays.asList(EntityType.PLAYER, EntityType.VILLAGER))
+                    .withMainHandItem(new ItemChance(new ItemStack(Material.WITHER_ROSE), 1))
                     .withDrop(new ItemChance(new ItemStack(Material.NETHERITE_SCRAP), 2))
-                    .withDrop(new ItemChance(new ItemStack(Material.WITHER_ROSE), 6)), main);
+                    .withDrop(new ItemChance(new ItemStack(Material.WITHER_ROSE), 6))
+                    .withHitEffect(new MVPotionEffect(PotionEffectType.BLINDNESS,40,0,100))
+                    .withHitEffect(new MVPotionEffect(PotionEffectType.SLOW,30,0,100))
+                    .withSpawnEffect(new MVPotionEffect(PotionEffectType.FIRE_RESISTANCE,100,0,Integer.MAX_VALUE)), main);
         }
     }
 }

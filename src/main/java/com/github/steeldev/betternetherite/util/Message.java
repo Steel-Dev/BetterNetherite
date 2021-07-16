@@ -22,7 +22,7 @@ public class Message {
     public static final Message PLUGIN_NEW_VERSION_AVAILABLE_CHAT_CLICK = get("&6&lClick here to update");
     public static final Message PLUGIN_UPDATE_CHECK_FAILED = get("&4Failed to check for updates: &c%s");
 
-    public static final Message PLUGIN_RELOADED = get("&aSuccessfully reloaded all configurations! &4NOTE: &cSome features (mainly custom item/mob related features) &nrequire&r&c a server restart if modified!");
+    public static final Message PLUGIN_RELOADED = get("&aSuccessfully reloaded all configurations! You may need to restart for some changes to take full effect.");
 
     public static final Message SERVER_USES_RESOURCE_PACK = get("&2This server has custom items, and custom textures. Which require a resource pack to have the best experience. You have been sent it.");
     public static final Message RESOURCE_PACK_DECLINED = get("&2You have denied the custom resource pack. Please accept it for the best experience! If you did not deny it, please ensure Resource Packs are set to either Enabled or Prompt in the servers settings in your server list.");

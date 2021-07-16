@@ -261,9 +261,13 @@ CustomMobs:
   #  This mob is like a normal golem, but far more powerful
   NetheriteGolem:
     Enabled: true
-    SpawnChance: 12
+    RepairAmounts:
+      NetheriteScrap: 5
+      NetheriteIngot: 20
+      NetheriteBlock: 180
+    SpawnChance: 2
     ValidSpawnWorlds:
-      - world_nether
+      - world
 
 # To better balance it, and make getting netherite scrap easier and better, to make up for the new difficulty if the above is true
 AncientDebris:

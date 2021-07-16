@@ -8,7 +8,7 @@ import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
 import com.github.steeldev.betternetherite.listeners.items.UpgradePack;
-import com.github.steeldev.betternetherite.listeners.mob.NetheriteGolemBuild;
+import com.github.steeldev.betternetherite.listeners.mob.NetheriteGolem;
 import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
 import com.github.steeldev.betternetherite.util.Message;
@@ -137,6 +137,6 @@ public class BetterNetherite extends JavaPlugin {
         Util.registerEvent(new SmithingTable());
         Util.registerEvent(new AncientDebris());
         Util.registerEvent(new ReinforcedItem());
-        Util.registerEvent(new NetheriteGolemBuild());
+        Util.registerEvent(new NetheriteGolem());
     }
 }

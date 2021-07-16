@@ -1,6 +1,7 @@
 package com.github.steeldev.betternetherite.config;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
+import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.betternetherite.util.WhyNoWorkException;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -101,6 +102,9 @@ public class Config {
     public boolean CUSTOM_MOB_NETHERITE_GOLEM_ENABLED;
     public int CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE;
     public List<String> CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS;
+    public int NETHERITE_GOLEM_SCRAP_REPAIR_AMOUNT;
+    public int NETHERITE_GOLEM_INGOT_REPAIR_AMOUNT;
+    public int NETHERITE_GOLEM_BLOCK_REPAIR_AMOUNT;
 
     public boolean RESOURCE_PACK_ENABLED;
     public String RESOURCE_PACK_URL;
@@ -247,6 +251,9 @@ public class Config {
         CUSTOM_MOB_NETHERITE_GOLEM_ENABLED = config.getBoolean("CustomMobs.NetheriteGolem.Enabled");
         CUSTOM_MOB_NETHERITE_GOLEM_SPAWNCHANCE = config.getInt("CustomMobs.NetheriteGolem.SpawnChance");
         CUSTOM_MOB_NETHERITE_GOLEM_SPAWN_WORLDS = config.getStringList("CustomMobs.NetheriteGolem.ValidSpawnWorlds");
+        NETHERITE_GOLEM_SCRAP_REPAIR_AMOUNT = config.getInt("CustomMobs.NetheriteGolem.RepairAmounts.NetheriteScrap");
+        NETHERITE_GOLEM_INGOT_REPAIR_AMOUNT = config.getInt("CustomMobs.NetheriteGolem.RepairAmounts.NetheriteIngot");
+        NETHERITE_GOLEM_BLOCK_REPAIR_AMOUNT = config.getInt("CustomMobs.NetheriteGolem.RepairAmounts.NetheriteBlock");
 
         RESOURCE_PACK_ENABLED = config.getBoolean("ResourcePack.Enabled");
         RESOURCE_PACK_URL = config.getString("ResourcePack.URL");
