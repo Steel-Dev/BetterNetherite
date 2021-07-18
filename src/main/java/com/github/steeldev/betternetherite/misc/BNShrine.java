@@ -1,5 +1,6 @@
 package com.github.steeldev.betternetherite.misc;
 
+import com.github.steeldev.betternetherite.listeners.baselisteners.ShrineBase;
 import com.github.steeldev.betternetherite.util.shrines.ShrineCharge;
 import com.github.steeldev.betternetherite.util.shrines.ShrineCore;
 import com.github.steeldev.betternetherite.util.shrines.ShrineEffect;
@@ -17,6 +18,8 @@ public class BNShrine {
     public List<String> validUseWorlds;
     public int explodeChance;
     public boolean requiresValidItems;
+
+    public ShrineBase eventListener;
 
     public BNShrine(String key,
                     String display,
@@ -36,6 +39,11 @@ public class BNShrine {
     public BNShrine withValidWorld(String world) {
         if (this.validUseWorlds == null) this.validUseWorlds = new ArrayList<>();
         this.validUseWorlds.add(world);
+        return this;
+    }
+
+    public BNShrine withValidWorlds(List<String> worlds) {
+        this.validUseWorlds = worlds;
         return this;
     }
 

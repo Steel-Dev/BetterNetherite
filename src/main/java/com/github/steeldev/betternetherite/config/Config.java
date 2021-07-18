@@ -2,7 +2,6 @@ package com.github.steeldev.betternetherite.config;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.util.Util;
-import com.github.steeldev.betternetherite.util.WhyNoWorkException;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -182,13 +181,16 @@ public class Config {
         IMPROVED_UPGRADING = config.getBoolean("ImprovedUpgrading.Enabled");
         UPGRADE_PACK_ENABLED = config.getBoolean("UpgradePackEnabled");
         if (ENABLE_NETHERITE_CRAFTING && IMPROVED_UPGRADING) {
-            throw new WhyNoWorkException("Netherite Crafting and Improved Upgrading cannot both be true.");
+            Util.log("&c[ERROR] Netherite Crafting and Improved Upgrading cannot both be true! Improved Upgrading has been enabled by default");
+            IMPROVED_UPGRADING = false;
         }
         if (UPGRADE_PACK_ENABLED && IMPROVED_UPGRADING) {
-            throw new WhyNoWorkException("Upgrade Pack and Improved Upgrading cannot both be true.");
+            Util.log("&c[ERROR] Upgrade Pack and Improved Upgrading cannot both be true! Improved Upgrading has been enabled by default");
+            UPGRADE_PACK_ENABLED = false;
         }
         if (UPGRADE_PACK_ENABLED && ENABLE_NETHERITE_CRAFTING) {
-            throw new WhyNoWorkException("Upgrade Pack and Netherite Crafting cannot both be true.");
+            Util.log("&c[ERROR] Upgrade Pack and Netherite Crafting cannot both me true! Netherite Crafting has been enabled by default");
+            UPGRADE_PACK_ENABLED = false;
         }
         ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED = config.getBoolean("AncientDebris.BetterSmelting.Enabled");
         ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT = config.getInt("AncientDebris.BetterSmelting.Amount");

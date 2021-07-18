@@ -19,11 +19,16 @@ public class BNShrineManager {
     public static void registerNewShrine(BNShrine shrine) {
         if (bnShrineMap == null) bnShrineMap = new HashMap<>();
 
-        if (bnShrineMap.containsKey(shrine.key)) return;
+        if (bnShrineMap.containsKey(shrine.key)) bnShrineMap.replace(shrine.key, shrine);
+        else bnShrineMap.put(shrine.key, shrine);
 
-        bnShrineMap.put(shrine.key, shrine);
-
-        main.getServer().getPluginManager().registerEvents(new ShrineBase(shrine.key), main);
+        if(shrine.eventListener == null) {
+            ShrineBase listener = new ShrineBase(shrine);
+            main.getServer().getPluginManager().registerEvents(listener, main);
+            shrine.eventListener = listener;
+        }else{
+            shrine.eventListener.updateShrine(shrine);
+        }
 
         if (main.config.DEBUG)
             main.getLogger().info(String.format("&aCustom shrine &ebetternetherite:%s&a has been &2registered.", shrine.key));
@@ -54,8 +59,7 @@ public class BNShrineManager {
                             "<#11349c>REINFORCED",
                             "<#11349c>Reinforced",
                             Particle.ENCHANTMENT_TABLE))
-                    .withValidWorld("world")
-                    .withValidWorld("world_nether")
+                    .withValidWorlds(main.config.CRIMSON_NETHERITE_SHRINE_USABLE_IN)
                     .withExplodeChance(40)
                     .withItemRequirement(true));
         }
@@ -76,8 +80,7 @@ public class BNShrineManager {
                             "<#600b0b>Hells Mend",
                             "<#11349c>Mended",
                             Particle.ENCHANTMENT_TABLE))
-                    .withValidWorld("world")
-                    .withValidWorld("world_nether")
+                    .withValidWorlds(main.config.WARPED_NETHERITE_SHRINE_USABLE_IN)
                     .withExplodeChance(40)
                     .withItemRequirement(true));
         }
@@ -103,7 +106,7 @@ public class BNShrineManager {
                                     new BNPotionEffect(PotionEffectType.FAST_DIGGING, 16, 2, 3000),
                                     new BNPotionEffect(PotionEffectType.HEALTH_BOOST, 23, 3, 3000),
                                     new BNPotionEffect(PotionEffectType.FIRE_RESISTANCE, 21, 2, 3000))))
-                    .withValidWorld("world")
+                    .withValidWorlds(main.config.PRISMARINE_NETHERITE_SHRINE_USABLE_IN)
                     .withExplodeChance(80)
                     .withItemRequirement(false));
         }

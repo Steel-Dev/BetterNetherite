@@ -4,6 +4,7 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.misc.BNShrine;
 import com.github.steeldev.betternetherite.util.Message;
+import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.betternetherite.util.shrines.BNPotionEffect;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;
@@ -19,6 +20,8 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,11 +34,17 @@ public class ShrineBase implements Listener {
 
     BNShrine shrine;
 
+    boolean onCooldown;
+
     public ShrineBase() {
     }
 
-    public ShrineBase(String shrineID) {
-        shrine = BNShrineManager.getBNShrine(shrineID);
+    public ShrineBase(BNShrine shrine) {
+        updateShrine(shrine);
+    }
+
+    public void updateShrine(BNShrine shrine) {
+        this.shrine = shrine;
     }
 
     @EventHandler
@@ -43,10 +52,8 @@ public class ShrineBase implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block clickedBlock = event.getClickedBlock();
-        if (event.getHand() == null) return;
-        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)
-                || !event.getHand().equals(EquipmentSlot.HAND)
-                || clickedBlock == null) return;
+        if (!event.getHand().equals(EquipmentSlot.HAND)) return;
+        if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
 
         if (clickedBlock.getType().equals(shrine.core.coreBlock)) {
             Block coreSupport = clickedBlock.getRelative(0, -1, 0);
@@ -56,6 +63,12 @@ public class ShrineBase implements Listener {
                     if (isRingValid(1, cryingObsidian, Material.MAGMA_BLOCK, Material.POLISHED_BLACKSTONE)) {
                         if (isRingValid(2, cryingObsidian, Material.BLACKSTONE, Material.NETHERITE_BLOCK)) {
                             event.setCancelled(true);
+
+                            if(onCooldown){
+                                onCooldown = false;
+                                return;
+                            }
+
                             if (shrine.requiresValidItems && !main.config.USABLE_SHRINE_ITEMS.containsKey(item.getType().toString())) {
                                 player.getWorld().playSound(clickedBlock.getLocation(), Sound.BLOCK_BEEHIVE_SHEAR, 1.6f, 1.6f);
                                 Message.SHRINE_INVALID_ITEM.send(player, true, shrine.display);
@@ -100,7 +113,6 @@ public class ShrineBase implements Listener {
                                             Message.SHRINE_ITEM_ALREADY_EFFECTED.send(player, true, shrine.effect.effectDisplay);
                                             return;
                                         }
-                                        nbtItem.addCompound("netherite_reinforced");
                                         nbtItem.setBoolean("netherite_reinforced", true);
                                         item = nbtItem.getItem();
                                         ItemMeta meta = (item.getItemMeta() == null) ? Bukkit.getItemFactory().getItemMeta(item.getType()) : item.getItemMeta();
@@ -126,7 +138,7 @@ public class ShrineBase implements Listener {
                                             if (shrine.effect.potionEffects.size() > 0) {
                                                 for (BNPotionEffect effect : shrine.effect.potionEffects) {
                                                     if (chanceOf(effect.chance)) {
-                                                        player.addPotionEffect(effect.getPotionEffect(), false);
+                                                        effect.getPotionEffect().apply(player);
                                                         if (main.config.DEBUG)
                                                             Message.X_INFLICTED_X_WITH_X.log(shrine.display, player.getName(), effect.effect.toString());
                                                     }
@@ -176,6 +188,18 @@ public class ShrineBase implements Listener {
                                 } else {
                                     Message.SHRINE_CHARGES_REMAINING.send(player, false, chargesLeft);
                                 }
+                                onCooldown = true;
+                                // Cooldown is so this all doesn't run twice
+                                //  For some reason with the Crimson Shrine
+                                //  This would all execute twice
+                                //  even with an equipment slot check to make
+                                //  sure its not running for both hand & offhand
+                                new BukkitRunnable(){
+                                    @Override
+                                    public void run() {
+                                        onCooldown = false;
+                                    }
+                                }.runTaskLater(main,5);
                             } else {
                                 String chargeMat = formalizedString(shrine.charge.chargeMaterial.toString());
                                 player.getWorld().playSound(clickedBlock.getLocation(), shrine.effect.noChargesSound, 1.6f, 1.6f);
