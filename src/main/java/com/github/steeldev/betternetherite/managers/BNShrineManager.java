@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import java.util.*;
 
-import static com.github.steeldev.betternetherite.util.Util.main;
+import static com.github.steeldev.betternetherite.util.Util.getMain;
 
 public class BNShrineManager {
     static Map<String, BNShrine> bnShrineMap;
@@ -22,16 +22,16 @@ public class BNShrineManager {
         if (bnShrineMap.containsKey(shrine.key)) bnShrineMap.replace(shrine.key, shrine);
         else bnShrineMap.put(shrine.key, shrine);
 
-        if(shrine.eventListener == null) {
+        if (shrine.eventListener == null) {
             ShrineBase listener = new ShrineBase(shrine);
-            main.getServer().getPluginManager().registerEvents(listener, main);
+            getMain().getServer().getPluginManager().registerEvents(listener, getMain());
             shrine.eventListener = listener;
-        }else{
+        } else {
             shrine.eventListener.updateShrine(shrine);
         }
 
-        if (main.config.DEBUG)
-            main.getLogger().info(String.format("&aCustom shrine &ebetternetherite:%s&a has been &2registered.", shrine.key));
+        if (getMain().config.DEBUG)
+            getMain().getLogger().info(String.format("&aCustom shrine &ebetternetherite:%s&a has been &2registered.", shrine.key));
     }
 
     public static BNShrine getBNShrine(String key) {
@@ -41,7 +41,7 @@ public class BNShrineManager {
     }
 
     public static void registerShrines() {
-        if (main.config.CRIMSON_NETHERITE_SHRINE_ENABLED) {
+        if (getMain().config.CRIMSON_NETHERITE_SHRINE_ENABLED) {
             registerNewShrine(new BNShrine("crimson_shrine",
                     "<#aa1313>Crimson <#560a57>Shrine",
                     new ShrineCore(Material.CRIMSON_STEM,
@@ -59,11 +59,11 @@ public class BNShrineManager {
                             "<#11349c>REINFORCED",
                             "<#11349c>Reinforced",
                             Particle.ENCHANTMENT_TABLE))
-                    .withValidWorlds(main.config.CRIMSON_NETHERITE_SHRINE_USABLE_IN)
+                    .withValidWorlds(getMain().config.CRIMSON_NETHERITE_SHRINE_USABLE_IN)
                     .withExplodeChance(40)
                     .withItemRequirement(true));
         }
-        if (main.config.WARPED_NETHERITE_SHRINE_ENABLED) {
+        if (getMain().config.WARPED_NETHERITE_SHRINE_ENABLED) {
             registerNewShrine(new BNShrine("warped_shrine",
                     "<#119c95>Warped <#560a57>Shrine",
                     new ShrineCore(Material.WARPED_STEM,
@@ -80,11 +80,11 @@ public class BNShrineManager {
                             "<#600b0b>Hells Mend",
                             "<#11349c>Mended",
                             Particle.ENCHANTMENT_TABLE))
-                    .withValidWorlds(main.config.WARPED_NETHERITE_SHRINE_USABLE_IN)
+                    .withValidWorlds(getMain().config.WARPED_NETHERITE_SHRINE_USABLE_IN)
                     .withExplodeChance(40)
                     .withItemRequirement(true));
         }
-        if (main.config.PRISMARINE_NETHERITE_SHRINE_ENABLED) {
+        if (getMain().config.PRISMARINE_NETHERITE_SHRINE_ENABLED) {
             registerNewShrine(new BNShrine("prismarine_shrine",
                     "<#1297a1>Prismarine <#560a57>Shrine",
                     new ShrineCore(Material.PRISMARINE,
@@ -106,7 +106,7 @@ public class BNShrineManager {
                                     new BNPotionEffect(PotionEffectType.FAST_DIGGING, 16, 2, 3000),
                                     new BNPotionEffect(PotionEffectType.HEALTH_BOOST, 23, 3, 3000),
                                     new BNPotionEffect(PotionEffectType.FIRE_RESISTANCE, 21, 2, 3000))))
-                    .withValidWorlds(main.config.PRISMARINE_NETHERITE_SHRINE_USABLE_IN)
+                    .withValidWorlds(getMain().config.PRISMARINE_NETHERITE_SHRINE_USABLE_IN)
                     .withExplodeChance(80)
                     .withItemRequirement(false));
         }

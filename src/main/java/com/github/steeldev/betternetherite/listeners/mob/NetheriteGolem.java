@@ -1,15 +1,12 @@
 package com.github.steeldev.betternetherite.listeners.mob;
 
-import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.monstrorvm.api.mobs.MVMob;
 import com.github.steeldev.monstrorvm.api.mobs.MobManager;
 import org.bukkit.*;
-import org.bukkit.Color;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.IronGolem;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,36 +15,35 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
-import java.awt.*;
 import java.util.List;
 
-import static com.github.steeldev.betternetherite.util.Util.main;
+import static com.github.steeldev.betternetherite.util.Util.getMain;
 
 public class NetheriteGolem implements Listener {
     @EventHandler
-    public void repair(PlayerInteractEntityEvent event){
-        if(!(event.getRightClicked() instanceof IronGolem)) return;
-        if(!MobManager.isMVMob(event.getRightClicked(),"netherite_golem")) return;
-        if(event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
+    public void repair(PlayerInteractEntityEvent event) {
+        if (!(event.getRightClicked() instanceof IronGolem)) return;
+        if (!MobManager.isMVMob(event.getRightClicked(), "netherite_golem")) return;
+        if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
         IronGolem golem = (IronGolem) event.getRightClicked();
         ItemStack handItem = event.getPlayer().getInventory().getItemInMainHand();
         double maxHP = golem.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
-        if(!handItem.getType().equals(Material.NETHERITE_INGOT) &&
+        if (!handItem.getType().equals(Material.NETHERITE_INGOT) &&
                 !handItem.getType().equals(Material.NETHERITE_SCRAP) &&
                 !handItem.getType().equals(Material.NETHERITE_BLOCK)) return;
         event.setCancelled(true);
-        if(golem.getHealth() < maxHP) {
+        if (golem.getHealth() < maxHP) {
             double health = golem.getHealth();
             if (handItem.getType().equals(Material.NETHERITE_SCRAP))
-                health += main.config.NETHERITE_GOLEM_SCRAP_REPAIR_AMOUNT;
+                health += getMain().config.NETHERITE_GOLEM_SCRAP_REPAIR_AMOUNT;
             if (handItem.getType().equals(Material.NETHERITE_INGOT))
-                health += main.config.NETHERITE_GOLEM_INGOT_REPAIR_AMOUNT;
+                health += getMain().config.NETHERITE_GOLEM_INGOT_REPAIR_AMOUNT;
             if (handItem.getType().equals(Material.NETHERITE_BLOCK))
-                health += main.config.NETHERITE_GOLEM_BLOCK_REPAIR_AMOUNT;
+                health += getMain().config.NETHERITE_GOLEM_BLOCK_REPAIR_AMOUNT;
 
-            golem.getWorld().playSound(golem.getLocation(), Sound.BLOCK_SMITHING_TABLE_USE, SoundCategory.AMBIENT,1,1);
+            golem.getWorld().playSound(golem.getLocation(), Sound.BLOCK_SMITHING_TABLE_USE, SoundCategory.AMBIENT, 1, 1);
 
-            if(health > maxHP) health = maxHP;
+            if (health > maxHP) health = maxHP;
             golem.setHealth(health);
             handItem.setAmount(handItem.getAmount() - 1);
         }
@@ -55,7 +51,7 @@ public class NetheriteGolem implements Listener {
 
     @EventHandler
     public void blockPlace(BlockPlaceEvent event) {
-        if (!main.config.CUSTOM_MOB_NETHERITE_GOLEM_ENABLED) return;
+        if (!getMain().config.CUSTOM_MOB_NETHERITE_GOLEM_ENABLED) return;
         Block block = event.getBlock();
         if (!block.getType().equals(Material.CARVED_PUMPKIN)) return;
         boolean pass = false;
@@ -93,15 +89,15 @@ public class NetheriteGolem implements Listener {
                 block.getRelative(-1, -1, 0).setType(Material.AIR);
             }
 
-            List<Block> radiusBlocks = com.github.steeldev.monstrorvm.util.pluginutils.Util.getNearbyBlocks(block.getRelative(0,-1,0).getLocation(),1);
-            for(Block b : radiusBlocks){
-                world.spawnParticle(Particle.BLOCK_DUST,b.getLocation().add(0.5,0.5,0.5),12,0,0,0,netheriteBlockData);
+            List<Block> radiusBlocks = com.github.steeldev.monstrorvm.util.pluginutils.Util.getNearbyBlocks(block.getRelative(0, -1, 0).getLocation(), 1);
+            for (Block b : radiusBlocks) {
+                world.spawnParticle(Particle.BLOCK_DUST, b.getLocation().add(0.5, 0.5, 0.5), 12, 0, 0, 0, netheriteBlockData);
             }
 
-            world.playSound(block.getRelative(0,-2,0).getLocation(),Sound.BLOCK_NETHERITE_BLOCK_BREAK,SoundCategory.MASTER,1,1);
+            world.playSound(block.getRelative(0, -2, 0).getLocation(), Sound.BLOCK_NETHERITE_BLOCK_BREAK, SoundCategory.MASTER, 1, 1);
 
             MVMob golem = MobManager.getMob("netherite_golem");
-            ((IronGolem)golem.spawnMob(block.getRelative(0, -2, 0).getLocation().add(0.5, 0.5, 0.5))).setPlayerCreated(true);
+            ((IronGolem) golem.spawnMob(block.getRelative(0, -2, 0).getLocation().add(0.5, 0.5, 0.5))).setPlayerCreated(true);
         }
     }
 }

@@ -12,27 +12,27 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import static com.github.steeldev.betternetherite.util.Util.main;
+import static com.github.steeldev.betternetherite.util.Util.getMain;
 
 
 public class BetterNetheriteReload implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-        main.loadConfigurations();
+        getMain().loadConfigurations();
 
         Util.unregisterEvents(new ShrineBase());
         BNShrineManager.registerShrines();
 
-        if (main.monstrorvmPlugin != null && main.monstrorvmPlugin.isEnabled()) {
+        if (getMain().monstrorvmPlugin != null && getMain().monstrorvmPlugin.isEnabled()) {
             BNItemManager.registerCustomItems();
             BNMobManager.registerCustomMobs();
         }
 
         Message.PLUGIN_RELOADED.send(sender, true);
-        main.versionManager.checkForNewVersion();
-        if (main.config.NEW_UPDATE_MESSAGE_ON_RELOAD) {
+        getMain().versionManager.checkForNewVersion();
+        if (getMain().config.NEW_UPDATE_MESSAGE_ON_RELOAD) {
             if (sender instanceof Player)
-                main.versionManager.sendNewUpdateMessageToPlayer((Player) sender);
+                getMain().versionManager.sendNewUpdateMessageToPlayer((Player) sender);
 
         }
         return true;

@@ -8,6 +8,7 @@ import com.github.steeldev.betternetherite.listeners.events.NetheriteFishing;
 import com.github.steeldev.betternetherite.listeners.events.PlayerJoin;
 import com.github.steeldev.betternetherite.listeners.items.ReinforcedItem;
 import com.github.steeldev.betternetherite.listeners.items.UpgradePack;
+import com.github.steeldev.betternetherite.listeners.items.enchantments.AncientRage;
 import com.github.steeldev.betternetherite.listeners.mob.NetheriteGolem;
 import com.github.steeldev.betternetherite.managers.*;
 import com.github.steeldev.betternetherite.util.BNLogger;
@@ -51,9 +52,14 @@ public class BetterNetherite extends JavaPlugin {
     public void onEnable() {
         long start = System.currentTimeMillis();
         instance = this;
-        Util.main = instance;
 
         MinecraftVersion.replaceLogger(getLogger());
+
+        if (!Util.isRunningMinecraft(1, 16)) {
+            Util.log("&c&l[&4&lERROR&c&l] Unsupported server version. Better Netherite only supports 1.16+");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         loadNBTAPI();
 
@@ -138,5 +144,6 @@ public class BetterNetherite extends JavaPlugin {
         Util.registerEvent(new AncientDebris());
         Util.registerEvent(new ReinforcedItem());
         Util.registerEvent(new NetheriteGolem());
+        Util.registerEvent(new AncientRage());
     }
 }

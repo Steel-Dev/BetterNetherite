@@ -9,17 +9,17 @@ import org.bukkit.inventory.*;
 
 import java.util.*;
 
-import static com.github.steeldev.betternetherite.util.Util.main;
+import static com.github.steeldev.betternetherite.util.Util.getMain;
 
 public class RecipeManager {
     public static void RegisterRecipes() {
-        if (main.config.ENABLE_NETHERITE_CRAFTING &&
-                !main.config.IMPROVED_UPGRADING)
+        if (getMain().config.ENABLE_NETHERITE_CRAFTING &&
+                !getMain().config.IMPROVED_UPGRADING)
             registerNetheriteItems();
-        if (main.config.IMPROVED_UPGRADING &&
-                !main.config.ENABLE_NETHERITE_CRAFTING)
+        if (getMain().config.IMPROVED_UPGRADING &&
+                !getMain().config.ENABLE_NETHERITE_CRAFTING)
             registerImprovedUpgradingSmithingTableItems();
-        if (main.config.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
+        if (getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_ENABLED)
             registerBetterNetheriteScrapSmelting();
     }
 
@@ -267,27 +267,27 @@ public class RecipeManager {
         addSmeltingRecipe("netherite_scrap",
                 SmeltType.FURNACE,
                 Material.NETHERITE_SCRAP,
-                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
+                getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
                 Material.ANCIENT_DEBRIS,
-                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP,
-                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME);
+                getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_EXP,
+                getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_FURNACE_TIME);
         addSmeltingRecipe("netherite_scrap_from_blasting",
                 SmeltType.BLASTING,
                 Material.NETHERITE_SCRAP,
-                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
+                getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_AMOUNT,
                 Material.ANCIENT_DEBRIS,
-                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP,
-                main.config.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME);
+                getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_EXP,
+                getMain().config.ANCIENT_DEBRIS_BETTER_SMELTING_BLAST_FURNACE_TIME);
     }
 
     static void addSmithingRecipe(String key, ItemStack result, Material baseMat, ItemStack itemNeeded) {
-        NamespacedKey smithingRecKey = new NamespacedKey(main, key);
+        NamespacedKey smithingRecKey = new NamespacedKey(getMain(), key);
         SmithingRecipe smithingRec = new SmithingRecipe(smithingRecKey, result, new RecipeChoice.MaterialChoice(baseMat), new RecipeChoice.ExactChoice(itemNeeded));
         addRecipe(smithingRec);
     }
 
     static void addSmeltingRecipe(String key, SmeltType type, Material result, int resultAmount, Material smelted, int EXP, int time) {
-        NamespacedKey smeltingRecKey = new NamespacedKey(main, key);
+        NamespacedKey smeltingRecKey = new NamespacedKey(getMain(), key);
         int am = resultAmount;
         if (am > 64) am = 64;
         if (am < 1) am = 1;
@@ -313,7 +313,7 @@ public class RecipeManager {
     }
 
     static void addSmeltingRecipe(String key, SmeltType type, RecipeChoice result, int resultAmount, RecipeChoice smelted, int EXP, int time) {
-        NamespacedKey smeltingRecKey = new NamespacedKey(main, key);
+        NamespacedKey smeltingRecKey = new NamespacedKey(getMain(), key);
         int am = resultAmount;
         if (am > 64) am = 64;
         if (am < 1) am = 1;
@@ -340,7 +340,7 @@ public class RecipeManager {
     }
 
     static void addCraftingRecipe(String key, boolean shaped, Material result, int resultAmount, List<String> rows, Map<Character, Material> ingredients) {
-        NamespacedKey craftingRecKey = new NamespacedKey(main, key);
+        NamespacedKey craftingRecKey = new NamespacedKey(getMain(), key);
         int am = resultAmount;
         if (am > 64) am = 64;
         if (am < 1) am = 1;
@@ -366,8 +366,8 @@ public class RecipeManager {
 
     public static void addRecipe(Recipe recipe) {
         Bukkit.addRecipe(recipe);
-        if (main.config.DEBUG)
-            main.getLogger().info(String.format("&aRecipe &e%s&a has been &2added.", ((Keyed) recipe).getKey()));
+        if (getMain().config.DEBUG)
+            getMain().getLogger().info(String.format("&aRecipe &e%s&a has been &2added.", ((Keyed) recipe).getKey()));
     }
 
     public static void removeRecipe(String key) {
@@ -376,8 +376,8 @@ public class RecipeManager {
             Recipe rec = it.next();
             if (rec != null) {
                 if (((Keyed) rec).getKey().toString().equals(key)) {
-                    if (main.config.DEBUG)
-                        main.getLogger().info(String.format("&aRecipe &e%s&a has been &cremoved.", key));
+                    if (getMain().config.DEBUG)
+                        getMain().getLogger().info(String.format("&aRecipe &e%s&a has been &cremoved.", key));
                     it.remove();
                 }
             }

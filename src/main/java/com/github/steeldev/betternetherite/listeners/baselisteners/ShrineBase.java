@@ -1,10 +1,8 @@
 package com.github.steeldev.betternetherite.listeners.baselisteners;
 
 import com.github.steeldev.betternetherite.BetterNetherite;
-import com.github.steeldev.betternetherite.managers.BNShrineManager;
 import com.github.steeldev.betternetherite.misc.BNShrine;
 import com.github.steeldev.betternetherite.util.Message;
-import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.betternetherite.util.shrines.BNPotionEffect;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Bukkit;
@@ -20,7 +18,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -64,7 +61,7 @@ public class ShrineBase implements Listener {
                         if (isRingValid(2, cryingObsidian, Material.BLACKSTONE, Material.NETHERITE_BLOCK)) {
                             event.setCancelled(true);
 
-                            if(onCooldown){
+                            if (onCooldown) {
                                 onCooldown = false;
                                 return;
                             }
@@ -194,12 +191,12 @@ public class ShrineBase implements Listener {
                                 //  This would all execute twice
                                 //  even with an equipment slot check to make
                                 //  sure its not running for both hand & offhand
-                                new BukkitRunnable(){
+                                new BukkitRunnable() {
                                     @Override
                                     public void run() {
                                         onCooldown = false;
                                     }
-                                }.runTaskLater(main,5);
+                                }.runTaskLater(main, 5);
                             } else {
                                 String chargeMat = formalizedString(shrine.charge.chargeMaterial.toString());
                                 player.getWorld().playSound(clickedBlock.getLocation(), shrine.effect.noChargesSound, 1.6f, 1.6f);

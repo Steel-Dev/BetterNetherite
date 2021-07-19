@@ -25,7 +25,13 @@ public class Util {
     private static final String PREFIX = "&7[&6Better&cNetherite&7] ";
     private static final String NBTAPI_PREFIX = "&7[&6NBT&cAPI&7]";
     public static Random rand = new Random();
-    public static BetterNetherite main = BetterNetherite.getInstance();
+    public static String[] version;
+    static BetterNetherite main;
+
+    public static BetterNetherite getMain() {
+        if (main == null) main = BetterNetherite.getInstance();
+        return main;
+    }
 
     public static String colorize(String string) {
         Matcher matcher = HEX_PATTERN.matcher(string);
@@ -139,5 +145,43 @@ public class Util {
             }
         }
         return true;
+    }
+
+    // Thanks to ShaneBee for providing these functions
+
+    /**
+     * Check if server is running a minimum Minecraft version
+     *
+     * @param major Major version to check (Most likely just going to be 1)
+     * @param minor Minor version to check
+     * @return True if running this version or higher
+     */
+    public static boolean isRunningMinecraft(int major, int minor) {
+        return isRunningMinecraft(major, minor, 0);
+    }
+
+    /**
+     * Check if server is running a minimum Minecraft version
+     *
+     * @param major    Major version to check (Most likely just going to be 1)
+     * @param minor    Minor version to check
+     * @param revision Revision to check
+     * @return True if running this version or higher
+     */
+    public static boolean isRunningMinecraft(int major, int minor, int revision) {
+        if (version == null) version = Bukkit.getServer().getBukkitVersion().split("-")[0].split("\\.");
+        int maj = Integer.parseInt(version[0]);
+        int min = Integer.parseInt(version[1]);
+        int rev;
+        try {
+            rev = Integer.parseInt(version[2]);
+        } catch (Exception ignore) {
+            rev = 0;
+        }
+        return maj > major || min > minor || (min == minor && rev >= revision);
+    }
+
+    public static String getVersionString() {
+        return version[0] + "." + version[1] + "." + version[2];
     }
 }
