@@ -101,7 +101,7 @@
         <dependency>
             <groupId>com.github.Steel-Dev</groupId>
             <artifactId>Monstrorvm</artifactId>
-            <version>49dd860740</version>
+            <version>1.0.9</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
