@@ -4,6 +4,7 @@ import com.github.steeldev.betternetherite.BetterNetherite;
 import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 import java.util.Random;
 import java.util.regex.Matcher;
@@ -123,6 +125,19 @@ public class Util {
 
     public static void registerCommand(String command, CommandExecutor commandExecutor) {
         main.getCommand(command).setExecutor(commandExecutor);
+    }
+
+    // Credit to : CoKoC on spigotmc for this snippet (https://www.spigotmc.org/threads/how-to-rotate-mobs-around-one-location.80498/)
+    public static Location getLocationAroundCircle(Location center, double radius, double angleInRadian) {
+        double x = center.getX() + radius * Math.cos(angleInRadian);
+        double z = center.getZ() + radius * Math.sin(angleInRadian);
+        double y = center.getY();
+
+        Location loc = new Location(center.getWorld(), x, y, z);
+        Vector difference = center.toVector().clone().subtract(loc.toVector()); // this sets the returned location's direction toward the center of the circle
+        loc.setDirection(difference);
+
+        return loc;
     }
 
     // Thank you Big_Bad_E for helping me with this <3

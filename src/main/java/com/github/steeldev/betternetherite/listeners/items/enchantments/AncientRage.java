@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -66,9 +67,19 @@ public class AncientRage implements Listener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
-        if (hitCount.containsKey(event.getEntity().getUniqueId()))
-            hitCount.remove(event.getEntity().getUniqueId());
-        if (cooldown.contains(event.getEntity().getUniqueId()))
-            cooldown.remove(event.getEntity().getUniqueId());
+        Player player = event.getEntity();
+        if (hitCount.containsKey(player.getUniqueId()))
+            hitCount.remove(player.getUniqueId());
+        if (cooldown.contains(player.getUniqueId()))
+            cooldown.remove(player.getUniqueId());
+    }
+
+    @EventHandler
+    public void onLeave(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+        if (hitCount.containsKey(player.getUniqueId()))
+            hitCount.remove(player.getUniqueId());
+        if (cooldown.contains(player.getUniqueId()))
+            cooldown.remove(player.getUniqueId());
     }
 }

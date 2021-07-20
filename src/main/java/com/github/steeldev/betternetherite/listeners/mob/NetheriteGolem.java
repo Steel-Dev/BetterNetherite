@@ -1,5 +1,6 @@
 package com.github.steeldev.betternetherite.listeners.mob;
 
+import com.github.steeldev.betternetherite.util.Util;
 import com.github.steeldev.monstrorvm.api.mobs.MVMob;
 import com.github.steeldev.monstrorvm.api.mobs.MobManager;
 import org.bukkit.*;
@@ -8,15 +9,21 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.IronGolem;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static com.github.steeldev.betternetherite.util.Util.colorize;
 import static com.github.steeldev.betternetherite.util.Util.getMain;
 
 public class NetheriteGolem implements Listener {
@@ -98,6 +105,70 @@ public class NetheriteGolem implements Listener {
 
             MVMob golem = MobManager.getMob("netherite_golem");
             ((IronGolem) golem.spawnMob(block.getRelative(0, -2, 0).getLocation().add(0.5, 0.5, 0.5))).setPlayerCreated(true);
+        }
+    }
+
+    @EventHandler
+    public void giveGolemRose(PlayerInteractEntityEvent event) {
+        if (!(event.getRightClicked() instanceof IronGolem)) return;
+        if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
+        Player player = event.getPlayer();
+        IronGolem golem = (IronGolem) event.getRightClicked();
+        ItemStack handItem = event.getPlayer().getInventory().getItemInMainHand();
+        if (!handItem.getType().equals(Material.POPPY)) return;
+        event.setCancelled(true);
+        if (golem.getTarget() != null) {
+            if (golem.getTarget() instanceof Player)
+                golem.setTarget(null);
+            else return;
+        }
+
+        golem.playEffect(EntityEffect.IRON_GOLEM_ROSE);
+        if (!player.getGameMode().equals(GameMode.CREATIVE))
+            handItem.setAmount(handItem.getAmount() - 1);
+
+        if (MobManager.isMVMob(event.getRightClicked(), "netherite_golem")) {
+            if (Util.chanceOf(2)) {
+                // Credit to : CoKoC on spigotmc for this snippet (https://www.spigotmc.org/threads/how-to-rotate-mobs-around-one-location.80498/)
+                // I modified it a bit to fit my needs lol
+                new BukkitRunnable() {
+                    int tick = 0;
+                    Location center = golem.getLocation();
+                    float radius = 1.5f;
+                    float radPerSec = 3f;
+                    float radPerTick = radPerSec / 20f;
+
+                    public void run() {
+                        tick++;
+                        radPerSec += 0.05f;
+                        radius -= 0.003f;
+                        if (radius <= 1)
+                            radius = 1;
+                        if (radPerSec >= 8)
+                            radPerSec = 8f;
+                        radPerTick = radPerSec / 20f;
+
+                        Location loc = Util.getLocationAroundCircle(center, radius, radPerTick * tick);
+                        golem.setVelocity(new Vector(1, 0, 0));
+                        golem.teleport(loc);
+                        golem.getWorld().spawnParticle(Particle.BLOCK_DUST, golem.getLocation(), 12, 0, 0, 0, Material.NETHERITE_BLOCK.createBlockData());
+
+                        if (tick >= 400) {
+                            golem.getWorld().spawnParticle(Particle.EXPLOSION_HUGE, golem.getLocation(), 1);
+                            golem.getWorld().playSound(golem.getLocation(), Sound.BLOCK_GRAVEL_BREAK, 1, 0.3f);
+                            ItemStack item = new ItemStack(Material.DIAMOND);
+                            ItemMeta meta = item.getItemMeta();
+                            meta.setLore(Arrays.asList(colorize("&aYou found the secret!")));
+                            item.setItemMeta(meta);
+                            int am = Util.rand.nextInt(20);
+                            if (am <= 0) am = 1;
+                            item.setAmount(am);
+                            golem.getWorld().dropItemNaturally(golem.getLocation(), item);
+                            this.cancel();
+                        }
+                    }
+                }.runTaskTimer(getMain(), 0L, 1L);
+            }
         }
     }
 }
