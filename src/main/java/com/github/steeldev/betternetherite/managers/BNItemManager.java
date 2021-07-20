@@ -24,9 +24,11 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import static com.github.steeldev.betternetherite.util.Util.getMain;
+import static com.github.steeldev.betternetherite.util.Util.monstrorvmEnabled;
 
 public class BNItemManager {
     public static void registerCustomItems() {
+        if(!monstrorvmEnabled()) return;
         if (getMain().config.UPGRADE_PACK_ENABLED) {
             MVItem upgradePack = new MVItem("upgrade_pack", Material.SHEARS)
                     .withDisplayName("&6Upgrade Pack")

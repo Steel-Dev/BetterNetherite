@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static com.github.steeldev.betternetherite.util.Util.formalizedString;
+import static com.github.steeldev.betternetherite.util.Util.monstrorvmEnabled;
 
 public class UpgradePack implements Listener {
     BetterNetherite main = BetterNetherite.getInstance();
@@ -37,6 +38,7 @@ public class UpgradePack implements Listener {
 
     @EventHandler
     public void useUpgradePack(InventoryClickEvent e) {
+        if(!monstrorvmEnabled()) return;
         if (!e.getAction().equals(InventoryAction.SWAP_WITH_CURSOR)
                 || !e.getClick().equals(ClickType.RIGHT)
                 || e.getCurrentItem() == null
@@ -71,6 +73,7 @@ public class UpgradePack implements Listener {
 
     @EventHandler
     public void anvilPrepare(PrepareAnvilEvent event) {
+        if(!monstrorvmEnabled()) return;
         if (!main.config.UPGRADE_PACK_ENABLED) return;
         ItemStack slot1 = event.getInventory().getItem(0);
         ItemStack slot2 = event.getInventory().getItem(1);
@@ -90,6 +93,7 @@ public class UpgradePack implements Listener {
 
     @EventHandler
     public void anvilClick(InventoryClickEvent event) {
+        if(!monstrorvmEnabled()) return;
         if (!main.config.UPGRADE_PACK_ENABLED) return;
         Inventory evInv = event.getInventory();
         if (!evInv.getType().equals(InventoryType.ANVIL)) return;
@@ -127,6 +131,7 @@ public class UpgradePack implements Listener {
 
     @EventHandler
     public void useUpgradePack(PlayerInteractEvent event) {
+        if(!monstrorvmEnabled()) return;
         if (!main.config.UPGRADE_PACK_ENABLED
                 || !event.getAction().equals(Action.RIGHT_CLICK_AIR)
                 || !event.getHand().equals(EquipmentSlot.HAND)) return;

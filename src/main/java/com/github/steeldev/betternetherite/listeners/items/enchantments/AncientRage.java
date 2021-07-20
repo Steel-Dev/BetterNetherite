@@ -17,6 +17,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.*;
 
 import static com.github.steeldev.betternetherite.util.Util.getMain;
+import static com.github.steeldev.betternetherite.util.Util.monstrorvmEnabled;
 
 
 public class AncientRage implements Listener {
@@ -27,6 +28,7 @@ public class AncientRage implements Listener {
     public void onHit(EntityDamageByEntityEvent event) {
         if (!getMain().config.CUSTOM_MOB_ANCIENT_PROTECTOR_ENABLED) return;
         if (!(event.getDamager() instanceof Player)) return;
+        if(!monstrorvmEnabled()) return;
         Player player = (Player) event.getDamager();
         ItemStack handItem = player.getInventory().getItemInMainHand();
 

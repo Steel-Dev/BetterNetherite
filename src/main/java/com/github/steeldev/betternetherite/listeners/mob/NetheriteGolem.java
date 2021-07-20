@@ -23,13 +23,13 @@ import org.bukkit.util.Vector;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.github.steeldev.betternetherite.util.Util.colorize;
-import static com.github.steeldev.betternetherite.util.Util.getMain;
+import static com.github.steeldev.betternetherite.util.Util.*;
 
 public class NetheriteGolem implements Listener {
     @EventHandler
     public void repair(PlayerInteractEntityEvent event) {
         if (!(event.getRightClicked() instanceof IronGolem)) return;
+        if(!monstrorvmEnabled()) return;
         if (!MobManager.isMVMob(event.getRightClicked(), "netherite_golem")) return;
         if (event.getHand().equals(EquipmentSlot.OFF_HAND)) return;
         IronGolem golem = (IronGolem) event.getRightClicked();
@@ -58,6 +58,7 @@ public class NetheriteGolem implements Listener {
 
     @EventHandler
     public void blockPlace(BlockPlaceEvent event) {
+        if(!monstrorvmEnabled()) return;
         if (!getMain().config.CUSTOM_MOB_NETHERITE_GOLEM_ENABLED) return;
         Block block = event.getBlock();
         if (!block.getType().equals(Material.CARVED_PUMPKIN)) return;
@@ -127,6 +128,7 @@ public class NetheriteGolem implements Listener {
         if (!player.getGameMode().equals(GameMode.CREATIVE))
             handItem.setAmount(handItem.getAmount() - 1);
 
+        if(!monstrorvmEnabled()) return;
         if (MobManager.isMVMob(event.getRightClicked(), "netherite_golem")) {
             if (Util.chanceOf(2)) {
                 // Credit to : CoKoC on spigotmc for this snippet (https://www.spigotmc.org/threads/how-to-rotate-mobs-around-one-location.80498/)

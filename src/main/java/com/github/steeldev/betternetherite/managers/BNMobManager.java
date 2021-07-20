@@ -17,9 +17,11 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.github.steeldev.betternetherite.util.Util.getMain;
+import static com.github.steeldev.betternetherite.util.Util.monstrorvmEnabled;
 
 public class BNMobManager {
     public static void registerCustomMobs() {
+        if(!monstrorvmEnabled()) return;
         if (getMain().config.CUSTOM_MOB_NETHERITE_MARAUDER_ENABLED) {
             MobManager.registerNewMob(new MVMob("netherite_marauder",
                     EntityType.WITHER_SKELETON,

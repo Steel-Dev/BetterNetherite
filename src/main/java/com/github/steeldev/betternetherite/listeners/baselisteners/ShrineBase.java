@@ -49,6 +49,8 @@ public class ShrineBase implements Listener {
         Player player = event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
         Block clickedBlock = event.getClickedBlock();
+        if(clickedBlock == null) return;
+        if (event.getHand() == null) return;
         if (!event.getHand().equals(EquipmentSlot.HAND)) return;
         if (!event.getAction().equals(Action.RIGHT_CLICK_BLOCK)) return;
 

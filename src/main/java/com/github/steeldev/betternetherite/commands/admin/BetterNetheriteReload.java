@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import static com.github.steeldev.betternetherite.util.Util.getMain;
+import static com.github.steeldev.betternetherite.util.Util.monstrorvmEnabled;
 
 
 public class BetterNetheriteReload implements CommandExecutor {
@@ -23,7 +24,7 @@ public class BetterNetheriteReload implements CommandExecutor {
         Util.unregisterEvents(new ShrineBase());
         BNShrineManager.registerShrines();
 
-        if (getMain().monstrorvmPlugin != null && getMain().monstrorvmPlugin.isEnabled()) {
+        if (monstrorvmEnabled()) {
             BNItemManager.registerCustomItems();
             BNMobManager.registerCustomMobs();
         }

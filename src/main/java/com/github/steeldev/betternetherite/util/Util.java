@@ -127,6 +127,10 @@ public class Util {
         main.getCommand(command).setExecutor(commandExecutor);
     }
 
+    public static boolean monstrorvmEnabled(){
+        return getMain().monstrorvmPlugin != null && getMain().monstrorvmPlugin.isEnabled();
+    }
+
     // Credit to : CoKoC on spigotmc for this snippet (https://www.spigotmc.org/threads/how-to-rotate-mobs-around-one-location.80498/)
     public static Location getLocationAroundCircle(Location center, double radius, double angleInRadian) {
         double x = center.getX() + radius * Math.cos(angleInRadian);
